@@ -1,13 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
 cc_library(
     name = "point2d",
-    hdrs = ["algos/point2d.hpp"],
-    srcs = ["algos/point2d.cpp"],
+    hdrs = ["point2d.hpp"],
+    srcs = ["point2d.cpp"],
     visibility = ["//visibility:public"],
 )
 
 cc_test(
-    name = "point2d-test",
-    srcs = ["algos/point2d-test.cpp"],
+    name = "point2d_test",
+    srcs = ["point2d_test.cpp"],
     deps = [
         ":point2d",
         "@com_google_googletest//:gtest_main",
