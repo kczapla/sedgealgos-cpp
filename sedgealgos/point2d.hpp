@@ -12,6 +12,7 @@ namespace sedgealgos {
             }
 
             double radius() const;
+            double theta() const;
 
         private:
             double xaxis{};
