@@ -13,6 +13,7 @@ namespace sedgealgos {
 
             double radius() const;
             double theta() const;
+            double distance_to(Point2d const& other) const;
 
         private:
             double xaxis{};

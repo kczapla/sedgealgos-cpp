@@ -1,6 +1,7 @@
 #include "sedgealgos/point2d.hpp"
 
 #include <cmath>
+#include <tuple>
 #include <limits>
 
 #include <gtest/gtest.h>
@@ -47,5 +48,34 @@ namespace {
         sedgealgos::Point2d point2d{0.5, std::sqrt(3)/6};
         EXPECT_NEAR(point2d.theta(), PI/6, 0.000001);
     }
+
+    class Point2dDistanceToTest : public ::testing::TestWithParam<std::tuple<sedgealgos::Point2d, sedgealgos::Point2d, double>> {
+    };
+
+    TEST_P(Point2dDistanceToTest, does_match_expected) {
+        auto const from_point2d{std::get<0>(GetParam())};
+        auto const to_point2d{std::get<1>(GetParam())};
+        auto const expected_distance{std::get<2>(GetParam())};
+
+        auto const distance{from_point2d.distance_to(to_point2d)};
+        EXPECT_NEAR(distance, expected_distance, 0.000001);
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+            Point2dDistanceToTest,
+            Point2dDistanceToTest, 
+            ::testing::Values(
+                std::make_tuple(sedgealgos::Point2d{-1, 1}, sedgealgos::Point2d{2, 1}, 3),
+                std::make_tuple(sedgealgos::Point2d{-1, 1}, sedgealgos::Point2d{-1, -1}, 2),
+                std::make_tuple(sedgealgos::Point2d{1, 1}, sedgealgos::Point2d{2, 1}, 1),
+                std::make_tuple(sedgealgos::Point2d{1, 1}, sedgealgos::Point2d{2, 2}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{1, 1}, sedgealgos::Point2d{0, 0}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{-1, -1}, sedgealgos::Point2d{-2, -2}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{-1, -1}, sedgealgos::Point2d{0, 0}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{1, -1}, sedgealgos::Point2d{2, -2}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{1, -1}, sedgealgos::Point2d{0, 0}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{-1, 1}, sedgealgos::Point2d{-2, 2}, std::sqrt(2)),
+                std::make_tuple(sedgealgos::Point2d{-1, 1}, sedgealgos::Point2d{0, 0}, std::sqrt(2))
+                )); 
 
 }
