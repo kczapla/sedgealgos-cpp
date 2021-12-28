@@ -21,3 +21,19 @@ cc_test(
     srcs = ["point2d_client.cpp"],
     deps = [":point2d"],
 )
+
+cc_library(
+    name = "interval1d",
+    hdrs = ["interval1d.hpp"],
+    srcs = ["interval1d.cpp"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "interval1d_test",
+    srcs = ["interval1d_test.cpp"],
+    deps = [
+        ":interval1d",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
