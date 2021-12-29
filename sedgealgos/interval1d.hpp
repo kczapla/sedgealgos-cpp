@@ -1,3 +1,5 @@
+#pragma once
+
 namespace sedgealgos {
     class Interval1d {
     public:

@@ -37,3 +37,20 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+cc_library(
+    name = "interval1d_factory",
+    hdrs = ["interval1d_factory.hpp"],
+    srcs = ["interval1d_factory.cpp"],
+    deps = [":interval1d"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "interval1d_factory_test",
+    srcs = ["interval1d_factory_test.cpp"],
+    deps = [
+        ":interval1d_factory",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
