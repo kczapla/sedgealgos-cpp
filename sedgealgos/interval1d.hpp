@@ -6,6 +6,7 @@ namespace sedgealgos {
 
        double length() const;
        bool contains(double) const;
+       bool intersects(Interval1d const&) const;
 
     private:
        double xaxis{};

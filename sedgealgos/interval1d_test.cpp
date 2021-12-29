@@ -55,4 +55,36 @@ namespace {
         Interval1d const interval{0, 3};
         ASSERT_FALSE(interval.contains(4));
     }
+
+    class Interval1dIntersectsTest : public ::testing::TestWithParam<Interval1d> {
+        protected:
+        void SetUp() override {
+            lhs_interval = GetParam();
+        }
+
+        Interval1d lhs_interval{};
+    };
+
+    TEST_P(Interval1dIntersectsTest, ReturnsTrueWhenIntersects) {
+        ASSERT_TRUE(lhs_interval.intersects({-3, 3}));
+    }
+
+    TEST_P(Interval1dIntersectsTest, ReturnsFalseWhenDoesNotIntersects) {
+        ASSERT_FALSE(lhs_interval.intersects({-6, -5.01}));
+        ASSERT_FALSE(lhs_interval.intersects({5.001, 6}));
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+            Interval1dIntersects,
+            Interval1dIntersectsTest,
+            ::testing::Values(
+                Interval1d{2, 3},
+                Interval1d{0, 1},
+                Interval1d{1.5, 3},
+                Interval1d{-5, 5},
+                Interval1d{3, 5},
+                Interval1d{-5.009, -3},
+                Interval1d{-1.5, 2.5}
+                )
+            );
 }
