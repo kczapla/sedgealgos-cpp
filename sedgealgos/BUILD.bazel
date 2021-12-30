@@ -54,3 +54,9 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+cc_binary(
+    name = "interval1d_client",
+    srcs = ["interval1d_client.cpp"],
+    deps = ["interval1d", "interval1d_factory"],
+)
