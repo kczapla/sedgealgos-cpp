@@ -7,6 +7,11 @@
 namespace {
     using namespace sedgealgos;
 
+    TEST(Interval1dStringTest, ReturnsStringProperFormat) {
+        Interval1d interval1d{1, 3};
+        EXPECT_EQ(interval1d.string(), "Interval1d(lo=1, hi=3)");
+    }
+
     class Interval1dLengthTest : public ::testing::TestWithParam<std::tuple<Interval1d, double>> {
     };
 
