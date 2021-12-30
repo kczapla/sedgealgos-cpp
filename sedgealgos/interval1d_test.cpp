@@ -30,31 +30,37 @@ namespace {
                 std::make_tuple(Interval1d{2, -3}, 5)
                 )
             );
+    
+    class Interval1dContainsTest : public ::testing::TestWithParam<Interval1d> {
+        protected:
+        void SetUp() override {
+            lhs_interval = GetParam();
+        }
 
-    TEST(Interval1dContains, PointInTheMiddleOfInterval) {
-        Interval1d const interval{0, 3};
-        ASSERT_TRUE(interval.contains(2));
+        Interval1d lhs_interval{};
+    };
+
+    TEST_P(Interval1dContainsTest, ContainsTwoValue) {
+        EXPECT_TRUE(lhs_interval.contains(2));
     }
 
-    TEST(Interval1dContains, PointAtTheIntervalLeftEdge) {
-        Interval1d const interval{0, 3};
-        ASSERT_TRUE(interval.contains(0));
+    TEST_P(Interval1dContainsTest, DoesNotContainValueNearTheLeftEdge) {
+        EXPECT_FALSE(lhs_interval.contains(-5));
     }
 
-    TEST(Interval1dContains, PointAtTheIntervalRightEdge) {
-        Interval1d const interval{0, 3};
-        ASSERT_TRUE(interval.contains(3));
+    TEST_P(Interval1dContainsTest, DoesNotContainValueNearTheRightEdge) {
+        EXPECT_FALSE(lhs_interval.contains(-5));
     }
 
-    TEST(Interval1DoesNotContain, PointBeforeTheIntervalsLeftEdge) {
-        Interval1d const interval{0, 3};
-        ASSERT_FALSE(interval.contains(-1));
-    }
-
-    TEST(Interval1DoesNotContain, PointAfterTheIntervalsRightEdge) {
-        Interval1d const interval{0, 3};
-        ASSERT_FALSE(interval.contains(4));
-    }
+    INSTANTIATE_TEST_CASE_P(
+        Interval1dContainsTest,
+        Interval1dContainsTest,
+        ::testing::Values(
+            Interval1d{2, 3},
+            Interval1d{0, 2},
+            Interval1d{0, 4}
+            )
+        );
 
     class Interval1dIntersectsTest : public ::testing::TestWithParam<Interval1d> {
         protected:
