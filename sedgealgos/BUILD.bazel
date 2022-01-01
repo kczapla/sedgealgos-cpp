@@ -75,6 +75,7 @@ cc_test(
     deps = [
         ":interval2d",
         "interval1d_factory",
+        "interval2d_factory",
         "@com_google_googletest//:gtest_main",
     ],
 )

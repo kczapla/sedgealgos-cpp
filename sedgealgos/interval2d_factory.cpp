@@ -5,6 +5,6 @@
 
 namespace sedgealgos {
     Interval2d make_interval2d(double const xlo, double const xhi, double const ylo, double const yhi) {
-       return {make_interval1d(xlo, xhi), make_interval1d(ylo, xhi)}; 
+       return {make_interval1d(xlo, xhi), make_interval1d(ylo, yhi)}; 
     }
 }

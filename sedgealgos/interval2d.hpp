@@ -10,6 +10,7 @@ namespace sedgealgos {
 
         double area() const;
         bool contains(Point2d const&) const;
+        bool intersects(Interval2d const&) const;
 
     private:
         Interval1d xinterval{};

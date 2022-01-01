@@ -9,4 +9,11 @@ namespace sedgealgos {
     bool Interval2d::contains(Point2d const& point2d) const {
         return xinterval.contains(point2d.x()) && yinterval.contains(point2d.y());
     }
+
+    bool Interval2d::intersects(Interval2d const& interval2d) const {
+        auto const xinterval_intersects{xinterval.intersects(interval2d.xinterval)};
+        auto const yinterval_intersects{yinterval.intersects(interval2d.yinterval)};
+        
+        return xinterval_intersects && yinterval_intersects;
+    }
 }
