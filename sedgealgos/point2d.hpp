@@ -1,3 +1,5 @@
+#pragma once
+
 namespace sedgealgos {
     class Point2d {
         public:
