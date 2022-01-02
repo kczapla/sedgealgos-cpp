@@ -1,0 +1,17 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_library(
+    name = "std_random",
+    hdrs = ["std_random.hpp"],
+    srcs = ["std_random.cpp"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "std_random_test",
+    srcs = ["std_random_test.cpp"],
+    deps = [
+        ":std_random",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
