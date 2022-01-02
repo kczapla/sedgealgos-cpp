@@ -16,7 +16,7 @@ cc_test(
     ],
 )
 
-cc_test(
+cc_binary(
     name = "point2d_client",
     srcs = ["point2d_client.cpp"],
     deps = [":point2d"],
