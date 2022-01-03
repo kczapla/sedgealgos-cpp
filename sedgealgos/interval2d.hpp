@@ -2,6 +2,8 @@
 #include "sedgealgos/geometry/point2d.hpp"
 #include "sedgealgos/interval1d.hpp"
 
+#include <string>
+
 namespace sedgealgos {
     class Interval2d {
     public:
@@ -11,6 +13,8 @@ namespace sedgealgos {
         double area() const;
         bool contains(geometry::Point2d const&) const;
         bool intersects(Interval2d const&) const;
+
+        std::string string() const;
 
     private:
         Interval1d xinterval{};

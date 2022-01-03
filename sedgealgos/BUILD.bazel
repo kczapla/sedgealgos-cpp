@@ -77,3 +77,13 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+cc_binary(
+    name = "interval2d_client",
+    srcs = ["interval2d_client.cpp"],
+    deps = [
+        "//sedgealgos/random:std_random",
+        ":interval2d",
+        ":interval2d_factory",
+    ],
+)

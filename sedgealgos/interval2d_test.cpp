@@ -82,4 +82,11 @@ namespace {
             make_interval2d(1, 2, 4, 5)
         )
     );
+
+    TEST(Interval2dStringTest, ReturnsStringRepresentation) {
+        auto interval2d{make_interval2d(1, 2, 1, 2)};
+
+        auto const expected_string{"Interval2d(x=Interval1d(lo=1, hi=2), y=Interval1d(lo=1, hi=2))"};
+        EXPECT_EQ(interval2d.string(), expected_string);
+    }
 }
