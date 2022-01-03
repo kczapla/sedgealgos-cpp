@@ -1,5 +1,5 @@
 #pragma once
-#include "sedgealgos/point2d.hpp"
+#include "sedgealgos/geometry/point2d.hpp"
 #include "sedgealgos/interval1d.hpp"
 
 namespace sedgealgos {
@@ -9,7 +9,7 @@ namespace sedgealgos {
         Interval2d(Interval1d x, Interval1d y) : xinterval{std::move(x)}, yinterval{std::move(y)} {}
 
         double area() const;
-        bool contains(Point2d const&) const;
+        bool contains(geometry::Point2d const&) const;
         bool intersects(Interval2d const&) const;
 
     private:

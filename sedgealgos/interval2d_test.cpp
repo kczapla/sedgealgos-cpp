@@ -1,4 +1,4 @@
-#include "sedgealgos/point2d.hpp"
+#include "sedgealgos/geometry/point2d.hpp"
 #include "sedgealgos/interval2d.hpp"
 #include "sedgealgos/interval1d_factory.hpp"
 #include "sedgealgos/interval2d_factory.hpp"
@@ -23,11 +23,11 @@ namespace {
     };
 
     TEST_P(Interval2dContainsTest, Contains2dPoint) {
-        EXPECT_TRUE(interval2d.contains(Point2d{2, 4}));
+        EXPECT_TRUE(interval2d.contains(geometry::Point2d{2, 4}));
     }
 
     TEST_P(Interval2dContainsTest, DoesNotContain2dPoint) {
-        EXPECT_FALSE(interval2d.contains(Point2d{6.001, 5.001}));
+        EXPECT_FALSE(interval2d.contains(geometry::Point2d{6.001, 5.001}));
     }
 
     INSTANTIATE_TEST_CASE_P(

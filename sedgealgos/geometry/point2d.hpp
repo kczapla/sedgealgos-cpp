@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sedgealgos {
+namespace sedgealgos::geometry {
     class Point2d {
         public:
             Point2d(double x, double y) : xaxis{x}, yaxis{y} {}

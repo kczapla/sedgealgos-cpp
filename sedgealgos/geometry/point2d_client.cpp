@@ -1,4 +1,4 @@
-#include "sedgealgos/point2d.hpp"
+#include "sedgealgos/geometry/point2d.hpp"
 
 #include <limits>
 #include <random>
@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-using namespace sedgealgos;
+using namespace sedgealgos::geometry;
 
 namespace {
 auto generate_random_number() {

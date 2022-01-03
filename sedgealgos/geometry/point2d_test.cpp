@@ -1,4 +1,4 @@
-#include "sedgealgos/point2d.hpp"
+#include "sedgealgos/geometry/point2d.hpp"
 
 #include <cmath>
 #include <tuple>
@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 
 namespace {
-    using namespace sedgealgos;
+    using namespace sedgealgos::geometry;
 
     constexpr auto PI{3.141592};
     constexpr auto SQUARE_ROOT_2{1.414213};

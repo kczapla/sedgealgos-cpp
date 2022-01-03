@@ -1,28 +1,6 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_library(
-    name = "point2d",
-    hdrs = ["point2d.hpp"],
-    srcs = ["point2d.cpp"],
-    visibility = ["//visibility:public"],
-)
-
-cc_test(
-    name = "point2d_test",
-    srcs = ["point2d_test.cpp"],
-    deps = [
-        ":point2d",
-        "@com_google_googletest//:gtest_main",
-    ],
-)
-
-cc_binary(
-    name = "point2d_client",
-    srcs = ["point2d_client.cpp"],
-    deps = [":point2d"],
-)
-
-cc_library(
     name = "interval1d",
     hdrs = ["interval1d.hpp"],
     srcs = ["interval1d.cpp"],
@@ -65,7 +43,7 @@ cc_library(
     name = "interval2d",
     hdrs = ["interval2d.hpp"],
     srcs = ["interval2d.cpp"],
-    deps = ["point2d", ":interval1d"],
+    deps = ["//sedgealgos/geometry:point2d", ":interval1d"],
     visibility = ["//visibility:public"],
 )
 
