@@ -1,5 +1,5 @@
-#include "sedgealgos/interval1d.hpp"
-#include "sedgealgos/interval1d_factory.hpp"
+#include "sedgealgos/geometry/interval1d.hpp"
+#include "sedgealgos/geometry/interval1d_factory.hpp"
 
 #include <vector>
 #include <iostream>

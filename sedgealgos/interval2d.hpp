@@ -1,6 +1,6 @@
 #pragma once
 #include "sedgealgos/geometry/point2d.hpp"
-#include "sedgealgos/interval1d.hpp"
+#include "sedgealgos/geometry/interval1d.hpp"
 
 #include <string>
 

@@ -1,49 +1,13 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_library(
-    name = "interval1d",
-    hdrs = ["interval1d.hpp"],
-    srcs = ["interval1d.cpp"],
-    visibility = ["//visibility:public"],
-)
-
-cc_test(
-    name = "interval1d_test",
-    srcs = ["interval1d_test.cpp"],
-    deps = [
-        ":interval1d",
-        "@com_google_googletest//:gtest_main",
-    ],
-)
-
-cc_library(
-    name = "interval1d_factory",
-    hdrs = ["interval1d_factory.hpp"],
-    srcs = ["interval1d_factory.cpp"],
-    deps = [":interval1d"],
-    visibility = ["//visibility:public"],
-)
-
-cc_test(
-    name = "interval1d_factory_test",
-    srcs = ["interval1d_factory_test.cpp"],
-    deps = [
-        ":interval1d_factory",
-        "@com_google_googletest//:gtest_main",
-    ],
-)
-
-cc_binary(
-    name = "interval1d_client",
-    srcs = ["interval1d_client.cpp"],
-    deps = ["interval1d", "interval1d_factory"],
-)
-
-cc_library(
     name = "interval2d",
     hdrs = ["interval2d.hpp"],
     srcs = ["interval2d.cpp"],
-    deps = ["//sedgealgos/geometry:point2d", ":interval1d"],
+    deps = [
+        "//sedgealgos/geometry:point2d",
+        "//sedgealgos/geometry:interval1d"
+    ],
     visibility = ["//visibility:public"],
 )
 
@@ -52,7 +16,7 @@ cc_test(
     srcs = ["interval2d_test.cpp"],
     deps = [
         ":interval2d",
-        "interval1d_factory",
+        "//sedgealgos/geometry:interval1d_factory",
         "interval2d_factory",
         "@com_google_googletest//:gtest_main",
     ],
@@ -64,7 +28,7 @@ cc_library(
     srcs = ["interval2d_factory.cpp"],
     deps = [
         ":interval2d",
-        ":interval1d_factory",
+        "//sedgealgos/geometry:interval1d_factory",
     ],
     visibility = ["//visibility:public"],
 )

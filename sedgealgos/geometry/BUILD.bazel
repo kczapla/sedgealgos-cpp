@@ -21,3 +21,42 @@ cc_binary(
     srcs = ["point2d_client.cpp"],
     deps = [":point2d"],
 )
+
+cc_library(
+    name = "interval1d",
+    hdrs = ["interval1d.hpp"],
+    srcs = ["interval1d.cpp"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "interval1d_test",
+    srcs = ["interval1d_test.cpp"],
+    deps = [
+        ":interval1d",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "interval1d_factory",
+    hdrs = ["interval1d_factory.hpp"],
+    srcs = ["interval1d_factory.cpp"],
+    deps = [":interval1d"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "interval1d_factory_test",
+    srcs = ["interval1d_factory_test.cpp"],
+    deps = [
+        ":interval1d_factory",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_binary(
+    name = "interval1d_client",
+    srcs = ["interval1d_client.cpp"],
+    deps = ["interval1d", "interval1d_factory"],
+)

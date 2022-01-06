@@ -1,6 +1,6 @@
 #include "sedgealgos/geometry/point2d.hpp"
+#include "sedgealgos/geometry/interval1d_factory.hpp"
 #include "sedgealgos/interval2d.hpp"
-#include "sedgealgos/interval1d_factory.hpp"
 #include "sedgealgos/interval2d_factory.hpp"
 
 #include <gtest/gtest.h>

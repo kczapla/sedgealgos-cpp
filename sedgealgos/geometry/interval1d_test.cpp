@@ -1,4 +1,4 @@
-#include "sedgealgos/interval1d.hpp"
+#include "sedgealgos/geometry/interval1d.hpp"
 
 #include <tuple>
 
