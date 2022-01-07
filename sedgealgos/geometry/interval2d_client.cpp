@@ -5,7 +5,6 @@
 #include <vector>
 #include <iostream>
 
-using namespace sedgealgos;
 using namespace sedgealgos::random;
 using namespace sedgealgos::geometry;
 

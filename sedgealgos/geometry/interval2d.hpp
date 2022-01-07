@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace sedgealgos {
+namespace sedgealgos::geometry {
     class Interval2d {
     public:
         Interval2d() = default;

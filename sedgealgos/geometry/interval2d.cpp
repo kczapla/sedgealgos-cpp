@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-namespace sedgealgos {
+namespace sedgealgos::geometry {
     double Interval2d::area() const {
         return xinterval.length() * yinterval.length();
     }

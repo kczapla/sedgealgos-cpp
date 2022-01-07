@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-namespace sedgealgos {
+namespace sedgealgos::geometry {
     Interval1d make_interval1d(double const l, double const h) {
         if (h < l) {
             throw std::invalid_argument("'lower' can not have higer value then 'higher'.");

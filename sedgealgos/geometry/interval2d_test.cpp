@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 
 namespace {
-    using namespace sedgealgos;
+    using namespace sedgealgos::geometry;
 
     TEST(Interval2dArea, ReturnsInterval2dsArea) {
         Interval2d interval2d{make_interval1d(2, 4), make_interval1d(2, 4)};
@@ -23,11 +23,11 @@ namespace {
     };
 
     TEST_P(Interval2dContainsTest, Contains2dPoint) {
-        EXPECT_TRUE(interval2d.contains(geometry::Point2d{2, 4}));
+        EXPECT_TRUE(interval2d.contains(Point2d{2, 4}));
     }
 
     TEST_P(Interval2dContainsTest, DoesNotContain2dPoint) {
-        EXPECT_FALSE(interval2d.contains(geometry::Point2d{6.001, 5.001}));
+        EXPECT_FALSE(interval2d.contains(Point2d{6.001, 5.001}));
     }
 
     INSTANTIATE_TEST_CASE_P(

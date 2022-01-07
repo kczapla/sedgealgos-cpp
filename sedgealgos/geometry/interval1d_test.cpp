@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 namespace {
-    using namespace sedgealgos;
+    using namespace sedgealgos::geometry;
 
     TEST(Interval1dStringTest, ReturnsStringProperFormat) {
         Interval1d interval1d{1, 3};

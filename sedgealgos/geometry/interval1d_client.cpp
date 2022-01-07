@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 
+using namespace sedgealgos::geometry;
+
 int main(int argc, char** argv) {
     if (argc <= 1) {
         std::cout << "please provide number of intervals" << std::endl;
@@ -23,7 +25,7 @@ int main(int argc, char** argv) {
 
 
     double x{}, y{};
-    std::vector<sedgealgos::Interval1d> intervals1d;
+    std::vector<Interval1d> intervals1d;
     for (int i = 0; i < number_of_points; i++) {
         std::cout << "Interval1d no. " << i + 1 << " - ";
         std::cout << "add low interval end: ";
@@ -31,7 +33,7 @@ int main(int argc, char** argv) {
         std::cout << "Interval1d no. " << i + 1 << " - ";
         std::cout << "add high interval end: ";
         std::cin >> y;
-        intervals1d.push_back(sedgealgos::make_interval1d(x, y));
+        intervals1d.push_back(make_interval1d(x, y));
     }
 
     for (std::size_t i{0}; i < intervals1d.size() - 1; i++) {

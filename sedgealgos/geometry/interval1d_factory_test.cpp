@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 namespace {
-    using namespace sedgealgos;
+    using namespace sedgealgos::geometry;
 
     TEST(MakeInterval1dTest, ReturnsInterval1d) {
         [[maybe_unused]] auto interval1d{make_interval1d(2, 2)};

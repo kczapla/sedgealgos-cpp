@@ -3,7 +3,7 @@
 #include <cmath>
 #include <sstream>
 
-namespace sedgealgos {
+namespace sedgealgos::geometry {
     double Interval1d::length() const {
         return std::abs(lo - hi);
     }
