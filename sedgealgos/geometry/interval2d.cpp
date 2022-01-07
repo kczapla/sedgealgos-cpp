@@ -21,7 +21,7 @@ namespace sedgealgos::geometry {
 
     std::string Interval2d::string() const {
         std::stringstream ss;
-        ss << "Intrerval2d(";
+        ss << "Interval2d(";
         ss << "x=" << xinterval.string() << ", ";
         ss << "y=" << yinterval.string() << ")";
 
