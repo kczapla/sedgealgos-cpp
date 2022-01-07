@@ -60,3 +60,55 @@ cc_binary(
     srcs = ["interval1d_client.cpp"],
     deps = ["interval1d", "interval1d_factory"],
 )
+
+cc_library(
+    name = "interval2d",
+    hdrs = ["interval2d.hpp"],
+    srcs = ["interval2d.cpp"],
+    deps = [
+        "//sedgealgos/geometry:point2d",
+        "//sedgealgos/geometry:interval1d"
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "interval2d_test",
+    srcs = ["interval2d_test.cpp"],
+    deps = [
+        ":interval2d",
+        "//sedgealgos/geometry:interval1d_factory",
+        "interval2d_factory",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "interval2d_factory",
+    hdrs = ["interval2d_factory.hpp"],
+    srcs = ["interval2d_factory.cpp"],
+    deps = [
+        ":interval2d",
+        "//sedgealgos/geometry:interval1d_factory",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "interval2d_factory_test",
+    srcs = ["interval2d_factory_test.cpp"],
+    deps = [
+        ":interval2d_factory",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_binary(
+    name = "interval2d_client",
+    srcs = ["interval2d_client.cpp"],
+    deps = [
+        "//sedgealgos/random:std_random",
+        ":interval2d",
+        ":interval2d_factory",
+    ],
+)

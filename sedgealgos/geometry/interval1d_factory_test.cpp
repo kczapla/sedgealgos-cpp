@@ -1,4 +1,4 @@
-#include "sedgealgos/interval1d_factory.hpp"
+#include "sedgealgos/geometry/interval1d_factory.hpp"
 
 #include <stdexcept>
 

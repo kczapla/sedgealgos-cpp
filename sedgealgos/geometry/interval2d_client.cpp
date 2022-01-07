@@ -1,5 +1,5 @@
-#include "sedgealgos/interval2d.hpp"
-#include "sedgealgos/interval2d_factory.hpp"
+#include "sedgealgos/geometry/interval2d.hpp"
+#include "sedgealgos/geometry/interval2d_factory.hpp"
 #include "sedgealgos/random/std_random.hpp"
 
 #include <vector>

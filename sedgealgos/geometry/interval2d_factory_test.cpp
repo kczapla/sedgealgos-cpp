@@ -1,4 +1,4 @@
-#include "sedgealgos/interval2d_factory.hpp"
+#include "sedgealgos/geometry/interval2d_factory.hpp"
 
 #include <gtest/gtest.h>
 

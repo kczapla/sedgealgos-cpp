@@ -1,5 +1,5 @@
 #include "sedgealgos/geometry/point2d.hpp"
-#include "sedgealgos/interval2d.hpp"
+#include "sedgealgos/geometry/interval2d.hpp"
 
 #include <sstream>
 
