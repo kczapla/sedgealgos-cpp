@@ -1,0 +1,15 @@
+cc_library(
+    name = "in",
+    hdrs = ["in.hpp"],
+    srcs = ["in.cpp"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "in_test",
+    srcs = ["in_test.cpp"],
+    deps = [
+        ":in",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
