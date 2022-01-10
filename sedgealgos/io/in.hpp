@@ -8,6 +8,9 @@ namespace sedgealgos::io {
     public:
         In(std::string);
 
+        int readInt();
+        double readDouble();
+
         bool is_empty();
 
         void close();

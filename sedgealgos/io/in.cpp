@@ -1,6 +1,7 @@
 #include "sedgealgos/io/in.hpp"
 
 #include <fstream>
+#include <iostream>
 
 namespace sedgealgos::io {
 
@@ -11,5 +12,18 @@ bool In::is_empty() {
 }
 
 void In::close() {
+    is.close();
+}
+
+int In::readInt() {
+    int a;
+    is >> a;
+    return a;
+}
+
+double In::readDouble() {
+    double a;
+    is >> a;
+    return a;
 }
 }
