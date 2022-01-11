@@ -5,14 +5,16 @@
 
 namespace sedgealgos::io {
 
-In::In(std::string s) : filename{std::move(s)}, is{filename} {}
+In::In() : is{std::cin} {}
+
+In::In(std::string s) : filename{std::move(s)}, ifs{filename}, is{ifs} {}
 
 bool In::is_empty() {
     return is.peek() == std::ifstream::traits_type::eof();
 }
 
 void In::close() {
-    is.close();
+    ifs.close();
 }
 
 int In::read_int() {

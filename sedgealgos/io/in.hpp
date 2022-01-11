@@ -12,6 +12,7 @@ namespace sedgealgos::io {
 
     class In {
     public:
+        In();
         In(std::string);
 
         int read_int();
@@ -23,6 +24,7 @@ namespace sedgealgos::io {
 
     private:
         std::string filename;
-        std::ifstream is;
+        std::ifstream ifs;
+        std::istream& is;
     };
 }
