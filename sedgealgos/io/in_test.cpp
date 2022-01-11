@@ -76,4 +76,16 @@ namespace {
        In in{file_with_doubles};
        EXPECT_THAT(get_doubles(in), ElementsAre(1.1, 2.2, 3.3, 4.4));
     }
+
+    TEST_F(InTest, ReadDoubleThrowsExceptionWhenReadingFromEmptyStream) {
+        In in{file_with_doubles};
+        [[ maybe_unused ]] auto doubles{get_doubles(in)};
+        EXPECT_THROW({[[ maybe_unused ]] auto d{in.readDouble()};}, InException);
+    }
+
+    TEST_F(InTest, ReadIntThrowsExceptionWhenReadingFromEmptyStream) {
+        In in{file_with_ints};
+        [[ maybe_unused ]] auto ints{get_ints(in)};
+        EXPECT_THROW({[[ maybe_unused ]] auto i{in.readInt()};}, InException);
+    }
 }

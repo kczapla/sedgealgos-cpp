@@ -16,12 +16,18 @@ void In::close() {
 }
 
 int In::readInt() {
+    if (is_empty()) {
+        throw InException{"Input reached eof"};
+    }
     int a;
     is >> a;
     return a;
 }
 
 double In::readDouble() {
+    if (is_empty()) {
+        throw InException{"Input reached eof"};
+    }
     double a;
     is >> a;
     return a;
