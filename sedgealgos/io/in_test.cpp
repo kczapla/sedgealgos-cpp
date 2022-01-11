@@ -33,7 +33,7 @@ namespace {
         std::vector<int> get_ints(In& in) {
            std::vector<int> ints{};
            while(!in.is_empty()) {
-              ints.push_back(in.readInt());
+              ints.push_back(in.read_int());
            }
            return ints;
         }
@@ -41,7 +41,7 @@ namespace {
         std::vector<double> get_doubles(In& in) {
            std::vector<double> doubles{};
            while(!in.is_empty()) {
-              doubles.push_back(in.readDouble());
+              doubles.push_back(in.read_double());
            }
            return doubles;
         }
@@ -80,12 +80,12 @@ namespace {
     TEST_F(InTest, ReadDoubleThrowsExceptionWhenReadingFromEmptyStream) {
         In in{file_with_doubles};
         [[ maybe_unused ]] auto doubles{get_doubles(in)};
-        EXPECT_THROW({[[ maybe_unused ]] auto d{in.readDouble()};}, InException);
+        EXPECT_THROW({[[ maybe_unused ]] auto d{in.read_double()};}, InException);
     }
 
     TEST_F(InTest, ReadIntThrowsExceptionWhenReadingFromEmptyStream) {
         In in{file_with_ints};
         [[ maybe_unused ]] auto ints{get_ints(in)};
-        EXPECT_THROW({[[ maybe_unused ]] auto i{in.readInt()};}, InException);
+        EXPECT_THROW({[[ maybe_unused ]] auto i{in.read_int()};}, InException);
     }
 }

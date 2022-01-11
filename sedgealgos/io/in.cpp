@@ -15,7 +15,7 @@ void In::close() {
     is.close();
 }
 
-int In::readInt() {
+int In::read_int() {
     if (is_empty()) {
         throw InException{"Input reached eof"};
     }
@@ -24,7 +24,7 @@ int In::readInt() {
     return a;
 }
 
-double In::readDouble() {
+double In::read_double() {
     if (is_empty()) {
         throw InException{"Input reached eof"};
     }
