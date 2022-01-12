@@ -13,3 +13,18 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+cc_library(
+    name = "std_out",
+    hdrs = ["std_out.hpp"],
+    srcs = ["std_out.cpp"],
+)
+
+cc_test(
+    name = "std_out_test",
+    srcs = ["std_out_test.cpp"],
+    deps = [
+        ":std_out",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
