@@ -22,6 +22,10 @@ void StdOut::println(std::string const& s) {
     println();
 }
 
+void StdOut::printf(std::string s) {
+    print(s);
+}
+
 void StdOut::close() {
     ofs.close();
 }

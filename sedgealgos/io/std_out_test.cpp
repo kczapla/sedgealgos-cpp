@@ -25,11 +25,9 @@ protected:
     Lines get_lines_from_somefile() {
         std::ifstream f{somefile};
         Lines lines;
-        std::copy(
-                std::istream_iterator<std::string>(f),
-                std::istream_iterator<std::string>(),
-                std::back_inserter(lines)
-        );
+        for (std::string line; std::getline(f, line);) {
+            lines.push_back(std::move(line));
+        }
         
         return lines;
     }
@@ -61,5 +59,30 @@ TEST_F(StdOutTest, PrintsNewLine) {
     std_out.close();
 
     EXPECT_THAT(get_lines_from_somefile(), ElementsAre("test1", "test2"));
+}
+
+TEST_F(StdOutTest, PrintsFormattedStringWithString) {
+    std_out.printf(
+            "%s is formatted %s",
+            std::string{"this"},
+            std::string{"string"}
+    );
+    std_out.close();
+
+    EXPECT_THAT(get_lines_from_somefile(), ElementsAre("this is formatted string"));
+}
+
+TEST_F(StdOutTest, PrintsFormattedStringWithNumbers) {
+    std_out.printf("%d - %d = %d", 1, 2.5, -1.5);
+    std_out.close();
+
+    EXPECT_THAT(get_lines_from_somefile(), ElementsAre("1 - 2.500000 = -1.500000"));
+}
+
+TEST_F(StdOutTest, PrintsFormattedStringWithStringsAndNumbers) {
+    std_out.printf("today is %d/%d/%d, %s", 11, 10, 1905, std::string{"cool"});
+    std_out.close();
+
+    EXPECT_THAT(get_lines_from_somefile(), ElementsAre("today is 11/10/1905, cool"));
 }
 }

@@ -15,9 +15,17 @@ cc_test(
 )
 
 cc_library(
+    name = "out_exception",
+    hdrs = ["out_exception.hpp"],
+)
+
+cc_library(
     name = "std_out",
     hdrs = ["std_out.hpp"],
     srcs = ["std_out.cpp"],
+    deps = [
+        ":out_exception"
+    ],
 )
 
 cc_test(
