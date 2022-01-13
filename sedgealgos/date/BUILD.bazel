@@ -1,0 +1,15 @@
+cc_library(
+    name = "smart_date",
+    hdrs = ["smart_date.hpp"],
+    srcs = ["smart_date.cpp"],
+    visibility = ["//visibility:public"],
+)
+
+cc_test(
+    name = "smart_date_test",
+    srcs = ["smart_date_test.cpp"],
+    deps = [
+        "smart_date",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
