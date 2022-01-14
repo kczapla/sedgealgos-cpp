@@ -1,7 +1,14 @@
 cc_library(
+    name = "date_exception",
+    hdrs = ["date_exception.hpp"],
+    visibility = ["//visibility:public"],
+)
+    
+cc_library(
     name = "smart_date",
     hdrs = ["smart_date.hpp"],
     srcs = ["smart_date.cpp"],
+    deps = ["date_exception"],
     visibility = ["//visibility:public"],
 )
 
