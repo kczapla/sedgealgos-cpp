@@ -16,6 +16,11 @@ TEST(SmartDate, ReturnsDay) {
     EXPECT_EQ(date.year(), 2022);
 }
 
+TEST(SmartDate, ReturnsStringRepresentationOfDate) {
+    SmartDate date{1, 15, 2022};
+    EXPECT_EQ(date.to_string(), "1/15/2022");
+}
+
 class SmartDateWithValidInputTest : public ::testing::TestWithParam<std::tuple<int, int, int>> {
 };
 
@@ -29,7 +34,12 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::Values(
         std::make_tuple(2, 29, 2000),
         std::make_tuple(2, 29, 2004),
-        std::make_tuple(2, 29, 800)
+        std::make_tuple(2, 29, 800),
+        std::make_tuple(2, 28, 801),
+        std::make_tuple(1, 31, 2000),
+        std::make_tuple(1, 1, 2000),
+        std::make_tuple(4, 30, 2000),
+        std::make_tuple(8, 31, 2000)
     )
 );
 
@@ -51,7 +61,11 @@ INSTANTIATE_TEST_CASE_P(
         std::make_tuple(2, 29, 1900),
         std::make_tuple(2, 29, 2001),
         std::make_tuple(2, 30, 2001),
-        std::make_tuple(2, 30, 2000)
+        std::make_tuple(2, 30, 2000),
+        std::make_tuple(4, 31, 2000),
+        std::make_tuple(5, 32, 2000),
+        std::make_tuple(1, 0, 2000),
+        std::make_tuple(0, 1, 2000)
     )
 );
 }

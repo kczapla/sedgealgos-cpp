@@ -11,6 +11,8 @@ public:
     int day() const;
     int year() const;
 
+    std::string to_string() const;
+
 private:
     int m_;
     int d_;
