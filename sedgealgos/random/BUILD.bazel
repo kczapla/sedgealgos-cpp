@@ -1,5 +1,10 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
+load(
+    "//bazel:sedgealgos_build_system.bzl",
+    "sedgealgos_cc_test",
+)
+
 cc_library(
     name = "std_random",
     hdrs = ["std_random.hpp"],
@@ -7,11 +12,10 @@ cc_library(
     visibility = ["//visibility:public"],
 )
 
-cc_test(
+sedgealgos_cc_test(
     name = "std_random_test",
     srcs = ["std_random_test.cpp"],
     deps = [
         ":std_random",
-        "@com_google_googletest//:gtest_main",
     ],
 )

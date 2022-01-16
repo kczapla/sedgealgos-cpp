@@ -5,4 +5,6 @@
 !sedgealgos/**/*
 !exercises/
 !exercises/**/*
+!bazel/
+!bazel/**/*
 !WORKSPACE
