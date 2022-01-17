@@ -21,6 +21,19 @@ TEST(SmartDate, ReturnsStringRepresentationOfDate) {
     EXPECT_EQ(date.to_string(), "1/15/2022");
 }
 
+TEST(SmartDateTest, ReturnsDayOfTheWeek) {
+    EXPECT_EQ(SmartDate(6, 15, 1992).day_of_the_week(), "Monday");
+    EXPECT_EQ(SmartDate(6, 16, 1992).day_of_the_week(), "Tuesday");
+    EXPECT_EQ(SmartDate(6, 17, 1992).day_of_the_week(), "Wednesday");
+    EXPECT_EQ(SmartDate(6, 18, 1992).day_of_the_week(), "Thursday");
+    EXPECT_EQ(SmartDate(6, 19, 1992).day_of_the_week(), "Friday");
+    EXPECT_EQ(SmartDate(6, 20, 1992).day_of_the_week(), "Saturday");
+    EXPECT_EQ(SmartDate(6, 21, 1992).day_of_the_week(), "Sunday");
+    EXPECT_EQ(SmartDate(6, 22, 1992).day_of_the_week(), "Monday");
+    EXPECT_EQ(SmartDate(7, 21, 1992).day_of_the_week(), "Tuesday");
+
+}
+
 class SmartDateWithValidInputTest : public ::testing::TestWithParam<std::tuple<int, int, int>> {
 };
 

@@ -11,6 +11,8 @@ public:
     int day() const;
     int year() const;
 
+    std::string day_of_the_week() const;
+
     std::string to_string() const;
 
 private:
