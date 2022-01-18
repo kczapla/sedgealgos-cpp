@@ -31,7 +31,7 @@ TEST(SmartDateTest, ReturnsDayOfTheWeek) {
     EXPECT_EQ(SmartDate(6, 21, 1992).day_of_the_week(), "Sunday");
     EXPECT_EQ(SmartDate(6, 22, 1992).day_of_the_week(), "Monday");
     EXPECT_EQ(SmartDate(7, 21, 1992).day_of_the_week(), "Tuesday");
-
+    EXPECT_EQ(SmartDate(10, 21, 1992).day_of_the_week(), "Wednesday");
 }
 
 class SmartDateWithValidInputTest : public ::testing::TestWithParam<std::tuple<int, int, int>> {

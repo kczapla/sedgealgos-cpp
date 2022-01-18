@@ -3,7 +3,10 @@
 
 #include <cmath>
 #include <string>
+#include <vector>
+#include <numeric>
 #include <sstream>
+
 
 namespace {
     sedgealgos::date::SmartDate MONDAY_DATE{6, 15, 1992};
@@ -129,7 +132,17 @@ std::string SmartDate::day_of_the_week() const {
         auto const days_remain_in_monday_month{
             convert_month_no_to_day_no(MONDAY_DATE.month(), MONDAY_DATE.year()) - MONDAY_DATE.day()
         };
-        days_no = days_remain_in_monday_month + day();
+
+        std::vector<int> months_in_between(month() - MONDAY_DATE.month() - 1);
+        std::iota(months_in_between.begin(), months_in_between.end(), MONDAY_DATE.month());
+        auto const days_between_dates{std::accumulate(
+            months_in_between.begin(),
+            months_in_between.end(), 0,
+            [year = year()](auto const& a, auto const& b){ return a + ::convert_month_no_to_day_no(b, year); })};
+
+        days_no += days_remain_in_monday_month;
+        days_no += days_between_dates;
+        days_no += day();
     }
 
     auto const weekday_no{days_no % 7};
