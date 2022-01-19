@@ -134,7 +134,7 @@ std::string SmartDate::day_of_the_week() const {
         };
 
         std::vector<int> months_in_between(month() - MONDAY_DATE.month() - 1);
-        std::iota(months_in_between.begin(), months_in_between.end(), MONDAY_DATE.month());
+        std::iota(months_in_between.begin(), months_in_between.end(), MONDAY_DATE.month() + 1);
         auto const days_between_dates{std::accumulate(
             months_in_between.begin(),
             months_in_between.end(), 0,
@@ -143,6 +143,39 @@ std::string SmartDate::day_of_the_week() const {
         days_no += days_remain_in_monday_month;
         days_no += days_between_dates;
         days_no += day();
+    } else if(MONDAY_DATE.year() < year()) {
+        auto const days_remain_in_monday_month{
+            convert_month_no_to_day_no(MONDAY_DATE.month(), MONDAY_DATE.year()) - MONDAY_DATE.day()
+        };
+        std::vector<int> months_in_monday_year(12 - MONDAY_DATE.month());
+        std::iota(months_in_monday_year.begin(), months_in_monday_year.end(), MONDAY_DATE.month() + 1);
+        auto const days_in_monday_year{
+            std::accumulate(
+                months_in_monday_year.begin(),
+                months_in_monday_year.end(), 0,
+                [year = year()](auto const& a, auto const& b){ return a + ::convert_month_no_to_day_no(b, year); }
+            )
+        };
+
+
+        std::vector<int> years_between_dates(year() - MONDAY_DATE.year() - 1);
+        std::iota(years_between_dates.begin(), years_between_dates.end(), MONDAY_DATE.year() + 1);
+        auto days_is_years_between_dates{0};
+        for (auto&& year : years_between_dates) {
+            std::vector<int> months(12);
+            std::iota(months.begin(), months.end(), 1);
+            auto const days_in_year{std::accumulate(months.begin(), months.end(), 0, [year](auto const& a, auto const& b){return a + ::convert_month_no_to_day_no(b, year);})};
+            days_is_years_between_dates += days_in_year;
+
+        }
+
+        std::vector<int> months_in_current_year(month() - 1);
+        std::iota(months_in_current_year.begin(), months_in_current_year.end(), 1);
+        auto days_in_current_year{std::accumulate(months_in_current_year.begin(), months_in_current_year.end(), 0, [year = year()](auto const& a, auto const& b){ return a + ::convert_month_no_to_day_no(b, year);})};
+
+        days_in_current_year += day();
+
+        days_no += days_remain_in_monday_month + days_in_monday_year + days_is_years_between_dates + days_in_current_year;
     }
 
     auto const weekday_no{days_no % 7};
