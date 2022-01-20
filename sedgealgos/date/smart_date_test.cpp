@@ -22,6 +22,7 @@ TEST(SmartDate, ReturnsStringRepresentationOfDate) {
 }
 
 TEST(SmartDateTest, ReturnsDayOfTheWeek) {
+    EXPECT_EQ(SmartDate(3, 28, 1991).day_of_the_week(), "Thursday");
     EXPECT_EQ(SmartDate(2, 14, 1992).day_of_the_week(), "Friday");
     EXPECT_EQ(SmartDate(5, 16, 1992).day_of_the_week(), "Saturday");
     EXPECT_EQ(SmartDate(6, 7, 1992).day_of_the_week(), "Sunday");

@@ -6,7 +6,7 @@
 #include <vector>
 #include <numeric>
 #include <sstream>
-
+#include <iostream>
 
 namespace {
     sedgealgos::date::SmartDate MONDAY_DATE{6, 15, 1992};
@@ -148,7 +148,46 @@ std::string SmartDate::day_of_the_week() const {
         auto const weekday_no{7 - ramaining_days_in_the_start_week};
 
         return ::convert_weekday_no_to_string(weekday_no);
+    } else if (year() < MONDAY_DATE.year()) {
+        auto const days_passed_in_monday_month{MONDAY_DATE.day()};
+        std::vector<int> months_passed_in_monday_year(MONDAY_DATE.month() - 1);
+        std::iota(months_passed_in_monday_year.begin(), months_passed_in_monday_year.end(), 1);
+        auto const days_passed_in_monday_year{
+            std::accumulate(
+                months_passed_in_monday_year.begin(),
+                months_passed_in_monday_year.end(), 0,
+                [year = MONDAY_DATE.year()](auto const& a, auto const& b) { return a + ::convert_month_no_to_day_no(b, year);}
+            )
+        };
+        std::vector<int> years_in_between(MONDAY_DATE.year() - year() - 1);
+        std::iota(years_in_between.begin(), years_in_between.end(), year() + 1);
+        auto days_in_year_in_between{0};
+        for (auto&& y : years_in_between) {
+            std::vector<int> months(12);
+            std::iota(months.begin(), months.end(), 1);
+            for (auto&& m : months) {
+                days_in_year_in_between += ::convert_month_no_to_day_no(m, y);
+            }
+        }
 
+        std::vector<int> months_passed_in_current_year(12 - month());
+        std::iota(months_passed_in_current_year.begin(), months_passed_in_current_year.end(), month() + 1);
+        auto const days_in_months_passed_in_current_year{
+            std::accumulate(
+                months_passed_in_current_year.begin(),
+                months_passed_in_current_year.end(),
+                0,
+                [year = year()](auto const& a, auto const& b) {return a + ::convert_month_no_to_day_no(b, year);}
+            )
+        };
+
+        auto const days_passed_in_current_month{::convert_month_no_to_day_no(month(), year()) - day()};
+        auto const days{days_passed_in_monday_month + days_passed_in_monday_year + days_in_year_in_between + days_in_months_passed_in_current_year + days_passed_in_current_month};
+
+        auto const ramaining_days_in_the_start_week{days % 7};
+        auto const weekday_no{7 - ramaining_days_in_the_start_week};
+
+        return ::convert_weekday_no_to_string(weekday_no);
     } else if (MONDAY_DATE.month() == month() && MONDAY_DATE.year() == year()) {
         days_no = std::abs(day() - MONDAY_DATE.day());
     } else if(MONDAY_DATE.month() < month() && MONDAY_DATE.year() == year()) {
