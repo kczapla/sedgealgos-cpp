@@ -126,7 +126,13 @@ int SmartDate::year() const {
 
 std::string SmartDate::day_of_the_week() const {
     auto days_no{0};
-    if (MONDAY_DATE.month() == month() && MONDAY_DATE.year() == year()) {
+    if (day() < MONDAY_DATE.day() && MONDAY_DATE.month() == month() && MONDAY_DATE.year() == year()) {
+        auto const day_diff{MONDAY_DATE.day() - day()};
+        auto const ramaining_days_in_the_start_week{day_diff % 7};
+        auto const weekday_no{7 - ramaining_days_in_the_start_week};
+        return ::convert_weekday_no_to_string(weekday_no);
+        
+    } else if (MONDAY_DATE.month() == month() && MONDAY_DATE.year() == year()) {
         days_no = std::abs(day() - MONDAY_DATE.day());
     } else if(MONDAY_DATE.month() < month() && MONDAY_DATE.year() == year()) {
         auto const days_remain_in_monday_month{
