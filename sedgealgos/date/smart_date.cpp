@@ -6,7 +6,6 @@
 #include <vector>
 #include <numeric>
 #include <sstream>
-#include <iostream>
 
 namespace {
     sedgealgos::date::SmartDate MONDAY_DATE{6, 15, 1992};
@@ -165,10 +164,13 @@ std::string SmartDate::day_of_the_week() const {
         for (auto&& y : years_in_between) {
             std::vector<int> months(12);
             std::iota(months.begin(), months.end(), 1);
+            auto days_in_year{0};
             for (auto&& m : months) {
-                days_in_year_in_between += ::convert_month_no_to_day_no(m, y);
+                days_in_year += ::convert_month_no_to_day_no(m, y);
             }
+            days_in_year_in_between += days_in_year; 
         }
+
 
         std::vector<int> months_passed_in_current_year(12 - month());
         std::iota(months_passed_in_current_year.begin(), months_passed_in_current_year.end(), month() + 1);
