@@ -9,4 +9,8 @@ Transaction::Transaction(std::string n, date::SmartDate d, double a) : who_{n}, 
 std::string Transaction::who() const {
     return who_;
 }
+
+date::SmartDate Transaction::when() const {
+    return date_;
+}
 }

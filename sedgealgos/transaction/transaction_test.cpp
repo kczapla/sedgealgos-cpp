@@ -16,4 +16,11 @@ TEST(TransactionTest, GetStransactionAuthor) {
 
     EXPECT_EQ(t.who(), "adam");
 }
+
+TEST(TransactionTest, GetTransactionDate) {
+    SmartDate const date{1, 21, 2022};
+    Transaction t{"adam", date, 1};
+
+    EXPECT_EQ(t.when().to_string(), "1/21/2022");
+}
 }
