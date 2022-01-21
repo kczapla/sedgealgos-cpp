@@ -23,4 +23,11 @@ TEST(TransactionTest, GetTransactionDate) {
 
     EXPECT_EQ(t.when().to_string(), "1/21/2022");
 }
+
+TEST(TransactionTest, GetTransactionAmount) {
+    SmartDate const date{1, 21, 2022};
+    Transaction t{"adam", date, 1};
+
+    EXPECT_EQ(t.amount(), 1);
+}
 }

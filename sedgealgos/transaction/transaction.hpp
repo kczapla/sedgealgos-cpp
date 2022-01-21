@@ -11,6 +11,7 @@ public:
 
   std::string who() const;
   date::SmartDate when() const;
+  double amount() const;
 
 private:
   std::string who_;

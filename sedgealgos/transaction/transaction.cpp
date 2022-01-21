@@ -13,4 +13,7 @@ std::string Transaction::who() const {
 date::SmartDate Transaction::when() const {
     return date_;
 }
+double Transaction::amount() const {
+    return amount_;
+}
 }
