@@ -4,5 +4,9 @@
 #include <string>
 
 namespace sedgealgos::transaction {
-Transaction::Transaction(std::string n, date::SmartDate d, double a) : who{n}, date{std::move(d)}, amount{a} {}
+Transaction::Transaction(std::string n, date::SmartDate d, double a) : who_{n}, date_{std::move(d)}, amount_{a} {}
+
+std::string Transaction::who() const {
+    return who_;
+}
 }

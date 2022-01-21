@@ -8,9 +8,11 @@ namespace sedgealgos::transaction {
 class Transaction {
 public:
   Transaction(std::string, date::SmartDate, double);
+
+  std::string who() const;
 private:
-  std::string who;
-  date::SmartDate date{1, 1, 2001};
-  double amount{0};
+  std::string who_;
+  date::SmartDate date_{1, 1, 2001};
+  double amount_{0};
 };
 }
