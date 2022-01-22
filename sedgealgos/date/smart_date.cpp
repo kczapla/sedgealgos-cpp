@@ -252,4 +252,11 @@ std::string SmartDate::to_string() const {
 
     return ss.str();
 }
+
+
+bool SmartDate::equals(SmartDate const& other) const {
+    if (this == &other) {
+        return true;
+    }
+}
 }

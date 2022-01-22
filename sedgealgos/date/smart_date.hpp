@@ -15,6 +15,8 @@ public:
 
     std::string to_string() const;
 
+    bool equals(SmartDate const&) const;
+
 private:
     int m_;
     int d_;
