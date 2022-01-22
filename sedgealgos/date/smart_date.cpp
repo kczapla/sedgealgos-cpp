@@ -258,5 +258,12 @@ bool SmartDate::equals(SmartDate const& other) const {
     if (this == &other) {
         return true;
     }
+
+    auto dates_are_equal{true};
+    dates_are_equal &= day() == other.day();
+    dates_are_equal &= month() == other.month();
+    dates_are_equal &= year() == other.year();
+
+    return dates_are_equal;
 }
 }

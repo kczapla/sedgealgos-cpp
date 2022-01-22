@@ -26,6 +26,12 @@ TEST(SmartDateTest, EqualsToTheSameInstanceOfSmartDate) {
     EXPECT_TRUE(date.equals(date));
 }
 
+TEST(SmartDateTest, EqualsToTheSameSmartDate) {
+    SmartDate date1{1, 15, 2022};
+    SmartDate date2{1, 15, 2022};
+    EXPECT_TRUE(date1.equals(date2));
+}
+
 TEST(SmartDateTest, ReturnsDayOfTheWeek) {
     EXPECT_EQ(SmartDate(3, 11, 1631).day_of_the_week(), "Tuesday");
     EXPECT_EQ(SmartDate(1, 7, 1987).day_of_the_week(), "Wednesday");
