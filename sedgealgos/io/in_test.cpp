@@ -93,4 +93,8 @@ TEST_F(InTest, ReadsAll) {
     In in{file_with_ints};
     EXPECT_EQ(in.reads_all(), "1 2 3 4 5 6 7");
 }
+
+TEST_F(InTest, ReadInts) {
+    EXPECT_THAT(read_ints(file_with_ints), ElementsAre(1, 2, 3, 4, 5, 6, 7));
+}
 }

@@ -1,10 +1,21 @@
 #include "sedgealgos/io/in.hpp"
 
+#include <vector>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 
 namespace sedgealgos::io {
+
+std::vector<int> read_ints(std::string filename) {
+  In in{std::string{filename}};
+
+  std::vector<int> ints;
+  while(!in.is_empty()) {
+    ints.emplace_back(in.read_int());
+  }
+  return ints;
+}
 
 In::In() : is{std::cin} {}
 

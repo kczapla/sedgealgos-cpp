@@ -1,10 +1,13 @@
 #pragma once
 
+#include <vector>
 #include <string>
 #include <fstream>
 #include <stdexcept>
 
 namespace sedgealgos::io {
+  std::vector<int> read_ints(std::string);
+
     class InException : public std::runtime_error {
     public:
         InException(std::string s) : runtime_error{std::move(s)} {}
