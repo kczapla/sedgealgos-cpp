@@ -13,6 +13,8 @@ public:
   date::SmartDate when() const;
   double amount() const;
 
+  bool equals(Transaction const&) const;
+
 private:
   std::string who_;
   date::SmartDate date_{1, 1, 2001};

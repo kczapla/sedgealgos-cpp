@@ -30,4 +30,25 @@ TEST(TransactionTest, GetTransactionAmount) {
 
     EXPECT_EQ(t.amount(), 1);
 }
+
+TEST(TransactionTest, EqualsToTheSameTransactionObject) {
+    SmartDate const date{1, 21, 2022};
+    Transaction t{"adam", date, 1};
+    EXPECT_TRUE(t.equals(t));
+}
+
+TEST(TransactionTest, EqualsToTheSameTransaction) {
+    SmartDate const date{1, 21, 2022};
+    Transaction t1{"adam", date, 1};
+    Transaction t2{t1};
+
+    EXPECT_TRUE(t1.equals(t2));
+}
+
+TEST(TransactionTest, DoesNotEqualToOtherTransaction) {
+    Transaction const t1{"adam", SmartDate{1, 21, 2022}, 1};
+    Transaction const t2{"adam", SmartDate{4, 21, 2022}, 1};
+
+    EXPECT_FALSE(t1.equals(t2));
+}
 }

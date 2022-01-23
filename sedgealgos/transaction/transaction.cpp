@@ -16,4 +16,16 @@ date::SmartDate Transaction::when() const {
 double Transaction::amount() const {
     return amount_;
 }
+
+  bool Transaction::equals(Transaction const& other) const {
+    if (this == &other) {
+      return true;
+    }
+
+    auto transactions_are_the_same{true};
+    transactions_are_the_same &= who() == other.who();
+    transactions_are_the_same &= when().equals(other.when());
+    transactions_are_the_same &= amount() == other.amount();
+    return transactions_are_the_same;
+  }
 }
