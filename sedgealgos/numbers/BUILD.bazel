@@ -1,0 +1,25 @@
+load(
+   "//bazel:sedgealgos_build_system.bzl",
+   "sedgealgos_cc_test",
+   "sedgealgos_cc_library",
+)
+
+sedgealgos_cc_library(
+    name = "number_exception",
+    hdrs = ["number_exception.hpp"],
+)
+
+sedgealgos_cc_library(
+   name = "rational",
+   hdrs = ["rational.hpp"],
+   srcs = ["rational.cpp"],
+   deps = [
+       "number_exception"
+   ],
+)
+
+sedgealgos_cc_test(
+    name = "rational_test",
+    srcs = ["rational_test.cpp"],
+    deps = [":rational"],
+)
