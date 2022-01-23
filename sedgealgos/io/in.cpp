@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <iterator>
 
 namespace sedgealgos::io {
 
@@ -33,5 +34,14 @@ double In::read_double() {
     double a;
     is >> a;
     return a;
+}
+
+std::string In::reads_all() {
+    if (is_empty()) {
+      return "";
+    }
+
+    std::string all(std::istreambuf_iterator<char>(is), {});
+    return all;
 }
 }

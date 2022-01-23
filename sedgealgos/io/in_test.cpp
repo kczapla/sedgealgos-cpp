@@ -88,4 +88,9 @@ namespace {
         [[ maybe_unused ]] auto ints{get_ints(in)};
         EXPECT_THROW({[[ maybe_unused ]] auto i{in.read_int()};}, InException);
     }
+
+TEST_F(InTest, ReadsAll) {
+    In in{file_with_ints};
+    EXPECT_EQ(in.reads_all(), "1 2 3 4 5 6 7");
+}
 }

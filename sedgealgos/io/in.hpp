@@ -17,6 +17,7 @@ namespace sedgealgos::io {
 
         int read_int();
         double read_double();
+        std::string reads_all();
 
         bool is_empty();
 
