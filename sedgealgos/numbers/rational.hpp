@@ -7,6 +7,8 @@ namespace sedgealgos::numbers {
   public:
     Rational(long, long);
 
+    Rational plus(Rational const&) const;
+
     bool equals(Rational const&) const;
     std::string to_string() const;
 

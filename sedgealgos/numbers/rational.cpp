@@ -14,10 +14,23 @@ namespace {
 
 namespace sedgealgos::numbers {
   Rational::Rational(long n, long d) : nominator{n}, denominator{d} {
+    if (nominator == 1 && denominator == 1) {
+      return;
+    }
+    
     auto g{::gcd(n, d)};
     if (g != 1) {
       throw NumberException{"nominator and denominator have common divisor"};
     }
+  }
+
+  Rational Rational::plus(Rational const& other) const {
+    if (other.denominator == 1) {
+      return Rational{nominator + denominator, denominator};
+    } else if (denominator == 1) {
+      return other.plus(*this);
+    }
+    return Rational{nominator + other.nominator, denominator};
   }
 
   bool Rational::equals(Rational const& other) const {
