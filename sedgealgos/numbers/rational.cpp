@@ -16,4 +16,15 @@ namespace sedgealgos::numbers {
       throw NumberException{"nominator and denominator have common divisor"};
     }
   }
+
+  bool Rational::equals(Rational const& other) const {
+      if (this == &other) {
+        return true;
+      }
+      auto rationals_are_equal{true};
+      rationals_are_equal &= nominator == other.nominator;
+      rationals_are_equal &= denominator == other.denominator;
+
+      return rationals_are_equal;
+  }
 }
