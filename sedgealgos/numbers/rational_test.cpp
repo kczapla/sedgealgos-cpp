@@ -32,4 +32,9 @@ TEST(RationalNumberTest, IsEqualTheSameRationalNumber) {
 
   EXPECT_TRUE(r1.equals(r2));
 }
+
+TEST(RationalNumberTest, ReturnsStringRepresentation) {
+  Rational const r{2, 3};
+  EXPECT_EQ(r.to_string(), "2/3");
+}
 }

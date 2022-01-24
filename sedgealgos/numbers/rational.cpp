@@ -1,6 +1,9 @@
 #include "sedgealgos/numbers/rational.hpp"
 #include "sedgealgos/numbers/number_exception.hpp"
 
+#include <string>
+#include <sstream>
+
 namespace {
   int gcd(int p, int q) {
     if (q == 0) return p;
@@ -26,5 +29,11 @@ namespace sedgealgos::numbers {
       rationals_are_equal &= denominator == other.denominator;
 
       return rationals_are_equal;
+  }
+
+  std::string Rational::to_string() const {
+    std::stringstream ss;
+    ss << nominator << "/" << denominator;
+    return ss.str();
   }
 }
