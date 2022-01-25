@@ -11,8 +11,9 @@ TEST(RationalNumberTest, CtorDoesNotThrowIfNominatorAndDenominatorDoesNotHaveCom
   EXPECT_NO_THROW(Rational(1, 2));
 }
 
-TEST(RationalNumberTest, CtorThrowsIfNominatorAndDenominatorHaveCommonDivisior) {
-  EXPECT_THROW({Rational(2, 4);}, NumberException);
+TEST(RationalNumberTest, CtorRemovesNominatorAndDenominatorCommonDivisor) {
+  Rational r{2, 4};
+  EXPECT_EQ(r.to_string(), "1/2");
 }
 
 TEST(RationalNumberTest, IsEqualToTheSameRationalInstance) {

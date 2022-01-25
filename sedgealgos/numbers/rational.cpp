@@ -20,7 +20,8 @@ namespace sedgealgos::numbers {
     
     auto g{::gcd(n, d)};
     if (g != 1) {
-      throw NumberException{"nominator and denominator have common divisor"};
+      nominator = nominator / g;
+      denominator = denominator / g;
     }
   }
 
@@ -31,7 +32,6 @@ namespace sedgealgos::numbers {
       return other.plus(*this);
     }
     if ( denominator != other.denominator) {
-      auto const cd{::gcd(denominator, other.denominator)};
       auto const n{nominator * other.denominator + other.nominator * denominator};
       auto const d{denominator * other.denominator};
       return Rational{n, d};
