@@ -50,4 +50,11 @@ TEST(RationalNumberTest, SumsFractionAndOne) {
   EXPECT_TRUE(r1.plus(r2).equals(Rational{5, 3}));
   EXPECT_TRUE(r2.plus(r1).equals(Rational{5, 3}));
 }
+
+TEST(RationalNumberTest, SumsFractionsWithDifferentDenominators) {
+  Rational const r1{2, 3};
+  Rational const r2{3, 5};
+
+  EXPECT_TRUE(r1.plus(r2).equals(Rational{19, 15}));
+}
 }
