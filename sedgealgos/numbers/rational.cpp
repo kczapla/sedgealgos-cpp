@@ -53,11 +53,6 @@ namespace sedgealgos::numbers {
   }
 
   Rational Rational::plus(Rational const& other) const {
-    if (other.denominator == 1) {
-      return Rational{nominator + denominator, denominator};
-    } else if (denominator == 1) {
-      return other.plus(*this);
-    }
     if ( denominator != other.denominator) {
       auto const n{nominator * other.denominator + other.nominator * denominator};
       auto const d{denominator * other.denominator};
