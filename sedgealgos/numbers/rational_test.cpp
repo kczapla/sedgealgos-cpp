@@ -106,4 +106,30 @@ INSTANTIATE_TEST_CASE_P(
         make_multiplier_multiplicand_product({2, 3}, {2, 3}, {4, 9})
     )
 );
+
+using DividentDivisorFraction = std::tuple<Rational, Rational, Rational>;
+
+MultiplierMultiplicandProduct make_divident_divisor_fraction(Rational const& divident, Rational const& divisor, Rational const& fraction) {
+    return std::make_tuple(divident, divisor, fraction);
+}
+
+class RationalNumberDivisionTest : public TestWithParam<DividentDivisorFraction> {};
+
+TEST_P(RationalNumberDivisionTest, DividingDividentByDivisorEqualsToFraction) {
+    auto const [divident, divisor, fraction]{GetParam()};
+    EXPECT_EQ(divident / divisor, fraction);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    DivisionOperator,
+    RationalNumberDivisionTest,
+    Values(
+        make_divident_divisor_fraction({0, 3}, {1, 4}, {0, 3}),
+        make_divident_divisor_fraction({-1, 3}, {-1, 2}, {2, 3}),
+        make_divident_divisor_fraction({1, 3}, {-1, 2}, {-2, 3}),
+        make_divident_divisor_fraction({1, 3}, {1, 2}, {2, 3}),
+        make_divident_divisor_fraction({1, 1}, {1, 2}, {2, 1}),
+        make_divident_divisor_fraction({1, 1}, {1, 1}, {1, 1})
+    )
+);
 }

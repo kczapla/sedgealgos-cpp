@@ -11,6 +11,7 @@ namespace sedgealgos::numbers {
     Rational plus(Rational const&) const;
     Rational minus(Rational const&) const;
     Rational multiply(Rational const&) const;
+    Rational divides(Rational const&) const;
 
     bool equals(Rational const&) const;
     std::string to_string() const;
@@ -25,5 +26,6 @@ namespace sedgealgos::numbers {
   Rational operator+(Rational const&, Rational const&);
   Rational operator-(Rational const&, Rational const&);
   Rational operator*(Rational const&, Rational const&);
+  Rational operator/(Rational const&, Rational const&);
 }
 

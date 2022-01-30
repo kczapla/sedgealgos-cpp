@@ -36,6 +36,10 @@ namespace sedgealgos::numbers {
       return lhs.multiply(rhs);
   }
 
+  Rational operator/(Rational const& lhs, Rational const& rhs) {
+      return lhs.divides(rhs);
+  }
+
   Rational::Rational(long n, long d) : nominator{n}, denominator{d} {
     if ((nominator == 1 && denominator == 1) || nominator == 0) {
       return;
@@ -72,6 +76,10 @@ namespace sedgealgos::numbers {
 
   Rational Rational::multiply(Rational const& other) const {
     return {nominator * other.nominator, denominator * other.denominator};
+  }
+
+  Rational Rational::divides(Rational const& other) const {
+      return this->multiply({other.denominator, other.nominator});
   }
 
   bool Rational::equals(Rational const& other) const {
