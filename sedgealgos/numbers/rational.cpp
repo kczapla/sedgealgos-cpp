@@ -1,8 +1,10 @@
 #include "sedgealgos/numbers/rational.hpp"
 #include "sedgealgos/numbers/number_exception.hpp"
 
+#include <cmath>
 #include <string>
 #include <sstream>
+#include <iostream>
 
 namespace {
   int gcd(int p, int q) {
@@ -13,12 +15,25 @@ namespace {
 }
 
 namespace sedgealgos::numbers {
+
+  std::ostream& operator<<(std::ostream& ostream, Rational const& rational) {
+      return ostream << rational.to_string();
+  }
+
+  bool operator==(Rational const& lhs, Rational const& rhs) {
+      return lhs.equals(rhs);
+  }
+
   Rational::Rational(long n, long d) : nominator{n}, denominator{d} {
     if (nominator == 1 && denominator == 1) {
       return;
     }
+    if (denominator < 0) {
+        nominator *= -1;
+        denominator *= -1;
+    }
     
-    auto g{::gcd(n, d)};
+    auto g{::gcd(std::abs( n ), std::abs(d))};
     if (g != 1) {
       nominator = nominator / g;
       denominator = denominator / g;

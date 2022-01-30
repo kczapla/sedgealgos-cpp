@@ -65,4 +65,30 @@ TEST(RationalNumberTest, SumGivesSingleNumber) {
 
   EXPECT_TRUE(r1.plus(r2).equals(Rational{1, 1}));
 }
+
+TEST(RationalNumberTest, SumOfNegativeFractionEqualNegativeFraction) {
+  Rational const r1{-3, 4};
+  Rational const r2{-1, 4};
+
+  EXPECT_EQ(r1.plus(r2), Rational(-1, 1));
+}
+
+TEST(RationalNumberTest, SumOfNegativeAndPositiveFractionEqualsNegativeFraction) {
+    Rational const r1{-3, 4};
+    Rational const r2{1, 4};
+
+    EXPECT_TRUE(r1.plus(r2).equals(Rational{-1, 2}));
+}
+
+TEST(RationalNumberTest, SumOfNegativeAndPositiveFractionEqualsPositiveFraction) {
+    Rational const r1{-3, 4};
+    Rational const r2{5, 4};
+
+    EXPECT_TRUE(r1.plus(r2).equals(Rational{1, 2}));
+}
+
+TEST(RationalNumberTest, NegativeDenominatorProducesNegativeFraction) {
+    Rational const r1{1, -2};
+    EXPECT_EQ(r1, Rational(-1, 2));
+}
 }

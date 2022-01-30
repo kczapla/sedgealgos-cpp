@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <ostream>
 
 namespace sedgealgos::numbers {
   class Rational {
@@ -16,5 +17,8 @@ namespace sedgealgos::numbers {
     long nominator;
     long denominator;
   };
+
+  std::ostream& operator<<(std::ostream&, Rational const&);
+  bool operator==(Rational const&, Rational const&);
 }
 
