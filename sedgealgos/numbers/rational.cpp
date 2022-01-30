@@ -41,6 +41,9 @@ namespace sedgealgos::numbers {
   }
 
   Rational::Rational(long n, long d) : nominator{n}, denominator{d} {
+    if (denominator == 0) {
+        throw NumberException{"Denominator can't be zero"};
+    }
     if ((nominator == 1 && denominator == 1) || nominator == 0) {
       return;
     }

@@ -9,6 +9,10 @@ namespace {
   using namespace ::testing;
   using namespace ::sedgealgos::numbers;
 
+TEST(RationNumberCtorTest, ThrowsExceptionIfDenominatorIsZero) {
+  EXPECT_THROW({Rational(1, 0);}, NumberException);
+}
+
 TEST(RationalNumberTest, CtorRemovesNominatorAndDenominatorCommonDivisor) {
   Rational r{2, 4};
   EXPECT_EQ(r.to_string(), "1/2");
