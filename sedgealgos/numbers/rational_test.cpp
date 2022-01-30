@@ -19,6 +19,13 @@ TEST(RationalNumberTest, IsEqualToTheSameRationalInstance) {
   EXPECT_TRUE(r.equals(r));
 }
 
+TEST(RationalNumberTest, IsNotEqualToRationalWithDifferentDenominator) {
+  Rational const r1{0, 3};
+  Rational const r2{0, 4};
+  EXPECT_NE(Rational(0, 3), Rational(0, 4));
+
+}
+
 using AugendAddendSum = std::tuple<Rational, Rational, Rational>;
 
 AugendAddendSum make_augend_addend_sum(Rational augend, Rational addened, Rational sum) {
@@ -71,6 +78,32 @@ INSTANTIATE_TEST_CASE_P(
         make_minued_subtrahend_difference({2, 3}, {1, 1}, {-1, 3}),
         make_minued_subtrahend_difference({2, 3}, {1, 3}, {1, 3}),
         make_minued_subtrahend_difference({2, 3}, {2, 3}, {0, 3})
+    )
+);
+
+using MultiplierMultiplicandProduct = std::tuple<Rational, Rational, Rational>;
+
+MultiplierMultiplicandProduct make_multiplier_multiplicand_product(Rational const& multiplier, Rational const& multiplicand, Rational const& product) {
+    return std::make_tuple(multiplier, multiplicand, product);
+}
+
+class RationalNumberMultiplicationTest : public TestWithParam<MultiplierMultiplicandProduct> {};
+
+TEST_P(RationalNumberMultiplicationTest, MultiplyingFactorsGivesProduct) {
+    auto const [multiplier, multiplicand, product]{GetParam()};
+    EXPECT_EQ(multiplier * multiplicand, product);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    MultiplicationOperator,
+    RationalNumberMultiplicationTest,
+    Values(
+        make_multiplier_multiplicand_product({1, 1}, {-1, 1}, {-1, 1}),
+        make_multiplier_multiplicand_product({1, 1}, {2, 3}, {2, 3}),
+        make_multiplier_multiplicand_product({1, 4}, {-2, 3}, {-2, 12}),
+        make_multiplier_multiplicand_product({-2, 3}, {1, 4}, {-2, 12}),
+        make_multiplier_multiplicand_product({2, 3}, {0, 4}, {0, 12}),
+        make_multiplier_multiplicand_product({2, 3}, {2, 3}, {4, 9})
     )
 );
 }
