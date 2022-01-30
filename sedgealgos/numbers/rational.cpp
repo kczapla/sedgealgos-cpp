@@ -24,6 +24,14 @@ namespace sedgealgos::numbers {
       return lhs.equals(rhs);
   }
 
+  Rational operator+(Rational const& lhs, Rational const& rhs) {
+      return lhs.plus(rhs);
+  }
+
+  Rational operator-(Rational const& lhs, Rational const& rhs) {
+      return lhs.minus(rhs);
+  }
+
   Rational::Rational(long n, long d) : nominator{n}, denominator{d} {
     if (nominator == 1 && denominator == 1) {
       return;
@@ -52,6 +60,15 @@ namespace sedgealgos::numbers {
       return Rational{n, d};
     }
     return Rational{nominator + other.nominator, denominator};
+  }
+
+  Rational Rational::minus(Rational const& other) const {
+      if (denominator != other.denominator) {
+        auto const n{nominator * other.denominator - denominator * other.nominator};
+        auto const d{denominator * other.denominator};
+        return Rational{n, d};
+      }
+      return {nominator - other.nominator, denominator};
   }
 
   bool Rational::equals(Rational const& other) const {

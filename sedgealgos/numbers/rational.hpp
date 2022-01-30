@@ -9,6 +9,7 @@ namespace sedgealgos::numbers {
     Rational(long, long);
 
     Rational plus(Rational const&) const;
+    Rational minus(Rational const&) const;
 
     bool equals(Rational const&) const;
     std::string to_string() const;
@@ -20,5 +21,7 @@ namespace sedgealgos::numbers {
 
   std::ostream& operator<<(std::ostream&, Rational const&);
   bool operator==(Rational const&, Rational const&);
+  Rational operator+(Rational const&, Rational const&);
+  Rational operator-(Rational const&, Rational const&);
 }
 

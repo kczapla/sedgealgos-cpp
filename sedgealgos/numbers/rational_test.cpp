@@ -44,4 +44,33 @@ INSTANTIATE_TEST_CASE_P(
             make_augend_addend_sum({-3, 4}, {1, 4}, {-1, 2}),
             make_augend_addend_sum({-3, 4}, {5, 4}, {1, 2})
         ));
+
+using MinuedSubtrahendDifference = std::tuple<Rational, Rational, Rational>;
+
+MinuedSubtrahendDifference make_minued_subtrahend_difference(Rational const& minued, Rational const& subtrahend, Rational const& difference) {
+    return std::make_tuple(minued, subtrahend, difference);
+}
+
+class RationalNumberSubtractionTest : public TestWithParam<MinuedSubtrahendDifference> {};
+
+TEST_P(RationalNumberSubtractionTest, TermsSubtractionEqualsDifference) {
+    auto const [minued, subtrahend, difference]{GetParam()};
+    EXPECT_EQ(minued - subtrahend, difference);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    MinusOperator,
+    RationalNumberSubtractionTest,
+    Values(
+        make_minued_subtrahend_difference({1, 1024}, {1, 500}, {-131, 128000}),
+        make_minued_subtrahend_difference({1, 1}, {-1, 4}, {5, 4}),
+        make_minued_subtrahend_difference({1, 3}, {-1, 4}, {7, 12}),
+        make_minued_subtrahend_difference({-1, 3}, {-1, 4}, {-1, 12}),
+        make_minued_subtrahend_difference({-1, 3}, {1, 4}, {-7, 12}),
+        make_minued_subtrahend_difference({1, 3}, {1, 4}, {1, 12}),
+        make_minued_subtrahend_difference({2, 3}, {1, 1}, {-1, 3}),
+        make_minued_subtrahend_difference({2, 3}, {1, 3}, {1, 3}),
+        make_minued_subtrahend_difference({2, 3}, {2, 3}, {0, 3})
+    )
+);
 }
