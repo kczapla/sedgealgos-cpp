@@ -13,17 +13,17 @@ TEST(RationNumberCtorTest, ThrowsExceptionIfDenominatorIsZero) {
   EXPECT_THROW({Rational(1, 0);}, NumberException);
 }
 
-TEST(RationalNumberTest, CtorRemovesNominatorAndDenominatorCommonDivisor) {
+TEST(RationNumberCtorTest, CtorRemovesNominatorAndDenominatorCommonDivisor) {
   Rational r{2, 4};
   EXPECT_EQ(r.to_string(), "1/2");
 }
 
-TEST(RationalNumberTest, IsEqualToTheSameRationalInstance) {
+TEST(RationalNumberEqualityTest, IsEqualToTheSameRationalInstance) {
   Rational const r{2, 3};
   EXPECT_TRUE(r.equals(r));
 }
 
-TEST(RationalNumberTest, IsNotEqualToRationalWithDifferentDenominator) {
+TEST(RationalNumberEqualityTest, IsNotEqualToRationalWithDifferentDenominator) {
   Rational const r1{0, 3};
   Rational const r2{0, 4};
   EXPECT_NE(Rational(0, 3), Rational(0, 4));
