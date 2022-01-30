@@ -3,13 +3,11 @@
 
 #include <gtest/gtest.h>
 
+#include <tuple>
+
 namespace {
   using namespace ::testing;
   using namespace ::sedgealgos::numbers;
-
-TEST(RationalNumberTest, CtorDoesNotThrowIfNominatorAndDenominatorDoesNotHaveCommonDivisor) {
-  EXPECT_NO_THROW(Rational(1, 2));
-}
 
 TEST(RationalNumberTest, CtorRemovesNominatorAndDenominatorCommonDivisor) {
   Rational r{2, 4};
@@ -21,74 +19,29 @@ TEST(RationalNumberTest, IsEqualToTheSameRationalInstance) {
   EXPECT_TRUE(r.equals(r));
 }
 
-TEST(RationalNumberTest, IsNotEqualToDifferentRationalNumber) {
-  Rational const r1{2, 3};
-  Rational const r2{4, 3};
-  EXPECT_FALSE(r1.equals(r2));
+using AugendAddendSum = std::tuple<Rational, Rational, Rational>;
+
+AugendAddendSum make_augend_addend_sum(Rational augend, Rational addened, Rational sum) {
+    return std::make_tuple(augend, addened, sum);
 }
 
-TEST(RationalNumberTest, IsEqualTheSameRationalNumber) {
-  Rational const r1{2, 3};
-  Rational const r2{2, 3};
+class RationalNumberAdditionTest : public TestWithParam<AugendAddendSum> {};
 
-  EXPECT_TRUE(r1.equals(r2));
+TEST_P(RationalNumberAdditionTest, SummandsAdditionEqualsSum) {
+    auto [augend, addened, sum] = GetParam();
+    EXPECT_EQ(augend + addened, sum);
 }
 
-TEST(RationalNumberTest, ReturnsStringRepresentation) {
-  Rational const r{2, 3};
-  EXPECT_EQ(r.to_string(), "2/3");
-}
-
-TEST(RationalNumberTest, SumsTwoRationalsWithTheSameDenominator) {
-  Rational const r1{2, 3};
-  EXPECT_TRUE(r1.plus(r1).equals(Rational{4, 3}));
-}
-
-TEST(RationalNumberTest, SumsFractionAndOne) {
-  Rational const r1{2, 3};
-  Rational const r2{1, 1};
-
-  EXPECT_TRUE(r1.plus(r2).equals(Rational{5, 3}));
-  EXPECT_TRUE(r2.plus(r1).equals(Rational{5, 3}));
-}
-
-TEST(RationalNumberTest, SumsFractionsWithDifferentDenominators) {
-  Rational const r1{2, 3};
-  Rational const r2{3, 5};
-
-  EXPECT_TRUE(r1.plus(r2).equals(Rational{19, 15}));
-}
-
-TEST(RationalNumberTest, SumGivesSingleNumber) {
-  Rational const r1{3, 4};
-  Rational const r2{1, 4};
-
-  EXPECT_TRUE(r1.plus(r2).equals(Rational{1, 1}));
-}
-
-TEST(RationalNumberTest, SumOfNegativeFractionEqualNegativeFraction) {
-  Rational const r1{-3, 4};
-  Rational const r2{-1, 4};
-
-  EXPECT_EQ(r1.plus(r2), Rational(-1, 1));
-}
-
-TEST(RationalNumberTest, SumOfNegativeAndPositiveFractionEqualsNegativeFraction) {
-    Rational const r1{-3, 4};
-    Rational const r2{1, 4};
-
-    EXPECT_TRUE(r1.plus(r2).equals(Rational{-1, 2}));
-}
-
-TEST(RationalNumberTest, SumOfNegativeAndPositiveFractionEqualsPositiveFraction) {
-    Rational const r1{-3, 4};
-    Rational const r2{5, 4};
-
-    EXPECT_TRUE(r1.plus(r2).equals(Rational{1, 2}));
-}
-
-TEST(RationalNumberTest, NegativeDenominatorProducesNegativeFraction) {
-    Rational const r1{1, -2};
-    EXPECT_EQ(r1, Rational(-1, 2));
-}
+INSTANTIATE_TEST_CASE_P(
+        PlusOperator,
+        RationalNumberAdditionTest,
+        Values(
+            make_augend_addend_sum({2, 3}, {2, 3}, {4, 3}),
+            make_augend_addend_sum({2, 3}, {1, 1}, {5, 3}),
+            make_augend_addend_sum({2, 3}, {3, 5}, {19, 15}),
+            make_augend_addend_sum({3, 4}, {1, 4}, {1, 1}),
+            make_augend_addend_sum({-3, 4}, {-1, 4}, {-1, 1}),
+            make_augend_addend_sum({-3, 4}, {1, 4}, {-1, 2}),
+            make_augend_addend_sum({-3, 4}, {5, 4}, {1, 2})
+        ));
 }
