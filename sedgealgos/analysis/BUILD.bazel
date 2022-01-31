@@ -25,6 +25,7 @@ cc_test(
 sedgealgos_cc_library(
    name = "accumulator",
    hdrs = ["accumulator.hpp"],
+   srcs = ["accumulator.cpp"],
 )
 
 sedgealgos_cc_test(

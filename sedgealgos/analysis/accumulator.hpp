@@ -3,6 +3,6 @@
 namespace sedgealgos::analysis {
 class Accumulator {
 public:
-  
+  double mean() const;
 };
 }
