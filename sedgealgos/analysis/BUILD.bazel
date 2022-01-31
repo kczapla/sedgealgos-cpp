@@ -1,4 +1,9 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
+load(
+   "//bazel:sedgealgos_build_system.bzl",
+   "sedgealgos_cc_test",
+   "sedgealgos_cc_library",
+)
 
 
 cc_library(
@@ -14,5 +19,18 @@ cc_test(
     deps = [
         ":counter",
         "@com_google_googletest//:gtest_main",
+    ],
+)
+
+sedgealgos_cc_library(
+   name = "accumulator",
+   hdrs = ["accumulator.hpp"],
+)
+
+sedgealgos_cc_test(
+    name = "accumulator_test",
+    srcs = ["accumulator_test.cpp"],
+    deps = [
+      "accumulator",
     ],
 )
