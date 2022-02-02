@@ -28,4 +28,9 @@ TEST(AccumulatorTest, ReturnsVariance) {
 
   EXPECT_NEAR(acc.var(), 4.1388888, 0.00001);
 }
+
+TEST(Accumulator, ReturnsZeroVarianceIfZeroElements) {
+  Accumulator acc{};
+  EXPECT_EQ(acc.var(), 0.0);
+}
 }
