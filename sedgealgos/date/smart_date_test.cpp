@@ -9,6 +9,15 @@
 namespace {
 using namespace sedgealgos::date;
 
+TEST(SmartDateTest, CreatesSmartDateFromString) {
+    SmartDate date{"1/13/2022"};
+    EXPECT_EQ(date.to_string(), "1/13/2022");
+}
+
+TEST(SmartDateTest, ThrowsIfInvalidString) {
+    EXPECT_THROW({SmartDate{"32/14/2022"};}, DateException);
+}
+
 TEST(SmartDate, ReturnsDay) {
     SmartDate date{1, 13, 2022};
     EXPECT_EQ(date.day(), 13);

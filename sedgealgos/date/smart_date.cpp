@@ -80,6 +80,15 @@ void onFebruary(int m) {
     
 }
 
+SmartDate::SmartDate(std::string date) {
+  auto const month_end_i{date.find_first_of('/')};
+  auto const day_end_i{date.find_last_of('/')};
+  auto const m{std::stoi(date.substr(0, month_end_i))};
+  auto const d{std::stoi(date.substr(month_end_i + 1, day_end_i))};
+  auto const y{std::stoi(date.substr(day_end_i + 1, date.length()))};
+  *this = SmartDate(m, d, y);
+}
+
 SmartDate::SmartDate(int m, int d, int y) : m_{m}, d_{d}, y_{y} {
    if (d_ < 1) {
        throw DateException{"Minimum day number for month is 1"};

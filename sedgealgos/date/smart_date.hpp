@@ -5,6 +5,7 @@
 namespace sedgealgos::date {
 class SmartDate {
 public:
+    SmartDate(std::string);
     SmartDate(int m, int d, int y);
 
     int month() const;
