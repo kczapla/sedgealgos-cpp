@@ -9,6 +9,7 @@ public:
 
   double var() const;
   double mean() const;
+  double stddev() const;
 
 private:
   std::vector<double> elements;

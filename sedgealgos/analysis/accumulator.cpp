@@ -1,5 +1,6 @@
 #include "sedgealgos/analysis/accumulator.hpp"
 
+#include <cmath>
 #include <numeric>
 
 namespace sedgealgos::analysis {
@@ -16,6 +17,10 @@ double Accumulator::var() const {
     auto const m{mean()};
     auto const ss{std::accumulate(elements.cbegin(), elements.cend(), 0.0, [m](auto const a, auto const b) {return a + (b - m)*(b-m);})};
     return ss / elements.size();
+}
+
+double Accumulator::stddev() const {
+    return std::sqrt(var());
 }
 
 double Accumulator::mean() const {

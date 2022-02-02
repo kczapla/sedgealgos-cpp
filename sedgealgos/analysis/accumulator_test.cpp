@@ -33,4 +33,22 @@ TEST(Accumulator, ReturnsZeroVarianceIfZeroElements) {
   Accumulator acc{};
   EXPECT_EQ(acc.var(), 0.0);
 }
+
+TEST(AccumulatorTest, ReturnZeroStddevIfZeroElements) {
+  Accumulator acc{};
+  EXPECT_EQ(acc.stddev(), 0.0);
+}
+
+TEST(AccumulatorTest, ReaturnStandardDeviation) {
+  Accumulator acc{};
+  acc.add_data_value(3);
+  acc.add_data_value(4);
+  acc.add_data_value(6);
+  acc.add_data_value(2);
+  acc.add_data_value(6);
+  acc.add_data_value(8);
+
+  EXPECT_NEAR(acc.stddev(), 2.0344, 0.0001);
+
+}
 }
