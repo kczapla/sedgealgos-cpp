@@ -9,7 +9,10 @@ namespace sedgealgos::stack {
     int pop();
 
   private:
-    unsigned long index{0};
+    void resize(unsigned long);
+
+    unsigned long next_index{0};
+    unsigned long capacity{0};
     int* container{nullptr};
   };
 }

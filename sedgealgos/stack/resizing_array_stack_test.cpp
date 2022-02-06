@@ -29,4 +29,28 @@ namespace {
 
       EXPECT_EQ(stack.pop(), 2);
   }
+
+  TEST(ResizingArrayStack, IsLIFO) {
+      ResizingArrayStack stack{};
+      stack.push(1);
+      stack.push(2);
+      stack.push(3);
+      stack.push(4);
+      stack.push(5);
+      stack.push(6);
+      stack.push(7);
+      stack.push(8);
+
+      auto is_lifo{true};
+      is_lifo &= stack.pop() == 8;
+      is_lifo &= stack.pop() == 7;
+      is_lifo &= stack.pop() == 6;
+      is_lifo &= stack.pop() == 5;
+      is_lifo &= stack.pop() == 4;
+      is_lifo &= stack.pop() == 3;
+      is_lifo &= stack.pop() == 2;
+      is_lifo &= stack.pop() == 1;
+
+      EXPECT_TRUE(is_lifo);
+  }
 }

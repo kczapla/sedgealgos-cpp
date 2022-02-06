@@ -10,14 +10,29 @@ namespace sedgealgos::stack {
   }
 
   bool ResizingArrayStack::is_empty() const {
-    return index == 0;
+    return next_index == 0;
   }
 
   void ResizingArrayStack::push(int item) {
-      container[index++] = item;
+      if (next_index == capacity) {
+          resize(2 * capacity);
+      }
+      container[next_index++] = item;
   }
 
   int ResizingArrayStack::pop() {
-      return container[--index];
+      return container[--next_index];
+  }
+
+  void ResizingArrayStack::resize(unsigned long new_capacity) {
+      int* larger_container{new int[new_capacity]};
+
+      for (unsigned long i{0}; i < new_capacity; i++) {
+          larger_container[i] = container[i];
+      }
+
+      delete[] container;
+      container = larger_container;
+      capacity = new_capacity;
   }
 }
