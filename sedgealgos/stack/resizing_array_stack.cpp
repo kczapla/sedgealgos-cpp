@@ -25,7 +25,12 @@ namespace sedgealgos::stack {
   }
 
   int ResizingArrayStack::pop() {
-      return container[--next_index];
+      auto top_elem{container[--next_index]};
+      if (next_index == capacity / 4) {
+          resize(capacity / 2);
+      }
+
+      return top_elem;
   }
 
   void ResizingArrayStack::resize(unsigned long new_capacity) {

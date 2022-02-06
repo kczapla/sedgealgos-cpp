@@ -66,4 +66,23 @@ namespace {
 
       EXPECT_EQ(stack.size(), 0);
   }
+
+  TEST(ResizingArrayStack, ShrinkStackSize) {
+      ResizingArrayStack stack{};
+      stack.push(1);
+      stack.push(2);
+      stack.push(3);
+      stack.push(4);
+      stack.push(5);
+      stack.push(6);
+      stack.push(7);
+      stack.push(8);
+      stack.push(9);
+
+      stack.pop();
+      stack.pop();
+      stack.pop();
+      stack.pop();
+      stack.pop();
+  }
 }
