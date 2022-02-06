@@ -53,4 +53,17 @@ namespace {
 
       EXPECT_TRUE(is_lifo);
   }
+
+  TEST(ResizingArrayStack, SizeReturnsZeroAfterPopingAllElements) {
+      ResizingArrayStack stack{};
+      stack.push(1);
+      stack.push(2);
+      stack.push(3);
+
+      stack.pop();
+      stack.pop();
+      stack.pop();
+
+      EXPECT_EQ(stack.size(), 0);
+  }
 }

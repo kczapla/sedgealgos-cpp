@@ -9,6 +9,10 @@ namespace sedgealgos::stack {
     delete container;
   }
 
+  unsigned long ResizingArrayStack::size() const {
+    return next_index;
+  }
+
   bool ResizingArrayStack::is_empty() const {
     return next_index == 0;
   }

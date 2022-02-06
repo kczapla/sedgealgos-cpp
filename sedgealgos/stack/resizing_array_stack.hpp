@@ -4,6 +4,7 @@ namespace sedgealgos::stack {
     ResizingArrayStack();
     ~ResizingArrayStack();
 
+    unsigned long size() const;
     bool is_empty() const;
     void push(int a);
     int pop();
