@@ -2,7 +2,7 @@
 
 namespace sedgealgos::stack {
   ResizingArrayStack::ResizingArrayStack() {
-    container = new int[1];
+    container = new int[capacity];
   }
 
   ResizingArrayStack::~ResizingArrayStack() {

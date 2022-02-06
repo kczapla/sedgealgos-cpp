@@ -13,7 +13,7 @@ namespace sedgealgos::stack {
     void resize(unsigned long);
 
     unsigned long next_index{0};
-    unsigned long capacity{0};
+    unsigned long capacity{1};
     int* container{nullptr};
   };
 }
