@@ -14,4 +14,11 @@ namespace {
       ResizingArrayStack stack{};
       EXPECT_TRUE(stack.is_empty());
   }
+
+  TEST(ResizingArrayStack, IsNotEmptyAfterPushingElement) {
+      ResizingArrayStack stack{};
+      stack.push(1);
+
+      EXPECT_FALSE(stack.is_empty());
+  }
 }
