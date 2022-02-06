@@ -9,4 +9,9 @@ namespace {
   TEST(ResizingArrayStack, CreatesObject) {
       ResizingArrayStack stack{};
   }
+
+  TEST(ResizingArrayStack, IsEmptyAfterCreated) {
+      ResizingArrayStack stack{};
+      EXPECT_TRUE(stack.is_empty());
+  }
 }
