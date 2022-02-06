@@ -6,6 +6,7 @@ namespace sedgealgos::stack {
 
     bool is_empty() const;
     void push(int a);
+    int pop();
 
   private:
     unsigned long index{0};

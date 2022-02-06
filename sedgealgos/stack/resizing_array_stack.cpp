@@ -16,4 +16,8 @@ namespace sedgealgos::stack {
   void ResizingArrayStack::push(int item) {
       container[index++] = item;
   }
+
+  int ResizingArrayStack::pop() {
+      return container[--index];
+  }
 }

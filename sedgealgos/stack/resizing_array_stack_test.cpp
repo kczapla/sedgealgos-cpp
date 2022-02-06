@@ -21,4 +21,12 @@ namespace {
 
       EXPECT_FALSE(stack.is_empty());
   }
+
+  TEST(ResizingArrayStack, PopsLatestElement) {
+      ResizingArrayStack stack{};
+      stack.push(1);
+      stack.push(2);
+
+      EXPECT_EQ(stack.pop(), 2);
+  }
 }
