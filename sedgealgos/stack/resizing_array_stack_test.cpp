@@ -8,7 +8,7 @@ namespace {
 
   class ResizingArrayStackTest : public Test {
   protected:
-    ResizingArrayStack stack{};
+    ResizingArrayStack<int> stack{};
   };
 
   TEST_F(ResizingArrayStackTest, IsEmptyAfterCreated) {
