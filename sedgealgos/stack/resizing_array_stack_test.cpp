@@ -6,32 +6,29 @@ namespace {
   using namespace ::testing;
   using namespace ::sedgealgos::stack;
 
-  TEST(ResizingArrayStack, CreatesObject) {
-      ResizingArrayStack stack{};
-  }
+  class ResizingArrayStackTest : public Test {
+  protected:
+    ResizingArrayStack stack{};
+  };
 
-  TEST(ResizingArrayStack, IsEmptyAfterCreated) {
-      ResizingArrayStack stack{};
+  TEST_F(ResizingArrayStackTest, IsEmptyAfterCreated) {
       EXPECT_TRUE(stack.is_empty());
   }
 
-  TEST(ResizingArrayStack, IsNotEmptyAfterPushingElement) {
-      ResizingArrayStack stack{};
+  TEST_F(ResizingArrayStackTest, IsNotEmptyAfterPushingElement) {
       stack.push(1);
 
       EXPECT_FALSE(stack.is_empty());
   }
 
-  TEST(ResizingArrayStack, PopsLatestElement) {
-      ResizingArrayStack stack{};
+  TEST_F(ResizingArrayStackTest, PopsLatestElement) {
       stack.push(1);
       stack.push(2);
 
       EXPECT_EQ(stack.pop(), 2);
   }
 
-  TEST(ResizingArrayStack, IsLIFO) {
-      ResizingArrayStack stack{};
+  TEST_F(ResizingArrayStackTest, IsLIFO) {
       stack.push(1);
       stack.push(2);
       stack.push(3);
@@ -54,8 +51,7 @@ namespace {
       EXPECT_TRUE(is_lifo);
   }
 
-  TEST(ResizingArrayStack, SizeReturnsZeroAfterPopingAllElements) {
-      ResizingArrayStack stack{};
+  TEST_F(ResizingArrayStackTest, SizeReturnsZeroAfterPopingAllElements) {
       stack.push(1);
       stack.push(2);
       stack.push(3);
@@ -67,8 +63,7 @@ namespace {
       EXPECT_EQ(stack.size(), 0);
   }
 
-  TEST(ResizingArrayStack, ShrinkStackSize) {
-      ResizingArrayStack stack{};
+  TEST_F(ResizingArrayStackTest, ShrinkStackSize) {
       stack.push(1);
       stack.push(2);
       stack.push(3);
