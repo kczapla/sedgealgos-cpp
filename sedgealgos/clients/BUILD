@@ -3,8 +3,12 @@ load(
    "sedgealgos_cc_binary",
 )
 
-
 sedgealgos_cc_binary(
     name = "parantheses",
-    srcs = ["parantheses.cc"],
+    srcs = ["parantheses.cpp"],
+    deps = [
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/stack:resizing_array_stack"
+    ]
 )
