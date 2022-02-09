@@ -1,7 +1,0 @@
-cc_binary(
-    name = "count_key_searchers",
-    srcs = ["count_key_searches.cpp"],
-    deps = [
-        "//sedgealgos/analysis:counter",
-    ],
-)
