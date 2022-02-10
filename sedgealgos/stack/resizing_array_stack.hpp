@@ -3,6 +3,8 @@ namespace sedgealgos::stack {
   class ResizingArrayStack {
   public:
     ResizingArrayStack();
+    ResizingArrayStack(ResizingArrayStack const&);
+    ResizingArrayStack& operator=(ResizingArrayStack const&);
     ~ResizingArrayStack();
 
     unsigned long size() const;
@@ -15,12 +17,36 @@ namespace sedgealgos::stack {
 
     unsigned long next_index{0};
     unsigned long capacity{1};
-    int* container{nullptr};
+    Item* container{nullptr};
   };
 
   template <typename Item>
   ResizingArrayStack<Item>::ResizingArrayStack() {
-    container = new int[capacity];
+    container = new Item[capacity];
+  }
+
+  template <typename Item>
+  ResizingArrayStack<Item>::ResizingArrayStack(ResizingArrayStack const& other) {
+    next_index = other.next_index;
+    capacity = other.capacity;
+
+    container = new Item[capacity];
+    for (unsigned long i{0}; i < capacity; ++i) {
+        container[i] = other.container[i];
+    }
+  }
+
+  template <typename Item>
+  ResizingArrayStack<Item>& ResizingArrayStack<Item>::operator=(ResizingArrayStack const& other) {
+    next_index = other.next_index;
+    capacity = other.capacity;
+
+    container = new Item[capacity];
+    for (unsigned long i{0}; i < capacity; ++i) {
+        container[i] = other.container[i];
+    }
+
+    return *this;
   }
 
   template <typename Item>
@@ -58,7 +84,7 @@ namespace sedgealgos::stack {
 
   template <typename Item>
   void ResizingArrayStack<Item>::resize(unsigned long new_capacity) {
-      int* larger_container{new int[new_capacity]};
+      Item* larger_container{new Item[new_capacity]};
 
       for (unsigned long i{0}; i < new_capacity; i++) {
           larger_container[i] = container[i];

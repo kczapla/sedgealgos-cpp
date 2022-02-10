@@ -11,6 +11,25 @@ namespace {
     ResizingArrayStack<int> stack{};
   };
 
+  TEST_F(ResizingArrayStackTest, CreatesUsingCopyCtor) {
+      stack.push(1);
+
+      ResizingArrayStack<int> new_stack{stack};
+
+      EXPECT_FALSE(new_stack.is_empty());
+      EXPECT_EQ(stack.pop(), new_stack.pop());
+  }
+
+  TEST_F(ResizingArrayStackTest, CreatesUsingCopyAssignmentOperator) {
+      stack.push(1);
+
+      ResizingArrayStack<int> new_stack{};
+      new_stack = stack;
+
+      EXPECT_FALSE(new_stack.is_empty());
+      EXPECT_EQ(stack.pop(), new_stack.pop());
+  }
+
   TEST_F(ResizingArrayStackTest, IsEmptyAfterCreated) {
       EXPECT_TRUE(stack.is_empty());
   }
