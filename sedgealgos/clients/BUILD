@@ -12,3 +12,13 @@ sedgealgos_cc_binary(
         "//sedgealgos/stack:resizing_array_stack"
     ]
 )
+
+sedgealgos_cc_binary(
+    name = "evaluate",
+    srcs = ["evaluate.cpp"],
+    deps = [
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/stack:resizing_array_stack"
+    ]
+)
