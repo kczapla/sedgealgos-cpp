@@ -9,8 +9,8 @@ namespace sedgealgos::stack {
 
     unsigned long size() const;
     bool is_empty() const;
-    void push(int a);
-    int pop();
+    void push(Item a);
+    Item pop();
 
   private:
     void resize(unsigned long);
@@ -65,7 +65,7 @@ namespace sedgealgos::stack {
   }
 
   template <typename Item>
-  void ResizingArrayStack<Item>::push(int item) {
+  void ResizingArrayStack<Item>::push(Item item) {
       if (next_index == capacity) {
           resize(2 * capacity);
       }
@@ -73,7 +73,7 @@ namespace sedgealgos::stack {
   }
 
   template <typename Item>
-  int ResizingArrayStack<Item>::pop() {
+  Item ResizingArrayStack<Item>::pop() {
       auto top_elem{container[--next_index]};
       if (next_index == capacity / 4) {
           resize(capacity / 2);
