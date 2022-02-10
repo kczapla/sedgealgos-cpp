@@ -29,6 +29,7 @@ private:
                 process_operator(operators.pop(), values.pop(), values.pop());
             case '(':
                 break;
+            case '-':
             case '+':
                 operators.push(c);
                 break;
@@ -49,6 +50,9 @@ private:
 
     void process_operator(char const op, int val1, int val2) {
         switch(op) {
+            case '-':
+                result += val1 - val2;
+                break;
             case '+':
                 result += val1 + val2;
                 break;
