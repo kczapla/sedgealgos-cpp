@@ -11,7 +11,6 @@ public:
     using OpStack = ResizingArrayStack<char>;
 
     double evaluate(std::string const& expression) {
-        result = 0;
         operators = OpStack{};
         values = ValStack{};
 
@@ -19,7 +18,7 @@ public:
             process_char(c);
         }
 
-        return result;
+        return values.pop();
     }
 
 private:
@@ -31,6 +30,7 @@ private:
                 break;
             case '-':
             case '+':
+            case '*':
                 operators.push(c);
                 break;
             case '0':
@@ -51,17 +51,19 @@ private:
     void process_operator(char const op, int val1, int val2) {
         switch(op) {
             case '-':
-                result += val1 - val2;
+                values.push(val1 - val2);
                 break;
             case '+':
-                result += val1 + val2;
+                values.push(val1 + val2);
+                break;
+            case '*':
+                values.push(val1 * val2);
                 break;
         }
     }
 
     OpStack operators{};
     ValStack values{};
-    double result{};
 };
 
 int main() {
