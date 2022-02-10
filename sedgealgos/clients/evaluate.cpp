@@ -25,12 +25,13 @@ private:
     void process_char(char const c) {
         switch(c) {
             case ')':
-                process_operator(operators.pop(), values.pop(), values.pop());
+                process_operator();
             case '(':
                 break;
             case '-':
             case '+':
             case '*':
+            case '/':
                 operators.push(c);
                 break;
             case '0':
@@ -48,8 +49,14 @@ private:
         }
     }
 
-    void process_operator(char const op, int val1, int val2) {
+    void process_operator() {
+        auto const val2{values.pop()};
+        auto const val1{values.pop()};
+        auto const op{operators.pop()};
         switch(op) {
+            case '/':
+                values.push(val1 / val2);
+                break;
             case '-':
                 values.push(val1 - val2);
                 break;
