@@ -6,102 +6,120 @@ namespace {
   using namespace ::testing;
   using namespace ::sedgealgos::stack;
 
-  class ResizingArrayStackTest : public Test {
-  protected:
-    ResizingArrayStack<int> stack{};
-  };
+template <typename T>
+class StackTest : public ::testing::Test {
+protected:
+    T stack{};
+};
 
-  TEST_F(ResizingArrayStackTest, CreatesUsingCopyCtor) {
-      stack.push(1);
+TYPED_TEST_SUITE_P(StackTest);
 
-      ResizingArrayStack<int> new_stack{stack};
+
+  TYPED_TEST_P(StackTest, CreatesUsingCopyCtor) {
+      this->stack.push(1);
+
+      TypeParam new_stack{this->stack};
 
       EXPECT_FALSE(new_stack.is_empty());
-      EXPECT_EQ(stack.pop(), new_stack.pop());
+      EXPECT_EQ(this->stack.pop(), new_stack.pop());
   }
 
-  TEST_F(ResizingArrayStackTest, CreatesUsingCopyAssignmentOperator) {
-      stack.push(1);
+  TYPED_TEST_P(StackTest, CreatesUsingCopyAssignmentOperator) {
+      this->stack.push(1);
 
       ResizingArrayStack<int> new_stack{};
-      new_stack = stack;
+      new_stack = this->stack;
 
       EXPECT_FALSE(new_stack.is_empty());
-      EXPECT_EQ(stack.pop(), new_stack.pop());
+      EXPECT_EQ(this->stack.pop(), new_stack.pop());
   }
 
-  TEST_F(ResizingArrayStackTest, IsEmptyAfterCreated) {
-      EXPECT_TRUE(stack.is_empty());
+  TYPED_TEST_P(StackTest, IsEmptyAfterCreated) {
+      EXPECT_TRUE(this->stack.is_empty());
   }
 
-  TEST_F(ResizingArrayStackTest, IsNotEmptyAfterPushingElement) {
-      stack.push(1);
+  TYPED_TEST_P(StackTest, IsNotEmptyAfterPushingElement) {
+      this->stack.push(1);
 
-      EXPECT_FALSE(stack.is_empty());
+      EXPECT_FALSE(this->stack.is_empty());
   }
 
-  TEST_F(ResizingArrayStackTest, PopsLatestElement) {
-      stack.push(1);
-      stack.push(2);
+  TYPED_TEST_P(StackTest, PopsLatestElement) {
+      this->stack.push(1);
+      this->stack.push(2);
 
-      EXPECT_EQ(stack.pop(), 2);
+      EXPECT_EQ(this->stack.pop(), 2);
   }
 
-  TEST_F(ResizingArrayStackTest, IsLIFO) {
-      stack.push(1);
-      stack.push(2);
-      stack.push(3);
-      stack.push(4);
-      stack.push(5);
-      stack.push(6);
-      stack.push(7);
-      stack.push(8);
+  TYPED_TEST_P(StackTest, IsLIFO) {
+      this->stack.push(1);
+      this->stack.push(2);
+      this->stack.push(3);
+      this->stack.push(4);
+      this->stack.push(5);
+      this->stack.push(6);
+      this->stack.push(7);
+      this->stack.push(8);
 
       auto is_lifo{true};
-      is_lifo &= stack.pop() == 8;
-      is_lifo &= stack.pop() == 7;
-      is_lifo &= stack.pop() == 6;
-      is_lifo &= stack.pop() == 5;
-      is_lifo &= stack.pop() == 4;
-      is_lifo &= stack.pop() == 3;
-      is_lifo &= stack.pop() == 2;
-      is_lifo &= stack.pop() == 1;
+      is_lifo &= this->stack.pop() == 8;
+      is_lifo &= this->stack.pop() == 7;
+      is_lifo &= this->stack.pop() == 6;
+      is_lifo &= this->stack.pop() == 5;
+      is_lifo &= this->stack.pop() == 4;
+      is_lifo &= this->stack.pop() == 3;
+      is_lifo &= this->stack.pop() == 2;
+      is_lifo &= this->stack.pop() == 1;
 
       EXPECT_TRUE(is_lifo);
   }
 
-  TEST_F(ResizingArrayStackTest, SizeReturnsZeroAfterPopingAllElements) {
-      stack.push(1);
-      stack.push(2);
-      stack.push(3);
+  TYPED_TEST_P(StackTest, SizeReturnsZeroAfterPopingAllElements) {
+      this->stack.push(1);
+      this->stack.push(2);
+      this->stack.push(3);
 
-      stack.pop();
-      stack.pop();
-      stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
 
-      EXPECT_EQ(stack.size(), 0);
+      EXPECT_EQ(this->stack.size(), 0);
   }
 
-  TEST_F(ResizingArrayStackTest, ShrinkStackSize) {
-      stack.push(1);
-      stack.push(2);
-      stack.push(3);
-      stack.push(4);
-      stack.push(5);
-      stack.push(6);
-      stack.push(7);
-      stack.push(8);
-      stack.push(9);
-      stack.push(10);
+  TYPED_TEST_P(StackTest, ShrinkStackSize) {
+      this->stack.push(1);
+      this->stack.push(2);
+      this->stack.push(3);
+      this->stack.push(4);
+      this->stack.push(5);
+      this->stack.push(6);
+      this->stack.push(7);
+      this->stack.push(8);
+      this->stack.push(9);
+      this->stack.push(10);
 
-      stack.pop();
-      stack.pop();
-      stack.pop();
-      stack.pop();
-      stack.pop();
-      stack.pop();
-      stack.pop();
-      stack.pop();
-      stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
+      this->stack.pop();
   }
+
+  REGISTER_TYPED_TEST_SUITE_P(
+    StackTest,
+    CreatesUsingCopyCtor,
+    CreatesUsingCopyAssignmentOperator,
+    IsEmptyAfterCreated,
+    IsNotEmptyAfterPushingElement,
+    PopsLatestElement,
+    IsLIFO,
+    SizeReturnsZeroAfterPopingAllElements,
+    ShrinkStackSize
+  );
+
+  INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, StackTest, ResizingArrayStack<int>);
 }
