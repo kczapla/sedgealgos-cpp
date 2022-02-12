@@ -23,3 +23,17 @@ sedgealgos_cc_test(
         "resizing_array_stack"
     ],
 )
+
+sedgealgos_cc_library(
+    name = "linked_list_stack",
+    hdrs = ["linked_list_stack.hpp"],
+)
+
+sedgealgos_cc_test(
+    name = "linked_list_stack_test",
+    srcs = ["linked_list_stack_test.cpp"],
+    deps = [
+        "stack_test",
+        "linked_list_stack"
+    ],
+)
