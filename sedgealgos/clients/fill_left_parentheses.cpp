@@ -19,15 +19,20 @@ namespace sedgealgos::clients {
                   break;
               case ')':
                   {
-                  auto const second{operands.pop()};
-                  auto const first{operands.pop()};
-                  auto const op{operators.pop()};
+                  stack::LinkedListStack<char> reverted_expression{};
+                  reverted_expression.push(')');
+                  while(!operators.is_empty()) {
+                    reverted_expression.push(operands.pop());
+                    reverted_expression.push(operators.pop());
+                  }
+                  reverted_expression.push(operands.pop());
+                  reverted_expression.push('(');
+
                   std::string new_expression{};
-                  new_expression.push_back('(');
-                  new_expression.push_back(first);
-                  new_expression.push_back(op);
-                  new_expression.push_back(second);
-                  new_expression.push_back(')');
+                  while(!reverted_expression.is_empty()) {
+                      new_expression.push_back(reverted_expression.pop());
+                  }
+
                   expressions.push(new_expression);
                   }
                   break;

@@ -24,4 +24,9 @@ namespace {
     FillLeftParentheses flp;
     EXPECT_EQ(flp.fill("1/2)"), "(1/2)");
   }
+
+  TEST(FillLeftParenthesesTests, AddParenAroundCompoundArithmeticOps) {
+    FillLeftParentheses flp;
+    EXPECT_EQ(flp.fill("1/2+3*4-5)"), "(1/2+3*4-5)");
+  }
 }
