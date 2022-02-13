@@ -1,6 +1,8 @@
 load(
    "//bazel:sedgealgos_build_system.bzl",
+   "sedgealgos_cc_test",
    "sedgealgos_cc_binary",
+   "sedgealgos_cc_library",
 )
 
 sedgealgos_cc_binary(
@@ -21,4 +23,21 @@ sedgealgos_cc_binary(
         "//sedgealgos/io:std_out",
         "//sedgealgos/stack:resizing_array_stack"
     ]
+)
+
+sedgealgos_cc_library(
+    name = "fill_left_parentheses",
+    hdrs = ["fill_left_parentheses.hpp"],
+    srcs = ["fill_left_parentheses.cpp"],
+    deps = [
+        "//sedgealgos/stack:linked_list_stack",
+    ],
+)
+
+sedgealgos_cc_test(
+    name = "fill_left_parentheses_test",
+    srcs = ["fill_left_parentheses_test.cpp"],
+    deps = [
+        "fill_left_parentheses",
+    ],
 )
