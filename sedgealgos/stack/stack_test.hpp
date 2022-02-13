@@ -106,6 +106,31 @@ TYPED_TEST_SUITE_P(StackTest);
       this->stack.pop();
   }
 
+  TYPED_TEST_P(StackTest, PeeksTopElement) {
+    this->stack.push(1);
+    this->stack.push(2);
+    this->stack.push(3);
+
+    EXPECT_EQ(this->stack.peek(), 3);
+  }
+
+  TYPED_TEST_P(StackTest, PeekDoesNotPopsTopElement) {
+    this->stack.push(1);
+    [[maybe_unused]] auto elem{this->stack.peek()};
+
+    EXPECT_EQ(this->stack.size(), 1);
+  }
+
+  TYPED_TEST_P(StackTest, PeekReturnsConstItemIfConstStack) {
+    this->stack.push(1);
+
+    auto const f{[](auto const& s) {
+      EXPECT_TRUE(std::is_const_v<decltype(s.peek())>);
+    }};
+
+    f(this->stack);
+  }
+
   REGISTER_TYPED_TEST_SUITE_P(
     StackTest,
     CreatesUsingCopyCtor,
@@ -115,6 +140,9 @@ TYPED_TEST_SUITE_P(StackTest);
     PopsLatestElement,
     IsLIFO,
     SizeReturnsZeroAfterPopingAllElements,
-    ShrinkStackSize
+    ShrinkStackSize,
+    PeeksTopElement,
+    PeekDoesNotPopsTopElement,
+    PeekReturnsConstItemIfConstStack
   );
 }

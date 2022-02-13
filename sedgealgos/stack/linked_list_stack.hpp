@@ -12,6 +12,8 @@ public:
 
   void push(Item item); 
   Item pop();
+  Item& peek();
+  Item const& peek() const;
 
   bool is_empty() const;
   unsigned long size() const;
@@ -80,5 +82,15 @@ unsigned long LinkedListStack<Item>::size() const {
     ++count;
   }
   return count;
+}
+
+template <typename Item>
+Item& LinkedListStack<Item>::peek() {
+  return head->item;
+}
+
+template <typename Item>
+Item const& LinkedListStack<Item>::peek() const {
+  return const_cast<LinkedListStack<Item>*>(this)->peek();
 }
 }

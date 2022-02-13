@@ -11,6 +11,8 @@ namespace sedgealgos::stack {
     bool is_empty() const;
     void push(Item a);
     Item pop();
+    Item& peek();
+    Item const& peek() const;
 
   private:
     void resize(unsigned long);
@@ -93,5 +95,15 @@ namespace sedgealgos::stack {
       delete[] container;
       container = larger_container;
       capacity = new_capacity;
+  }
+
+  template <typename Item>
+  Item& ResizingArrayStack<Item>::peek() {
+      return container[next_index - 1];
+  }
+
+  template <typename Item>
+  Item const& ResizingArrayStack<Item>::peek() const {
+      return const_cast<ResizingArrayStack<Item>*>(this)->peek();
   }
 }
