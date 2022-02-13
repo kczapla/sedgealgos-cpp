@@ -11,6 +11,9 @@ namespace sedgealgos::clients {
 
       for (auto const c : statement) {
           switch(c) {
+              case '/':
+              case '*':
+              case '-':
               case '+':
                   operators.push(c);
                   break;
