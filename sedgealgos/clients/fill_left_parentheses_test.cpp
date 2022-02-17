@@ -31,4 +31,16 @@ namespace {
   TEST_F(FillLeftParenthesesTests, AddParenAroundCompoundArithmeticOps) {
     EXPECT_EQ(fill("1/2+3*4-5)"), "(1/2+3*4-5)");
   }
+
+  TEST_F(FillLeftParenthesesTests, AddsParensAroundExprAndSingleChar) {
+    EXPECT_EQ(fill("1/2)+3))"), "((1/2)+(3))");
+  }
+
+  TEST_F(FillLeftParenthesesTests, AddsParensAroundExprAndMultipleChars) {
+    EXPECT_EQ(fill("1/2)+3*4-5))"), "((1/2)+(3*4-5))");
+  }
+
+  TEST_F(FillLeftParenthesesTests, WrapThreeExpressionsWithParams) {
+    EXPECT_EQ(fill("1+2)*3-4)*5-6)))"), "((1+2)*((3-4)*(5-6)))");
+  }
 }

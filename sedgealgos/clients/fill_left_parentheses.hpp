@@ -11,8 +11,7 @@ public:
 private:
   void on_operator_detection(char c);
   void on_operand_detection(char c);
-
-  void on_make_expr_from_operands_and_ops(); 
+  void on_close_paren();
 
   stack::LinkedListStack<char> operands{};
   stack::LinkedListStack<char> operators{};
