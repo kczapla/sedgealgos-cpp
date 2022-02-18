@@ -41,3 +41,20 @@ sedgealgos_cc_test(
         "fill_left_parentheses",
     ],
 )
+
+sedgealgos_cc_library(
+    name = "infix_to_postfix_converter",
+    hdrs = ["infix_to_postfix_converter.h"],
+    srcs = ["infix_to_postfix_converter.cc"],
+    deps = [
+        "//sedgealgos/stack:linked_list_stack",
+    ],
+)
+
+sedgealgos_cc_test(
+    name = "infix_to_postfix_converter_test",
+    srcs = ["infix_to_postfix_converter_test.cc"],
+    deps = [
+        "infix_to_postfix_converter",
+    ],
+)
