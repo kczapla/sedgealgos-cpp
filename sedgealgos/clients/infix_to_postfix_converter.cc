@@ -10,7 +10,10 @@ std::string InfixToPostfixConverter::convert(std::string s) {
 
   for (auto const c : s) {
     switch(c) {
+      case '-':
       case '+':
+      case '*':
+      case '/':
         operators.push(c);
         break;
       default:

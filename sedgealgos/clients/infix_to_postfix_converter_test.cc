@@ -5,8 +5,11 @@
 namespace {
 using namespace sedgealgos::clients;
 
-TEST(InfixToPostfixConverterTest, ConvertAddition) {
+TEST(InfixToPostfixConverterTest, ConverArithmeticOperations) {
   InfixToPostfixConverter converter;
   EXPECT_EQ(converter.convert("1+2"), "(1 2 +)");
+  EXPECT_EQ(converter.convert("1-2"), "(1 2 -)");
+  EXPECT_EQ(converter.convert("1*2"), "(1 2 *)");
+  EXPECT_EQ(converter.convert("1/2"), "(1 2 /)");
 }
 }
