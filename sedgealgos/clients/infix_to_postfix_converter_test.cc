@@ -26,7 +26,11 @@ INSTANTIATE_TEST_CASE_P(
       std::make_tuple("1+2", "(1 2 +)"),
       std::make_tuple("1-2", "(1 2 -)"),
       std::make_tuple("1*2", "(1 2 *)"),
-      std::make_tuple("1/2", "(1 2 /)")
+      std::make_tuple("1/2", "(1 2 /)"),
+      std::make_tuple("1+2+3", "(1 (2 3 +) +)"),
+      std::make_tuple("1+2-3", "(1 (2 3 -) +)"),
+      std::make_tuple("1+2*3", "(1 (2 3 *) +)"),
+      std::make_tuple("1+2/3", "(1 (2 3 /) +)")
     )
 );
 }

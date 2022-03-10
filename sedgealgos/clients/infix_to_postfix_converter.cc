@@ -7,6 +7,7 @@ namespace sedgealgos::clients {
 std::string InfixToPostfixConverter::convert(std::string s) {
   stack::LinkedListStack<char> operands;
   stack::LinkedListStack<char> operators;
+  std::string expression;
 
   for (auto const c : s) {
     switch(c) {
@@ -22,17 +23,30 @@ std::string InfixToPostfixConverter::convert(std::string s) {
     }
   }
 
-  auto const second{operands.pop()};
-  auto const first{operands.pop()};
+  while (!operators.is_empty()) {
+    std::string expr{'('};
+    if (expression.empty()) {
+      auto const second{operands.pop()};
+      auto const first{operands.pop()};
+      expr += first;
+      expr += ' ';
+      expr += second;
+      expr += ' ';
+      expr += operators.pop();
+      expr += ')';
+      expression = expr;
+      continue;
+    }
+    expr += operands.pop();
+    expr += ' ';
+    expr += expression;
+    expr += ' ';
+    expr += operators.pop();
+    expr += ')';
 
-  std::string expr{'('};
-  expr += first;
-  expr += ' ';
-  expr += second;
-  expr += ' ';
-  expr += operators.pop();
-  expr += ')';
+    expression = expr;
+  }
 
-  return expr;
+  return expression;
 }
 }
