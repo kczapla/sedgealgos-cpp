@@ -3,6 +3,7 @@
 
 #include "quick_find_union_find.hpp"
 #include "sedgealgos/algorithms/union_find/quick_find_union_find.hpp"
+#include "sedgealgos/algorithms/union_find/quick_union_union_find.hpp"
 
 #include <stdexcept>
 
@@ -81,4 +82,5 @@ namespace {
     );
 
     INSTANTIATE_TYPED_TEST_SUITE_P(QuickFind, UnionFindTest, QuickFindUnionFind);
+    INSTANTIATE_TYPED_TEST_SUITE_P(QuickUnion, UnionFindTest, QuickUnionUnionFind);
 }
