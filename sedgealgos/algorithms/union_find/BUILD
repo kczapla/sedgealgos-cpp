@@ -16,11 +16,18 @@ sedgealgos_cc_library(
     srcs = ["quick_union_union_find.cpp"],
 )
 
+sedgealgos_cc_library(
+    name = "quick_union_union_find_with_compressed_paths",
+    hdrs = ["quick_union_union_find_with_compressed_paths.hpp"],
+    srcs = ["quick_union_union_find_with_compressed_paths.cpp"],
+)
+
 sedgealgos_cc_test(
     name = "union_find_test",
     srcs = ["union_find_test.cc"],
     deps = [
         "quick_find_union_find",
-        "quick_union_union_find"
+        "quick_union_union_find",
+        "quick_union_union_find_with_compressed_paths",
     ],
 )
