@@ -7,6 +7,7 @@
 #include "sedgealgos/algorithms/union_find/quick_union_union_find_with_compressed_paths.hpp"
 #include "sedgealgos/algorithms/union_find/quick_union_union_find_with_weights.hpp"
 #include "sedgealgos/algorithms/union_find/quick_union_union_find_with_weights_with_compressed_paths.hpp"
+#include "sedgealgos/algorithms/union_find/quick_union_union_find_with_depths.hpp"
 
 #include <stdexcept>
 
@@ -89,4 +90,5 @@ namespace {
     INSTANTIATE_TYPED_TEST_SUITE_P(QuickUnionWithCompressedPaths, UnionFindTest, QuickUnionUnionFindWithCompressedPaths);
     INSTANTIATE_TYPED_TEST_SUITE_P(QuickUnionWithWeights, UnionFindTest, QuickUnionUnionFindWithWeights);
     INSTANTIATE_TYPED_TEST_SUITE_P(QuickUnionWithWeightsWithCompressedPaths, UnionFindTest, QuickUnionUnionFindWithWeightsWithCompressedPaths);
+    INSTANTIATE_TYPED_TEST_SUITE_P(QuickUnionWithDepths, UnionFindTest, QuickUnionUnionFindWithDepths);
 }
