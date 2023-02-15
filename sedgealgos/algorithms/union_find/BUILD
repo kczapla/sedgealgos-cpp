@@ -28,6 +28,12 @@ sedgealgos_cc_library(
     srcs = ["quick_union_union_find_with_weights.cpp"],
 )
 
+sedgealgos_cc_library(
+    name = "quick_union_union_find_with_weights_with_compressed_paths",
+    hdrs = ["quick_union_union_find_with_weights_with_compressed_paths.hpp"],
+    srcs = ["quick_union_union_find_with_weights_with_compressed_paths.cpp"],
+)
+
 sedgealgos_cc_test(
     name = "union_find_test",
     srcs = ["union_find_test.cc"],
@@ -36,5 +42,6 @@ sedgealgos_cc_test(
         "quick_union_union_find",
         "quick_union_union_find_with_compressed_paths",
         "quick_union_union_find_with_weights",
+        "quick_union_union_find_with_weights_with_compressed_paths",
     ],
 )
