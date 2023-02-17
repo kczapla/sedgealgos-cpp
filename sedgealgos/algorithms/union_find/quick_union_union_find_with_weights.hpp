@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sedgelagos::algorithms::union_find {
+namespace sedgealgos::algorithms::union_find {
     class QuickUnionUnionFindWithWeights {
     public:
         QuickUnionUnionFindWithWeights(int n);
@@ -8,6 +8,7 @@ namespace sedgelagos::algorithms::union_find {
 
         void connect(int p, int q);
         bool connected(int p, int q) const;
+        int count() const;
 
     private:
         int size;

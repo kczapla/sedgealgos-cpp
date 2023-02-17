@@ -1,6 +1,8 @@
 #include "sedgealgos/algorithms/union_find/quick_union_union_find_with_weights.hpp"
 
-namespace sedgelagos::algorithms::union_find {
+#include <iostream>
+
+namespace sedgealgos::algorithms::union_find {
 
     QuickUnionUnionFindWithWeights::QuickUnionUnionFindWithWeights(int n) {
         size = n;
@@ -42,5 +44,9 @@ namespace sedgelagos::algorithms::union_find {
 
     bool QuickUnionUnionFindWithWeights::connected(int p, int q) const {
         return find(p) == find(q);
+    }
+
+    int QuickUnionUnionFindWithWeights::count() const {
+        return size;
     }
 }
