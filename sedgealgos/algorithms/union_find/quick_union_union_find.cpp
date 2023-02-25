@@ -21,6 +21,8 @@ namespace sedgelagos::algorithms::union_find {
         if (p_root == r_root) return;
 
         id[p_root] = r_root;
+        
+        size--;
     }
 
     int QuickUnionUnionFind::find(int p) const {
@@ -30,5 +32,9 @@ namespace sedgelagos::algorithms::union_find {
 
     bool QuickUnionUnionFind::connected(int p, int q) const {
         return find(p) == find(q);
+    }
+
+    int QuickUnionUnionFind::count() const {
+        return size;
     }
 }

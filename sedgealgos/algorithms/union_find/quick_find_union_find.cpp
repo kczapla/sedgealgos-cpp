@@ -25,6 +25,8 @@ namespace sedgelagos::algorithms::union_find {
                 id[i] = r_root;
             }
         }
+
+        size--;
     }
 
     int QuickFindUnionFind::find(int p) const {
@@ -33,5 +35,9 @@ namespace sedgelagos::algorithms::union_find {
 
     bool QuickFindUnionFind::connected(int p, int q) const {
         return find(p) == find(q);
+    }
+
+    int QuickFindUnionFind::count() const {
+        return size;
     }
 }

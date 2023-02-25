@@ -13,3 +13,15 @@ cc_binary(
         "//sedgealgos/algorithms/union_find:quick_union_union_find_with_weights"
     ],
 )
+
+cc_binary(
+    name = "double_test_for_erdos_renyieg",
+    srcs = ["ex1522.cpp"],
+    deps = [
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/random:std_random",
+        "//sedgealgos/algorithms/union_find:quick_find_union_find",
+        "//sedgealgos/algorithms/union_find:quick_union_union_find",
+        "//sedgealgos/algorithms/union_find:quick_union_union_find_with_weights",
+    ],
+)

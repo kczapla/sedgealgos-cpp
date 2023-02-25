@@ -9,6 +9,8 @@ namespace sedgelagos::algorithms::union_find {
         void connect(int p, int q);
         bool connected(int p, int q) const;
 
+        int count() const;
+
     private:
         int size;
         int* id;
