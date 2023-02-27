@@ -91,6 +91,6 @@ Item& LinkedListStack<Item>::peek() {
 
 template <typename Item>
 Item const& LinkedListStack<Item>::peek() const {
-  return const_cast<LinkedListStack<Item>*>(this)->peek();
+  return this->peek();
 }
 }

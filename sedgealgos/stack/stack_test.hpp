@@ -125,7 +125,8 @@ TYPED_TEST_SUITE_P(StackTest);
     this->stack.push(1);
 
     auto const f{[](auto const& s) {
-      EXPECT_TRUE(std::is_const_v<decltype(s.peek())>);
+      const auto is_const{std::is_const_v<typename std::remove_reference<decltype(s.peek())>::type>};
+      EXPECT_TRUE(is_const);
     }};
 
     f(this->stack);
