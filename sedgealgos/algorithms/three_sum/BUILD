@@ -8,6 +8,9 @@ sedgealgos_cc_library(
     name = "three_sum",
     hdrs = ["three_sum.hpp"],
     srcs = ["three_sum.cpp"],
+    deps = [
+        ":overflow_detection",
+    ],
 )
 
 sedgealgos_cc_test(
