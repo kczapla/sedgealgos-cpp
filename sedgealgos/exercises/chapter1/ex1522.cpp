@@ -142,10 +142,10 @@ int main(int argc, char** argv) {
     auto const t{std::stoi(argv[1])};
     auto const n{std::stoi(argv[2])};
 
-    auto const fast_find_union_find_test_result{::run_test_iterations<sedgelagos::algorithms::union_find::QuickFindUnionFind>(t, n)};
+    auto const fast_find_union_find_test_result{::run_test_iterations<sedgealgos::algorithms::union_find::QuickFindUnionFind>(t, n)};
     out.printf("quick find union find %s\n", fast_find_union_find_test_result.string());
 
-    auto const fast_union_union_union_find{::run_test_iterations<sedgelagos::algorithms::union_find::QuickUnionUnionFind>(t, n)};
+    auto const fast_union_union_union_find{::run_test_iterations<sedgealgos::algorithms::union_find::QuickUnionUnionFind>(t, n)};
     out.printf("quick union union find %s\n", fast_union_union_union_find.string());
 
     auto const fast_union_union_union_find_with_weights{::run_test_iterations<sedgealgos::algorithms::union_find::QuickUnionUnionFindWithWeights>(t, n)};

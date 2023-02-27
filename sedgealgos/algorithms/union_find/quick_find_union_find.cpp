@@ -1,6 +1,6 @@
 #include "sedgealgos/algorithms/union_find/quick_find_union_find.hpp"
 
-namespace sedgelagos::algorithms::union_find {
+namespace sedgealgos::algorithms::union_find {
 
     QuickFindUnionFind::QuickFindUnionFind(int n) {
         size = n;

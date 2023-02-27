@@ -1,6 +1,6 @@
 #include "sedgealgos/algorithms/union_find/quick_union_union_find_with_compressed_paths.hpp"
 
-namespace sedgelagos::algorithms::union_find {
+namespace sedgealgos::algorithms::union_find {
 
     QuickUnionUnionFindWithCompressedPaths::QuickUnionUnionFindWithCompressedPaths(int n) {
         size = n;

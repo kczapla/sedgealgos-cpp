@@ -13,7 +13,7 @@
 
 namespace {
     using namespace ::testing;
-    using namespace ::sedgelagos::algorithms::union_find;
+    using namespace ::sedgealgos::algorithms::union_find;
 
     template <typename T>
     class UnionFindTest : public ::testing::Test {};

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sedgelagos::algorithms::union_find {
+namespace sedgealgos::algorithms::union_find {
     class QuickFindUnionFind {
     public:
         QuickFindUnionFind(int n);
