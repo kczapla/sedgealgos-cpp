@@ -13,6 +13,7 @@ namespace sedgealgos::algorithms::union_find {
 
     private:
         int size;
+        int trees_count;
         int* id;
 
         int find(int p) const;

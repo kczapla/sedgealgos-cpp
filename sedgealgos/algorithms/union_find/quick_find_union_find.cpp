@@ -2,10 +2,9 @@
 
 namespace sedgealgos::algorithms::union_find {
 
-    QuickFindUnionFind::QuickFindUnionFind(int n) {
-        size = n;
-        id = new int[n];
-        for (int i{0}; i < n; i++) {
+    QuickFindUnionFind::QuickFindUnionFind(int n) : size{n}, trees_count{n} {
+        id = new int[size];
+        for (int i{0}; i < size; i++) {
             id[i] = i;
         }
     }
@@ -26,7 +25,7 @@ namespace sedgealgos::algorithms::union_find {
             }
         }
 
-        size--;
+        trees_count--;
     }
 
     int QuickFindUnionFind::find(int p) const {
@@ -38,6 +37,6 @@ namespace sedgealgos::algorithms::union_find {
     }
 
     int QuickFindUnionFind::count() const {
-        return size;
+        return trees_count;
     }
 }
