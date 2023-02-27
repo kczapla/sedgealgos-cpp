@@ -5,79 +5,79 @@
 #include <limits>
 
 namespace {
-TEST(TreeSumTest, DetectsZeroZeroSums) {
+TEST(ThreeSumTest, DetectsZeroZeroSums) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{1, 2, 3, 4, 5, 6};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DetectsOneZeroSum) {
+TEST(ThreeSumTest, DetectsOneZeroSum) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{1, 2, -3, 4, 5, 6};
   ASSERT_EQ(1, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DetectsZeroSumsScatterInArray) {
+TEST(ThreeSumTest, DetectsZeroSumsScatterInArray) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{1, 2, 3, 4, 5, -6};
   ASSERT_EQ(2, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DetectesThreeSumOnTheVergeOfOverflowing) {
+TEST(ThreeSumTest, DetectesThreeSumOnTheVergeOfOverflowing) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::max() / 2, std::numeric_limits<int>::max() / 2, 0};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectThreeSumWhenSumOfTwoConsecutiveElementsOverflow) {
+TEST(ThreeSumTest, DoesntDetectThreeSumWhenSumOfTwoConsecutiveElementsOverflow) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::max(), 2, std::numeric_limits<int>::max()};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectThreeSumWhenSumOfTwoScatteredElementsOverflow) {
+TEST(ThreeSumTest, DoesntDetectThreeSumWhenSumOfTwoScatteredElementsOverflow) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::max(), std::numeric_limits<int>::max(), 2};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectThreeSumWhenSumOverflowsOnlyAfterThirdElement) {
+TEST(ThreeSumTest, DoesntDetectThreeSumWhenSumOverflowsOnlyAfterThirdElement) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::max() / 2, std::numeric_limits<int>::max() / 2, 2};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectThreeSumWhenSumOfTwoConsecutiveElementsOverflowNegatively) {
+TEST(ThreeSumTest, DoesntDetectThreeSumWhenSumOfTwoConsecutiveElementsOverflowNegatively) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::min(), 0, std::numeric_limits<int>::min()};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectThreeSumWhenSumOfTwoScatteredElementsOverflowNegatively) {
+TEST(ThreeSumTest, DoesntDetectThreeSumWhenSumOfTwoScatteredElementsOverflowNegatively) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::min(), std::numeric_limits<int>::min(), 0};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectThreeSumWhenSumOfTwoLastElemsOverflowNegatively) {
+TEST(ThreeSumTest, DoesntDetectThreeSumWhenSumOfTwoLastElemsOverflowNegatively) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{0, std::numeric_limits<int>::min(), std::numeric_limits<int>::min()};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectZeroSumWhenSumWillOverflowNegativelyOnAddingLastElement) {
+TEST(ThreeSumTest, DoesntDetectZeroSumWhenSumWillOverflowNegativelyOnAddingLastElement) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::min() / 2, std::numeric_limits<int>::min() / 2, -1};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, DoesntDetectZeroSumWhenSumWillOverflowNegativelyOnAddingLastElementWhichNegativeMaxInt) {
+TEST(ThreeSumTest, DoesntDetectZeroSumWhenSumWillOverflowNegativelyOnAddingLastElementWhichNegativeMaxInt) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::min() / 2, std::numeric_limits<int>::min() / 2, -std::numeric_limits<int>::max()};
   ASSERT_EQ(0, three_sum.count(a));
 }
 
-TEST(TreeSumTest, Test1) {
+TEST(ThreeSumTest, Test1) {
   sedgealgos::algorithms::three_sum::ThreeSum three_sum{};
   std::vector<int> a{std::numeric_limits<int>::min(), std::numeric_limits<int>::min() + 1, -1};
   ASSERT_EQ(0, three_sum.count(a));
