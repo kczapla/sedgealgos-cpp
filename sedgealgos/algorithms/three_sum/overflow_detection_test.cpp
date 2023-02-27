@@ -1,5 +1,6 @@
 #include "sedgealgos/algorithms/three_sum/overflow_detection.hpp"
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <limits>
@@ -43,5 +44,45 @@ TEST(OverflowDetectionTest, Test5) {
 
 TEST(OverflowDetectionTest, Test6) {
     EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(-2, min_int + 1));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test1) {
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, min_int, min_int));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test2) {
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, min_int, -1));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(-1, min_int, min_int));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, -1, min_int));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test3) {
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, min_int, 0));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(0, min_int, min_int));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, 0, min_int));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test4) {
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, -1, -1));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(-1, -1, min_int));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(-1, min_int, -1));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test6) {
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, 50, -100));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(50, min_int, -100));
+    EXPECT_TRUE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(50, -100, min_int));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test7) {
+    EXPECT_FALSE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(min_int, 1, 2));
+    EXPECT_FALSE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(1, min_int, 2));
+    EXPECT_FALSE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(1, 2, min_int));
+}
+
+TEST(ThreeSumOverflowDetectionTest, Test9) {
+    EXPECT_FALSE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(0, 1, 2));
+    EXPECT_FALSE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(1, 0, 2));
+    EXPECT_FALSE(sedgealgos::algorithms::three_sum::overflow_detection::will_sum_overflow_negatively(1, 2, 0));
 }
 }

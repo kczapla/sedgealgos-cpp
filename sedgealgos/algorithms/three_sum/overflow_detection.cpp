@@ -10,4 +10,12 @@ bool will_sum_overflow_negatively(int a, int b) {
     }
     return a < std::numeric_limits<int>::min() - b;
 }
+
+bool will_sum_overflow_negatively(int a, int b, int c) {
+    auto sum_is_overflown{will_sum_overflow_negatively(a, b)};
+    sum_is_overflown |= will_sum_overflow_negatively(a, c);
+    sum_is_overflown |= will_sum_overflow_negatively(b, c);
+
+    return sum_is_overflown;
+}
 }

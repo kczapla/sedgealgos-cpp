@@ -17,3 +17,21 @@ sedgealgos_cc_test(
         "three_sum",
     ],
 )
+
+sedgealgos_cc_library(
+    name = "overflow_detection",
+    hdrs = [
+        "overflow_detection.hpp",
+    ],
+    srcs = [
+        "overflow_detection.cpp",
+    ],
+)
+ 
+sedgealgos_cc_test(
+    name = "overflow_detection_test",
+    srcs = ["overflow_detection_test.cpp"],
+    deps = [
+        "overflow_detection",
+    ],
+)   
