@@ -16,11 +16,12 @@ sedgealgos_cc_binary(
 )
 
 sedgealgos_cc_binary(
-    name = "twosum",
-    srcs = ["twosum.cpp"],
+    name = "are_equal",
+    srcs = ["are_equal.cpp"],
     deps = [
         "//sedgealgos/io:in",
         "//sedgealgos/io:std_out",
+        "//sedgealgos/algorithms/two_sum:are_equal",
     ],
 )
 
