@@ -16,6 +16,15 @@ sedgealgos_cc_binary(
 )
 
 sedgealgos_cc_binary(
+    name = "twosum",
+    srcs = ["twosum.cpp"],
+    deps = [
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+    ],
+)
+
+sedgealgos_cc_binary(
     name = "evaluate",
     srcs = ["evaluate.cpp"],
     deps = [

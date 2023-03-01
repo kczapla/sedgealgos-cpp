@@ -38,6 +38,14 @@ int In::read_int() {
     return a;
 }
 
+array::Array<int> In::read_ints() {
+    array::Array<int> array;
+    while (!is_empty()) {
+        array.push_back(read_int());
+    }
+    return array;
+}
+
 double In::read_double() {
     if (is_empty()) {
         throw InException{"Input reached eof"};

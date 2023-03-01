@@ -19,6 +19,10 @@ namespace {
             fwi << "1 2 3 4 5 6 7";
             fwi.close();
 
+            std::ofstream fwni{file_with_new_line_ints, std::ofstream::out};
+            fwni << "1\n2\n3\n4\n5\n6\n7";
+            fwni.close();
+
             std::ofstream fwd{file_with_doubles, std::ofstream::out};
             fwd << "1.1 2.2 3.3 4.4";
             fwd.close();
@@ -27,6 +31,7 @@ namespace {
         void TearDown() override {
             std::filesystem::remove(empty_file);
             std::filesystem::remove(file_with_ints);
+            std::filesystem::remove(file_with_new_line_ints);
             std::filesystem::remove(file_with_doubles);
         }
 
@@ -48,6 +53,7 @@ namespace {
     
         std::filesystem::path empty_file{std::filesystem::temp_directory_path() / "empty_file.txt"};
         std::filesystem::path file_with_ints{std::filesystem::temp_directory_path() / "file_with_ints.txt"};
+        std::filesystem::path file_with_new_line_ints{std::filesystem::temp_directory_path() / "file_with_new_line_ints.txt"};
         std::filesystem::path file_with_doubles{std::filesystem::temp_directory_path() / "file_with_doubles.txt"};
     };
 
@@ -96,5 +102,10 @@ TEST_F(InTest, ReadsAll) {
 
 TEST_F(InTest, ReadInts) {
     EXPECT_THAT(read_ints(file_with_ints), ElementsAre(1, 2, 3, 4, 5, 6, 7));
+}
+
+TEST_F(InTest, ReadsIntsIntoArray) {
+    In in{file_with_ints};
+    EXPECT_THAT(in.read_ints(), ElementsAre(1, 2, 3, 4, 5, 6, 7));
 }
 }

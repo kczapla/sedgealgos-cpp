@@ -3,6 +3,9 @@ cc_library(
     hdrs = ["in.hpp"],
     srcs = ["in.cpp"],
     visibility = ["//visibility:public"],
+    deps = [
+        "//sedgealgos/array:array",
+    ]
 )
 
 cc_test(

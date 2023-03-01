@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sedgealgos/array/array.hpp"
+
 #include <vector>
 #include <string>
 #include <fstream>
@@ -19,6 +21,8 @@ namespace sedgealgos::io {
         In(std::string);
 
         int read_int();
+        array::Array<int> read_ints();
+        
         double read_double();
         std::string reads_all();
 
