@@ -9,3 +9,5 @@
 !bazel/
 !bazel/**/*
 !WORKSPACE
+!tools/
+!tools/**/*
