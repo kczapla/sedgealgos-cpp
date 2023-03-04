@@ -1,7 +1,5 @@
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+workspace(name = "sedgealgos-cpp")
 
-git_repository(
-    name="com_google_googletest",
-    branch="main",
-    remote="https://github.com/google/googletest"
-)
+load("@sedgealgos-cpp//bazel:repositories.bzl", "sedgealgos_cpp_repositories")
+
+sedgealgos_cpp_repositories()
