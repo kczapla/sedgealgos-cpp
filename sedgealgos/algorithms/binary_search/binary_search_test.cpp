@@ -54,5 +54,13 @@ TEST(BinarySearchTest, FindKeyWhenAtTheOneBeforeVeryEndOfTheArray) {
 
     EXPECT_EQ(8, BinarySearch::rank(9, array));
 }
+
+TEST(BinarySearchTest, ReturnsSmallestMatchIndex) {
+    Array array{1,2,2,4,5,6,7,8,9,9,10,10};
+
+    EXPECT_EQ(1, BinarySearch::rank(2, array));
+    EXPECT_EQ(8, BinarySearch::rank(9, array));
+    EXPECT_EQ(10, BinarySearch::rank(10, array));
+}
 }
 
