@@ -24,7 +24,7 @@ echo $cpp_namespace
 echo $class_name
 
 echo "load(
-    \"//bazel:sedgealgos_build_system.bzl\",
+    \"@sedgealgos-cpp//bazel:sedgealgos_build_system.bzl\",
     \"sedgealgos_cc_library\",
     \"sedgealgos_cc_test\",
 )
