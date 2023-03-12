@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <limits>
+#include <algorithm>
 
 namespace sedgealgos::algorithms::two_sum::closest_pair {
 
@@ -14,20 +15,25 @@ bool ClosestPair::Pair::operator==(Pair const& pair) const {
     return first == pair.first && second == pair.second;
 }
 
-ClosestPair::Pair ClosestPair::find(Array const& array) {
-    auto smallest_diff{std::numeric_limits<double>::max()};
-    Pair smallest_pair;
-    for (std::size_t i{0}; i < array.size(); i++) {
-        for (std::size_t j{i+1}; j < array.size(); j++) {
-            auto const diff{std::abs(array[j] - array[i])};
-            if (diff < smallest_diff) {
-                smallest_pair.first = array[i];
-                smallest_pair.second = array[j];
-                smallest_diff = diff;
-            }
+ClosestPair::Pair ClosestPair::find(Array& array) {
+    if (array.size() < 2) {
+        return {std::numeric_limits<double>::max(), std::numeric_limits<double>::max()};
+    }
+
+    std::sort(array.begin(), array.end());
+
+    auto min{std::numeric_limits<double>::max()};
+    Pair p;
+    for (std::size_t i{1}; i < array.size(); i++) {
+        auto diff = array[i] - array[i-1];
+        if (diff < min) {
+            min = diff;
+            p.first = array[i-1];
+            p.second = array[i];
         }
     }
-    return smallest_pair;
+
+    return p;
 }
 }
 

@@ -10,13 +10,13 @@ public:
     using Array = sedgealgos::array::Array<double>;
 
     struct Pair {
-        int first;
-        int second;
+        double first;
+        double second;
 
         bool operator==(Pair const&) const;
     };
 
-    static Pair find(Array const&);
+    static Pair find(Array&);
 };
 
 std::ostream& operator<<(std::ostream&, ClosestPair::Pair const&); 
