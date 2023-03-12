@@ -6,20 +6,21 @@
 
 namespace sedgealgos::algorithms::two_sum::farthest_pair {
 FarthestPair::Pair FarthestPair::find(Array const& arr) {
-    Pair p{};
-    auto min{0};
-    for (std::size_t i{0}; i < arr.size(); i++) {
-        for (std::size_t j{i +1}; j < arr.size(); j++) {
-            auto const diff{std::abs(arr[j] - arr[i])};
-            if (diff > min) {
-                p.first = arr[i];
-                p.second = arr[j];
-                min = diff;
-            }
+    auto max{std::numeric_limits<double>::lowest()};
+    for (auto elem : arr) {
+        if (elem > max) {
+            max = elem;
         }
     }
 
-    return p;
+    auto min{std::numeric_limits<double>::max()};
+    for (auto elem : arr) {
+        if (elem < min) {
+            min = elem;
+        }
+    }
+
+    return {min, max};
 }
 
 bool FarthestPair::Pair::operator==(FarthestPair::Pair const& pair) const {

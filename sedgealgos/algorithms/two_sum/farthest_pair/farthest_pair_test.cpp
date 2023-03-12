@@ -13,13 +13,19 @@ TEST(FarthestPairTest, Test1) {
 
 TEST(FarthestPairTest, Test2) {
     auto const current_pair{FarthestPair::find({6, -5, 3, -1, 0, 1})};
-    FarthestPair::Pair const expected_pair{6, -5};
+    FarthestPair::Pair const expected_pair{-5, 6};
     EXPECT_EQ(current_pair, expected_pair);
 }
 
 TEST(FarthestPairTest, Test3) {
     auto const current_pair{FarthestPair::find({0, 0})};
     FarthestPair::Pair const expected_pair{0, 0};
+    EXPECT_EQ(current_pair, expected_pair);
+}
+
+TEST(FarthestPairTest, Test4) {
+    auto const current_pair{FarthestPair::find({-9, -6, -5, -7})};
+    FarthestPair::Pair const expected_pair{-9, -5};
     EXPECT_EQ(current_pair, expected_pair);
 }
 }
