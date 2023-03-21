@@ -18,9 +18,6 @@ int Ex1418::find(Ex1418::Array const& arr) {
             }
             return -1;
         }
-        std::cout << "lower = " << lower << std::endl;
-        std::cout << "n = " << n << std::endl;
-        std::cout << "upper = " << upper << std::endl;
         if ((arr[n] < arr[n-1]) && (arr[n] < arr[n+1])) {
             return n;
         }
