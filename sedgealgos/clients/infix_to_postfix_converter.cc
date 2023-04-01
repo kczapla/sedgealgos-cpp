@@ -2,51 +2,56 @@
 #include "sedgealgos/stack/linked_list_stack.hpp"
 
 #include <string>
+#include <iostream>
 
 namespace sedgealgos::clients {
 std::string InfixToPostfixConverter::convert(std::string s) {
-  stack::LinkedListStack<char> operands;
+  stack::LinkedListStack<std::string> operands;
   stack::LinkedListStack<char> operators;
-  std::string expression;
 
   for (auto const c : s) {
     switch(c) {
-      case '-':
-      case '+':
       case '*':
       case '/':
         operators.push(c);
         break;
-      default:
-        operands.push(c);
+      case '-':
+      case '+': {
+        if (operators.is_empty()) {
+            operators.push(c);
+            continue;
+        }
+        if (operators.peek() == '-' || operators.peek() == '+') {
+            auto const op1{operands.pop()};
+            auto const op2{operands.pop()};
+            operands.push(op2 + " " + op1 + " " + operators.pop());
+        }
+        operators.push(c);
         break;
+      }
+      default: {
+        operands.push(std::string{c});
+        if (operators.is_empty()) {
+            continue;
+        }
+        if (operators.peek() == '*' || operators.peek() == '/') {
+            auto const op1{operands.pop()};
+            auto const op2{operands.pop()};
+            operands.push(op2 + " " + op1 + " " + operators.pop());
+        }
+        break;
+      }
     }
   }
 
-  while (!operators.is_empty()) {
-    std::string expr{'('};
-    if (expression.empty()) {
-      auto const second{operands.pop()};
-      auto const first{operands.pop()};
-      expr += first;
-      expr += ' ';
-      expr += second;
-      expr += ' ';
-      expr += operators.pop();
-      expr += ')';
-      expression = expr;
-      continue;
-    }
-    expr += operands.pop();
-    expr += ' ';
-    expr += expression;
-    expr += ' ';
-    expr += operators.pop();
-    expr += ')';
-
-    expression = expr;
+  auto const op1{operands.pop()};
+  if (operands.is_empty()) {
+      return op1;
   }
 
-  return expression;
+  auto const op2{operands.pop()};
+  operands.push(op2 + " " + op1 + " " + operators.pop());
+
+  return operands.pop();
 }
 }

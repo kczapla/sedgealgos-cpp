@@ -23,14 +23,20 @@ INSTANTIATE_TEST_CASE_P(
     ArithemticOps,
     InfixToPostfixConverterTest,
     ::testing::Values(
-      std::make_tuple("1+2", "(1 2 +)"),
-      std::make_tuple("1-2", "(1 2 -)"),
-      std::make_tuple("1*2", "(1 2 *)"),
-      std::make_tuple("1/2", "(1 2 /)"),
-      std::make_tuple("1+2+3", "(1 (2 3 +) +)"),
-      std::make_tuple("1+2-3", "(1 (2 3 -) +)"),
-      std::make_tuple("1+2*3", "(1 (2 3 *) +)"),
-      std::make_tuple("1+2/3", "(1 (2 3 /) +)")
+      std::make_tuple("1", "1"),
+      std::make_tuple("1+2", "1 2 +"),
+      std::make_tuple("1-2", "1 2 -"),
+      std::make_tuple("1*2", "1 2 *"),
+      std::make_tuple("1/2", "1 2 /"),
+      std::make_tuple("1+2+3", "1 2 + 3 +"),
+      std::make_tuple("1+2-3", "1 2 + 3 -"),
+      std::make_tuple("1+2*3", "1 2 3 * +"),
+      std::make_tuple("1+2/3", "1 2 3 / +"),
+      std::make_tuple("1+2+3+4", "1 2 + 3 + 4 +"),
+      std::make_tuple("1+2-3+4", "1 2 + 3 - 4 +"),
+      std::make_tuple("1+2*3*4", "1 2 3 * 4 * +"),
+      std::make_tuple("1+2*3*4+5", "1 2 3 * 4 * + 5 +"),
+      std::make_tuple("1+2+3*4*5+6+7", "1 2 + 3 4 * 5 * + 6 + 7 +")
     )
 );
 }
