@@ -151,7 +151,6 @@ TYPED_TEST_SUITE_P(StackIteratorTest);
 
     EXPECT_EQ(*(++iter), 2);
 
-    /* iter++; */
     EXPECT_EQ(*(++iter), 1);
 
     iter++;
