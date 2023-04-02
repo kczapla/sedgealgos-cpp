@@ -132,6 +132,36 @@ TYPED_TEST_SUITE_P(StackTest);
     f(this->stack);
   }
 
+template <typename T>
+class StackIteratorTest : public ::testing::Test {
+protected:
+    T stack{};
+};
+
+TYPED_TEST_SUITE_P(StackIteratorTest);
+
+
+  TYPED_TEST_P(StackIteratorTest, IterateOverElements) {
+    this->stack.push(1); 
+    this->stack.push(2); 
+    this->stack.push(3); 
+
+    auto iter{std::begin(this->stack)};
+    EXPECT_EQ(*iter, 3);
+
+    EXPECT_EQ(*(++iter), 2);
+
+    /* iter++; */
+    EXPECT_EQ(*(++iter), 1);
+
+    iter++;
+    EXPECT_TRUE(iter == std::end(this->stack));
+  }
+
+  TYPED_TEST_P(StackIteratorTest, EmptyIteratorIsEqualToLastElement) {
+    EXPECT_TRUE(std::begin(this->stack) == std::end(this->stack));
+  }
+
   REGISTER_TYPED_TEST_SUITE_P(
     StackTest,
     CreatesUsingCopyCtor,
@@ -145,5 +175,12 @@ TYPED_TEST_SUITE_P(StackTest);
     PeeksTopElement,
     PeekDoesNotPopsTopElement,
     PeekReturnsConstItemIfConstStack
+  );
+
+
+  REGISTER_TYPED_TEST_SUITE_P(
+    StackIteratorTest,
+    IterateOverElements,
+    EmptyIteratorIsEqualToLastElement
   );
 }

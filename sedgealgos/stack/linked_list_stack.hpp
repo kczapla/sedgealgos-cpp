@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iterator>
+
 namespace sedgealgos::stack {
 
 template <typename Item>
@@ -25,7 +27,53 @@ private:
   };
 
   Node* head{nullptr};
+
+public:
+  struct Iterator {
+      using iterator_category = std::forward_iterator_tag;
+      using difference_type = std::ptrdiff_t;
+      using value_type = Item;
+      using pointer = value_type*;
+      using reference = value_type&;
+
+      Iterator(Node* n) : node{n} {}
+
+      reference operator*() const { return node->item; };
+      pointer operator->() const { return &node->item; };
+
+      Iterator& operator++() {
+          node = node->next;
+          return *this;
+      }
+
+      Iterator operator++(int) {
+          Iterator tmp{*this};
+          node = node->next;
+          return tmp;
+      }
+
+      bool operator==(Iterator const& left) const {
+          return this->node == left.node;
+      }
+
+      bool operator!=(Iterator const& left) const {
+          return !(*this == left);
+      }
+
+    private:
+      Node* node{nullptr};
+  };
+
+  Iterator begin() {
+      return Iterator{head};
+  }
+
+  Iterator end() {
+      return Iterator{nullptr};
+  }
 };
+
+
 
 template<typename Item>
 LinkedListStack<Item>::LinkedListStack(LinkedListStack<Item> const& other) {

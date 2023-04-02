@@ -7,4 +7,5 @@ namespace {
 using namespace sedgealgos::stack;
 
 INSTANTIATE_TYPED_TEST_SUITE_P(LinkedList, StackTest, LinkedListStack<int>);
+INSTANTIATE_TYPED_TEST_SUITE_P(LinkedList, StackIteratorTest, LinkedListStack<int>);
 }
