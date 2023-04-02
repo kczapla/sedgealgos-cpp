@@ -7,4 +7,5 @@ namespace {
 using namespace sedgealgos::stack;
 
 INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, StackTest, ResizingArrayStack<int>);
+INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, StackIteratorTest, ResizingArrayStack<int>);
 }

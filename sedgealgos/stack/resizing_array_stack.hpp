@@ -20,6 +20,50 @@ namespace sedgealgos::stack {
     unsigned long next_index{0};
     unsigned long capacity{1};
     Item* container{nullptr};
+
+  public:
+    struct Iterator {
+      using iterator_category = std::forward_iterator_tag;
+      using difference_type = std::ptrdiff_t;
+      using value_type = Item;
+      using pointer = value_type*;
+      using reference = value_type&;
+
+      Iterator(pointer p) : ptr{p} {}
+
+      reference operator*() const { return *ptr; };
+      pointer operator->() const { return ptr; };
+
+      Iterator& operator++() {
+          --ptr;
+          return *this;
+      }
+
+      Iterator operator++(int) {
+          Iterator tmp{*this};
+          --ptr;
+          return tmp;
+      }
+
+      bool operator==(Iterator const& left) const {
+          return this->ptr == left.ptr;
+      }
+
+      bool operator!=(Iterator const& left) const {
+          return !(*this == left);
+      }
+
+    private:
+      pointer ptr{nullptr};
+    };
+
+    Iterator begin() {
+      return Iterator{container + next_index - 1};
+    }
+
+    Iterator end() {
+      return Iterator{container - 1};
+    }
   };
 
   template <typename Item>
