@@ -22,10 +22,11 @@ namespace sedgealgos::stack {
     Item* container{nullptr};
 
   public:
+    template <typename T>
     struct Iterator {
       using iterator_category = std::forward_iterator_tag;
       using difference_type = std::ptrdiff_t;
-      using value_type = Item;
+      using value_type = T;
       using pointer = value_type*;
       using reference = value_type&;
 
@@ -57,12 +58,31 @@ namespace sedgealgos::stack {
       pointer ptr{nullptr};
     };
 
-    Iterator begin() {
-      return Iterator{container + next_index - 1};
+    using iterator = Iterator<Item>;
+    using const_iterator = Iterator<const Item>;
+
+    iterator begin() {
+        return iterator{container + next_index - 1};
     }
 
-    Iterator end() {
-      return Iterator{container - 1};
+    iterator end() {
+        return iterator{container - 1};
+    }
+
+    const_iterator cbegin() const {
+        return const_iterator{container + next_index - 1};
+    }
+
+    const_iterator cend() const {
+        return const_iterator{container - 1};
+    }
+
+    const_iterator begin() const {
+        return cbegin();
+    }
+
+    const_iterator end() const {
+        return cend();
     }
   };
 

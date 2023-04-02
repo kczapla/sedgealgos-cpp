@@ -10,9 +10,17 @@ sedgealgos_cc_library(
     hdrs = [ "resizing_array_stack.hpp" ],
 )
 
+sedgealgos_cc_library(
+    name = "stack_copy",
+    hdrs = ["stack_copy.hpp"],
+)
+
 sedgealgos_cc_test_library(
     name = "stack_test",
     hdrs = ["stack_test.hpp"],
+    deps = [
+        "stack_copy",
+    ]
 )
 
 sedgealgos_cc_test(
@@ -37,3 +45,5 @@ sedgealgos_cc_test(
         "linked_list_stack"
     ],
 )
+
+

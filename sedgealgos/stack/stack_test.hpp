@@ -1,3 +1,5 @@
+#include "sedgealgos/stack/stack_copy.hpp"
+
 #include <gtest/gtest.h>
 
 namespace {
@@ -132,6 +134,18 @@ TYPED_TEST_SUITE_P(StackTest);
     f(this->stack);
   }
 
+  TYPED_TEST_P(StackTest, CopyStack) {
+    this->stack.push(1); 
+    this->stack.push(2); 
+    this->stack.push(3); 
+
+    auto new_stack{copy(this->stack)};
+
+    EXPECT_EQ(this->stack.pop(), 3);
+    EXPECT_EQ(this->stack.pop(), 2);
+    EXPECT_EQ(this->stack.pop(), 1);
+  }
+
 template <typename T>
 class StackIteratorTest : public ::testing::Test {
 protected:
@@ -173,7 +187,8 @@ TYPED_TEST_SUITE_P(StackIteratorTest);
     ShrinkStackSize,
     PeeksTopElement,
     PeekDoesNotPopsTopElement,
-    PeekReturnsConstItemIfConstStack
+    PeekReturnsConstItemIfConstStack,
+    CopyStack
   );
 
 

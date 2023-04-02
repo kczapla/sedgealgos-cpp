@@ -29,10 +29,11 @@ private:
   Node* head{nullptr};
 
 public:
+  template <typename T>
   struct Iterator {
       using iterator_category = std::forward_iterator_tag;
       using difference_type = std::ptrdiff_t;
-      using value_type = Item;
+      using value_type = T;
       using pointer = value_type*;
       using reference = value_type&;
 
@@ -64,16 +65,33 @@ public:
       Node* node{nullptr};
   };
 
-  Iterator begin() {
-      return Iterator{head};
+  using iterator = Iterator<Item>;
+  using const_iterator = Iterator<const Item>;
+
+  iterator begin() {
+      return iterator{head};
   }
 
-  Iterator end() {
-      return Iterator{nullptr};
+  iterator end() {
+      return iterator{nullptr};
+  }
+
+  const_iterator cbegin() const {
+      return const_iterator{head};
+  }
+
+  const_iterator cend() const {
+      return const_iterator{nullptr};
+  }
+
+  const_iterator begin() const {
+      return cbegin();
+  }
+
+  const_iterator end() const {
+      return cend();
   }
 };
-
-
 
 template<typename Item>
 LinkedListStack<Item>::LinkedListStack(LinkedListStack<Item> const& other) {
@@ -141,4 +159,5 @@ template <typename Item>
 Item const& LinkedListStack<Item>::peek() const {
   return this->peek();
 }
+
 }
