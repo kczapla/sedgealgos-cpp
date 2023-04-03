@@ -17,6 +17,33 @@ public:
 template <typename Item>
 class SingleLinkedList {
 public:
+    SingleLinkedList() = default;
+    SingleLinkedList(SingleLinkedList const& ll) {
+      auto* node{ll.head};
+      while (node != nullptr) {
+          auto* new_node{new Node};
+          new_node->item = node->item;
+          new_node->next = head;
+          head = new_node;
+          node = node->next;
+      }
+
+      items_no = ll.items_no;
+    }
+
+    SingleLinkedList& operator=(SingleLinkedList const& rhs) {
+      auto* node{rhs.head};
+      while (node != nullptr) {
+          auto* new_node{new Node};
+          new_node->item = node->item;
+          new_node->next = head;
+          head = new_node;
+          node = node->next;
+      }
+      items_no = rhs.items_no;
+      return *this;
+    }
+
     void push_front(Item item) {
         auto* old_head{head};
         head = new Node;
