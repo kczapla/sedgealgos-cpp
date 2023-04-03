@@ -20,6 +20,8 @@ sedgealgos_cc_test_library(
     hdrs = ["stack_test.hpp"],
     deps = [
         "stack_copy",
+        "stack",
+        "//sedgealgos/data_structures/linked_list:single_linked_list",
     ]
 )
 
@@ -32,18 +34,15 @@ sedgealgos_cc_test(
     ],
 )
 
-sedgealgos_cc_library(
-    name = "linked_list_stack",
-    hdrs = ["linked_list_stack.hpp"],
-)
-
 sedgealgos_cc_test(
     name = "linked_list_stack_test",
     srcs = ["linked_list_stack_test.cpp"],
     deps = [
         "stack_test",
-        "linked_list_stack"
     ],
 )
 
-
+sedgealgos_cc_library(
+    name = "stack",
+    hdrs = ["stack.hpp"],
+)
