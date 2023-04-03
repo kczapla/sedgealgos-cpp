@@ -42,6 +42,14 @@ public:
         return current_item;
     }
 
+    Item& front() {
+        return head->item;
+    }
+
+    Item const& front() const {
+        return front();
+    }
+
     std::size_t size() const {
         return items_no;
     }

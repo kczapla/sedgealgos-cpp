@@ -56,6 +56,16 @@ TEST(SingleLinkedListTest, PushesAndPopsThreeElements) {
   EXPECT_EQ(ll.pop_front(), 1);
 }
 
+TEST(SingleLinkedListTest, AccessFirstElement) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1);
+  ll.push_front(2);
+  ll.push_front(3);
+
+  EXPECT_EQ(ll.front(), 3);
+}
+
 TEST(SingleLinkedListTest, IterateOverElements) {
   SingleLinkedList<int> ll;
 
