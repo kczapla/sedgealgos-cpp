@@ -47,5 +47,76 @@ TEST(QueueTest, IsEmptyAfterDequeuedAllElements) {
     EXPECT_EQ(q.size(), 0);
     EXPECT_TRUE(q.is_empty());
 }
+
+TEST(QueueTest, IterateOverElementsWithPrefixOperator) {
+    Queue<int> q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    auto iter{q.begin()};
+
+    EXPECT_EQ(*iter, 1);
+    EXPECT_EQ(*(++iter), 2);
+    EXPECT_EQ(*(++iter), 3);
+    EXPECT_EQ(++iter, q.end());
 }
 
+TEST(QueueTest, IterateOverElementsWithPostfixOperator) {
+    Queue<int> q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    auto iter{q.begin()};
+
+    EXPECT_EQ(*(iter++), 1);
+    EXPECT_EQ(*(iter++), 2);
+    EXPECT_EQ(*(iter++), 3);
+    EXPECT_EQ(iter, q.end());
+}
+
+TEST(QueueTest, ConstIterateOverElementsWithPrefixOperator) {
+    Queue<int> q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    auto iter{q.cbegin()};
+
+    EXPECT_EQ(*iter, 1);
+    EXPECT_EQ(*(++iter), 2);
+    EXPECT_EQ(*(++iter), 3);
+    EXPECT_EQ(++iter, q.cend());
+}
+
+TEST(QueueTest, ConstIterateOverElementsWithPostfixOperator) {
+    Queue<int> q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    auto iter{q.cbegin()};
+
+    EXPECT_EQ(*(iter++), 1);
+    EXPECT_EQ(*(iter++), 2);
+    EXPECT_EQ(*(iter++), 3);
+    EXPECT_EQ(iter, q.cend());
+}
+
+TEST(QueueTest, IteratesOverWithForRangeLoop) {
+    Queue<int> q;
+
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    for ([[maybe_unused]] auto s : q) {}
+    for ([[maybe_unused]] auto& s : q) {}
+    for ([[maybe_unused]] auto const& s : q) {}
+}
+}

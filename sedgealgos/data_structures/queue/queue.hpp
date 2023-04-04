@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sedgealgos/data_structures/linked_list/single_linked_list.hpp"
+#include <utility>
 
 namespace sedgealgos::data_structures::queue {
 template <typename Item>
@@ -52,7 +52,6 @@ public:
     }
 
 private:
-
     class Node {
     public:
         Item item;
@@ -63,6 +62,58 @@ private:
     Node* last{nullptr};
 
     Size number_of_nodes{0};
+
+public:
+    template <typename T>
+    class Iterator {
+    public:
+        using value_type = T;
+        using pointer = value_type*;
+        using reference = value_type&;
+
+        Iterator(Node* first) : first{first} {}
+
+        reference operator*() {
+            return first->item;
+        }
+
+        Iterator& operator++() {
+            first = first->next;
+            return *this;
+        }
+
+        Iterator operator++(int) {
+            auto tmp{*this};
+            ++*this;
+            return tmp;
+        }
+
+        bool operator==(Iterator const& rhs) const {
+            return this->first == rhs.first;
+        }
+
+    private:
+        Node* first{nullptr};
+    };
+
+    using iterator = Iterator<Item>;
+    using const_iterator = Iterator<const Item>;
+
+    iterator begin() {
+        return iterator{first};
+    }
+
+    iterator end() {
+        return iterator{nullptr};
+    }
+
+    const_iterator cbegin() {
+        return const_iterator{first};
+    }
+
+    const_iterator cend() {
+        return const_iterator{nullptr};
+    }
 };
 }
 

@@ -7,7 +7,6 @@ load(
 sedgealgos_cc_library(
     name = "queue",
     hdrs = ["queue.hpp"],
-    srcs = ["queue.cpp"],
 )
 
 sedgealgos_cc_test(
