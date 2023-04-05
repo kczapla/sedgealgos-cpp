@@ -7,7 +7,6 @@ load(
 sedgealgos_cc_library(
     name = "array",
     hdrs = ["array.hpp"],
-    srcs = ["array.cpp"],
 )
 
 sedgealgos_cc_test(

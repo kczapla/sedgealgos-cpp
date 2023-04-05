@@ -1,122 +1,134 @@
 #include "sedgealgos/data_structures/queue/queue.hpp"
+#include "sedgealgos/data_structures/queue/resizing_array_queue.hpp"
 
 #include <gtest/gtest.h>
 
 namespace {
-using namespace sedgealgos::data_structures::queue;
+using namespace ::testing;
 
-TEST(QueueTest, EnqueuesElementToQueueAndSideEffectIsIncreasedSize) {
-    Queue<int> q;
-    q.enqueue(1);
+template <typename T>
+class QueueTest : public Test {
+protected:
+    T queue;
+};
 
-    EXPECT_EQ(q.size(), 1);
+TYPED_TEST_SUITE_P(QueueTest);
+
+TYPED_TEST_P(QueueTest, EnqueuesElementToQueueAndSideEffectIsIncreasedSize) {
+    this->queue.enqueue(1);
+
+    EXPECT_EQ(this->queue.size(), 1);
 }
 
-TEST(QueueTest, DequeuesElementFromQueueAndSideEffectIsDecreasedSize) {
-    Queue<int> q;
-    q.enqueue(1);
-    q.enqueue(2);
+TYPED_TEST_P(QueueTest, DequeuesElementFromQueueAndSideEffectIsDecreasedSize) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
 
-    EXPECT_EQ(q.dequeue(), 1);
-    EXPECT_EQ(q.size(), 1);
+    EXPECT_EQ(this->queue.dequeue(), 1);
+    EXPECT_EQ(this->queue.size(), 1);
 }
 
-TEST(QueueTest, EnqueuesElementAfterAllElemsDequeued) {
-    Queue<int> q;
-    q.enqueue(1);
-    q.enqueue(2);
+TYPED_TEST_P(QueueTest, EnqueuesElementAfterAllElemsDequeued) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
 
-    q.dequeue();
-    q.dequeue();
+    this->queue.dequeue();
+    this->queue.dequeue();
 
-    q.enqueue(3);
-    q.enqueue(4);
+    this->queue.enqueue(3);
+    this->queue.enqueue(4);
 
-    EXPECT_EQ(q.size(), 2);
-    EXPECT_EQ(q.dequeue(), 3);
+    EXPECT_EQ(this->queue.size(), 2);
+    EXPECT_EQ(this->queue.dequeue(), 3);
 }
 
-TEST(QueueTest, IsEmptyAfterDequeuedAllElements) {
-    Queue<int> q;
-    q.enqueue(1);
-    q.enqueue(2);
+TYPED_TEST_P(QueueTest, IsEmptyAfterDequeuedAllElements) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
 
-    q.dequeue();
-    q.dequeue();
+    this->queue.dequeue();
+    this->queue.dequeue();
 
-    EXPECT_EQ(q.size(), 0);
-    EXPECT_TRUE(q.is_empty());
+    EXPECT_EQ(this->queue.size(), 0);
+    EXPECT_TRUE(this->queue.is_empty());
 }
 
-TEST(QueueTest, IterateOverElementsWithPrefixOperator) {
-    Queue<int> q;
+TYPED_TEST_P(QueueTest, IterateOverElementsWithPrefixOperator) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
+    this->queue.enqueue(3);
 
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(3);
-
-    auto iter{q.begin()};
+    auto iter{this->queue.begin()};
 
     EXPECT_EQ(*iter, 1);
     EXPECT_EQ(*(++iter), 2);
     EXPECT_EQ(*(++iter), 3);
-    EXPECT_EQ(++iter, q.end());
+    EXPECT_EQ(++iter, this->queue.end());
 }
 
-TEST(QueueTest, IterateOverElementsWithPostfixOperator) {
-    Queue<int> q;
+TYPED_TEST_P(QueueTest, IterateOverElementsWithPostfixOperator) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
+    this->queue.enqueue(3);
 
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(3);
-
-    auto iter{q.begin()};
+    auto iter{this->queue.begin()};
 
     EXPECT_EQ(*(iter++), 1);
     EXPECT_EQ(*(iter++), 2);
     EXPECT_EQ(*(iter++), 3);
-    EXPECT_EQ(iter, q.end());
+    EXPECT_EQ(iter, this->queue.end());
 }
 
-TEST(QueueTest, ConstIterateOverElementsWithPrefixOperator) {
-    Queue<int> q;
+TYPED_TEST_P(QueueTest, ConstIterateOverElementsWithPrefixOperator) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
+    this->queue.enqueue(3);
 
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(3);
-
-    auto iter{q.cbegin()};
+    auto iter{this->queue.cbegin()};
 
     EXPECT_EQ(*iter, 1);
     EXPECT_EQ(*(++iter), 2);
     EXPECT_EQ(*(++iter), 3);
-    EXPECT_EQ(++iter, q.cend());
+    EXPECT_EQ(++iter, this->queue.cend());
 }
 
-TEST(QueueTest, ConstIterateOverElementsWithPostfixOperator) {
-    Queue<int> q;
+TYPED_TEST_P(QueueTest, ConstIterateOverElementsWithPostfixOperator) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
+    this->queue.enqueue(3);
 
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(3);
-
-    auto iter{q.cbegin()};
+    auto iter{this->queue.cbegin()};
 
     EXPECT_EQ(*(iter++), 1);
     EXPECT_EQ(*(iter++), 2);
     EXPECT_EQ(*(iter++), 3);
-    EXPECT_EQ(iter, q.cend());
+    EXPECT_EQ(iter, this->queue.cend());
 }
 
-TEST(QueueTest, IteratesOverWithForRangeLoop) {
-    Queue<int> q;
+TYPED_TEST_P(QueueTest, IteratesOverElementsWithForRangeLoop) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
+    this->queue.enqueue(3);
 
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(3);
-
-    for ([[maybe_unused]] auto s : q) {}
-    for ([[maybe_unused]] auto& s : q) {}
-    for ([[maybe_unused]] auto const& s : q) {}
+    for ([[maybe_unused]] auto s : this->queue) {}
+    for ([[maybe_unused]] auto& s : this->queue) {}
+    for ([[maybe_unused]] auto const& s : this->queue) {}
 }
+
+REGISTER_TYPED_TEST_SUITE_P(
+        QueueTest,
+        EnqueuesElementToQueueAndSideEffectIsIncreasedSize,
+        DequeuesElementFromQueueAndSideEffectIsDecreasedSize,
+        EnqueuesElementAfterAllElemsDequeued,
+        IsEmptyAfterDequeuedAllElements,
+        IterateOverElementsWithPrefixOperator,
+        IterateOverElementsWithPostfixOperator,
+        ConstIterateOverElementsWithPrefixOperator,
+        ConstIterateOverElementsWithPostfixOperator,
+        IteratesOverElementsWithForRangeLoop
+);
+
+
+INSTANTIATE_TYPED_TEST_SUITE_P(LinkedList, QueueTest, sedgealgos::data_structures::queue::Queue<int>);
+INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, QueueTest, sedgealgos::data_structures::queue::ResizingArrayQueue<int>);
 }

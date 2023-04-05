@@ -39,6 +39,10 @@ public:
         return next_index;
     }
 
+    bool is_empty() const {
+        return size() == 0;
+    }
+
     template <typename T>
     struct Iterator {
       using iterator_category = std::forward_iterator_tag;
