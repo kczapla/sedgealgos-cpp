@@ -11,21 +11,19 @@ public:
 
     void enqueue(Item item) {
         data.push_back(item);
-        if (data.size() == 1) {
-            return;
-        }
+        last_next++;
     }
 
     Item dequeue() {
-        return data[first_item_in_queue++];
+        return data[first_next++];
     }
 
     bool is_empty() const {
-        return data.is_empty();
+        return (last_next - first_next) == 0;
     }
 
     Size size() const {
-        return data.size() - first_item_in_queue;
+        return last_next - first_next;
     }
 
     template <typename T>
@@ -81,6 +79,7 @@ public:
 
 private:
     sedgealgos::data_structures::array::Array<Item> data;
-    Size first_item_in_queue = 0;
+    Size first_next = 0;
+    Size last_next = 0;
 };
 }
