@@ -55,7 +55,7 @@ private:
     class Node {
     public:
         Item item;
-        Node* next;
+        Node* next{nullptr};
     };
 
     Node* first{nullptr};
