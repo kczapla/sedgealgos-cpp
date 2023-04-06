@@ -115,6 +115,27 @@ TYPED_TEST_P(QueueTest, IteratesOverElementsWithForRangeLoop) {
     for ([[maybe_unused]] auto const& s : this->queue) {}
 }
 
+TYPED_TEST_P(QueueTest, IterateOverElementsAfterQueueingAndDequeueing) {
+    this->queue.enqueue(1);
+    this->queue.enqueue(2);
+    this->queue.enqueue(3);
+    this->queue.enqueue(4);
+    this->queue.enqueue(5);
+    this->queue.enqueue(6);
+
+    this->queue.dequeue();
+    this->queue.dequeue();
+
+
+    auto iter{this->queue.begin()};
+
+    EXPECT_EQ(*(iter++), 3);
+    EXPECT_EQ(*(iter++), 4);
+    EXPECT_EQ(*(iter++), 5);
+    EXPECT_EQ(*(iter++), 6);
+    EXPECT_EQ(iter, this->queue.end());
+}
+
 REGISTER_TYPED_TEST_SUITE_P(
         QueueTest,
         EnqueuesElementToQueueAndSideEffectIsIncreasedSize,
@@ -125,7 +146,8 @@ REGISTER_TYPED_TEST_SUITE_P(
         IterateOverElementsWithPostfixOperator,
         ConstIterateOverElementsWithPrefixOperator,
         ConstIterateOverElementsWithPostfixOperator,
-        IteratesOverElementsWithForRangeLoop
+        IteratesOverElementsWithForRangeLoop,
+        IterateOverElementsAfterQueueingAndDequeueing
 );
 
 

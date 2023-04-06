@@ -9,12 +9,21 @@ class ResizingArrayQueue {
 public:
     using Size = unsigned int;
 
+    ResizingArrayQueue() {
+        data = new Item;
+    }
+
     void enqueue(Item item) {
-        data.push_back(item);
-        last_next++;
+        if (last_next == capacity) {
+            resize(capacity * 2);
+        }
+        data[last_next++] = item;
     }
 
     Item dequeue() {
+        if (size() <= (capacity / 4)) {
+            resize(capacity / 2);
+        }
         return data[first_next++];
     }
 
@@ -33,7 +42,7 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
 
-        Iterator(typename sedgealgos::data_structures::array::Array<Item>::Iterator<T> iter) : iter{iter} {}
+        Iterator(pointer iter) : iter{iter} {}
 
         reference operator*() {
             return *iter;
@@ -55,30 +64,45 @@ public:
         }
 
     private:
-        typename sedgealgos::data_structures::array::Array<Item>::Iterator<T> iter;
+        pointer iter;
     };
 
     using iterator = Iterator<Item>;
     using const_iterator = Iterator<const Item>;
 
     iterator begin() {
-        return iterator{data.begin()};
+        return iterator{data + first_next};
     }
 
     iterator end() {
-        return iterator{data.end()};
+        return iterator{data + last_next};
     }
 
     const_iterator cbegin() {
-        return const_iterator{data.cbegin()};
+        return const_iterator{data + first_next};
     }
 
     const_iterator cend() {
-        return const_iterator{data.cend()};
+        return const_iterator{data + last_next};
     }
 
 private:
-    sedgealgos::data_structures::array::Array<Item> data;
+    void resize(Size new_size) {
+        auto new_data{new Item[new_size]};
+        for (auto i{first_next}; i < last_next; i++) {
+            new_data[i - first_next] = data[i];
+        }
+
+        delete data;
+        data = new_data;
+
+        first_next = 0;
+        last_next = last_next - first_next;
+    }
+
+    Item* data;
+    Size capacity = 1;
+
     Size first_next = 0;
     Size last_next = 0;
 };
