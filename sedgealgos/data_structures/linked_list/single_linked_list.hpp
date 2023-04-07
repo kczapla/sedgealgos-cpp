@@ -69,6 +69,27 @@ public:
         return current_item;
     }
 
+    void remove(int k) {
+        auto prev{head};
+        auto curr{head};
+
+        auto i{0};
+        while (curr->next != nullptr) {
+            if (i == k) {
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+            i++;
+        }
+
+        auto old_curr{curr};
+        prev->next = curr->next;
+        delete old_curr;
+
+        items_no--;
+    }
+
     Item& front() {
         return head->item;
     }
