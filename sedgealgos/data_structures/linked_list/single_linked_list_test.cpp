@@ -167,5 +167,23 @@ TEST(SingleLinkedListTest, DoesNotDeleteNonExistentElement) {
   EXPECT_EQ(ll.size(), 1);
   EXPECT_EQ(ll.pop_front(), 1);
 }
+
+TEST(SingleLinkedListFindTest, FindsElementInLinkedList) {
+    SingleLinkedList<int> ll;
+    ll.push_front(0);
+    ll.push_front(1);
+    ll.push_front(2);
+    
+    EXPECT_TRUE(find(ll, 1));
+}
+
+TEST(SingleLinkedListFindTest, DoesNotFindElementInLinkedList) {
+    SingleLinkedList<int> ll;
+    ll.push_front(0);
+    ll.push_front(1);
+    ll.push_front(2);
+    
+    EXPECT_FALSE(find(ll, 3));
+}
 }
 

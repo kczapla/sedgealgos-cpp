@@ -186,5 +186,17 @@ public:
       return cend();
   }
 };
+
+template <typename Item>
+bool find(SingleLinkedList<Item> const& list, Item key) {
+    auto iter{list.cbegin()};
+    while (iter != list.cend()) {
+        if (*iter == key) {
+            return true;
+        }
+        ++iter;
+    }
+    return false;
+}
 }
 
