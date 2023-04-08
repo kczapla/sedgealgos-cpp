@@ -112,5 +112,19 @@ TEST(SingleLinkedListTest, DeleteIthElementThatExist) {
   EXPECT_EQ(ll.pop_front(), 3);
   EXPECT_EQ(ll.pop_front(), 1);
 }
+
+TEST(SingleLinkedListTest, DeleteElementFromBeginning) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1); 
+  ll.push_front(2); 
+  ll.push_front(3); 
+
+  ll.remove(0);
+
+  EXPECT_EQ(ll.size(), 2);
+  EXPECT_EQ(ll.pop_front(), 2);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
 }
 

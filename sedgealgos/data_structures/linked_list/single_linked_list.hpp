@@ -70,6 +70,14 @@ public:
     }
 
     void remove(int k) {
+        if (k == 0) {
+            auto old_head{head};
+            head = head->next;
+            delete old_head;
+            items_no--;
+            return;
+        }
+
         auto prev{head};
         auto curr{head};
 
