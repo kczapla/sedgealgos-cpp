@@ -69,7 +69,10 @@ public:
         return current_item;
     }
 
-    void remove(int k) {
+    void remove(std::size_t k) {
+        if (k > items_no - 1) {
+            return;
+        }
         if (k == 0) {
             auto old_head{head};
             head = head->next;
@@ -81,7 +84,7 @@ public:
         auto prev{head};
         auto curr{head};
 
-        auto i{0};
+        std::size_t i{0};
         while (curr->next != nullptr) {
             if (i == k) {
                 break;

@@ -157,5 +157,15 @@ TEST(SingleLinkedListTest, DeletesElementFromSingleItemLinkedList) {
   EXPECT_EQ(ll.size(), 1);
   EXPECT_EQ(ll.pop_front(), 2);
 }
+
+TEST(SingleLinkedListTest, DoesNotDeleteNonExistentElement) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1); 
+  ll.remove(1);
+
+  EXPECT_EQ(ll.size(), 1);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
 }
 
