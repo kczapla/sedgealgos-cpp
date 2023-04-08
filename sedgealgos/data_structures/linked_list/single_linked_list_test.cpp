@@ -126,5 +126,36 @@ TEST(SingleLinkedListTest, DeleteElementFromBeginning) {
   EXPECT_EQ(ll.pop_front(), 2);
   EXPECT_EQ(ll.pop_front(), 1);
 }
+
+TEST(SingleLinkedListTest, DeleteElementFromEnd) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1); 
+  ll.push_front(2); 
+  ll.push_front(3); 
+
+  ll.remove(2);
+
+  ll.push_front(4); 
+
+  EXPECT_EQ(ll.size(), 3);
+  EXPECT_EQ(ll.pop_front(), 4);
+  EXPECT_EQ(ll.pop_front(), 3);
+  EXPECT_EQ(ll.pop_front(), 2);
+}
+
+TEST(SingleLinkedListTest, DeletesElementFromSingleItemLinkedList) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1); 
+
+  ll.remove(0);
+  EXPECT_EQ(ll.size(), 0);
+
+  ll.push_front(2); 
+
+  EXPECT_EQ(ll.size(), 1);
+  EXPECT_EQ(ll.pop_front(), 2);
+}
 }
 
