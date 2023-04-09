@@ -204,6 +204,20 @@ public:
 
       items_no--;
   }
+
+  void insert_after(iterator& iter, Item item) {
+      if (iter == end()) {
+        return;
+      }
+
+      if (iter.node->next == nullptr) {
+          return;
+      }
+
+      auto new_node{new Node{item, iter.node->next}};
+      iter.node->next = new_node;
+      items_no++;
+  }
 };
 
 template <typename Item>

@@ -229,6 +229,44 @@ TEST(SingleLinkedListTest, RemovesAfterEmptyList) {
   EXPECT_EQ(ll.size(), 0);
 }
 
+TEST(SingleLinkedListTest, InsertAfterSecondElem) {
+  SingleLinkedList<int> ll;
+  
+  ll.push_front(1);
+  ll.push_front(2);
+  ll.push_front(3);
+
+  auto iter{ll.begin()};
+  ll.insert_after(++iter, 4);
+
+  EXPECT_EQ(ll.size(), 4);
+  EXPECT_EQ(ll.pop_front(), 3);
+  EXPECT_EQ(ll.pop_front(), 2);
+  EXPECT_EQ(ll.pop_front(), 4);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
+TEST(SingleLinkedListTest, InsertAfterLastElem) {
+  SingleLinkedList<int> ll;
+  
+  ll.push_front(1);
+
+  auto iter{ll.begin()};
+  ll.insert_after(iter, 4);
+
+  EXPECT_EQ(ll.size(), 1);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
+TEST(SingleLinkedListTest, InsertAfterToEmptyList) {
+  SingleLinkedList<int> ll;
+  
+  auto iter{ll.begin()};
+  ll.insert_after(iter, 4);
+
+  EXPECT_EQ(ll.size(), 0);
+}
+
 TEST(SingleLinkedListFindTest, FindsElementInLinkedList) {
     SingleLinkedList<int> ll;
     ll.push_front(0);
