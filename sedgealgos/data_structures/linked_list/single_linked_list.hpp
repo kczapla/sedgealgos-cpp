@@ -125,6 +125,8 @@ private:
 public:
   template <typename T>
   struct Iterator {
+      friend SingleLinkedList;
+
       using iterator_category = std::forward_iterator_tag;
       using difference_type = std::ptrdiff_t;
       using value_type = T;
@@ -184,6 +186,23 @@ public:
 
   const_iterator end() const {
       return cend();
+  }
+
+  void remove_after(iterator& iter) {
+      if (iter == end()) {
+          return;
+      }
+
+      auto old_next{iter.node->next};
+      if (old_next == nullptr) {
+          return;
+      }
+
+      iter.node->next = old_next->next;
+
+      delete old_next;
+
+      items_no--;
   }
 };
 

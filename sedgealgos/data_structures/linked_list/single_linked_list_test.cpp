@@ -168,6 +168,67 @@ TEST(SingleLinkedListTest, DoesNotDeleteNonExistentElement) {
   EXPECT_EQ(ll.pop_front(), 1);
 }
 
+TEST(SingleLinkedListTest, RemovesItemAfterGivenNode) {
+  SingleLinkedList<int> ll;
+  
+  ll.push_front(1);
+  ll.push_front(2);
+  ll.push_front(3);
+  ll.push_front(4);
+  ll.push_front(5);
+
+  auto iter{++(ll.begin())};
+
+  ll.remove_after(iter);
+
+  EXPECT_EQ(ll.size(), 4);
+  EXPECT_EQ(ll.pop_front(), 5);
+  EXPECT_EQ(ll.pop_front(), 4);
+  EXPECT_EQ(ll.pop_front(), 2);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
+TEST(SingleLinkedListTest, RemovesItemAfterLastElem) {
+  SingleLinkedList<int> ll;
+  
+  ll.push_front(1);
+  ll.push_front(2);
+
+  auto iter{++(ll.begin())};
+
+  ll.remove_after(iter);
+
+  EXPECT_EQ(ll.size(), 2);
+  EXPECT_EQ(ll.pop_front(), 2);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
+TEST(SingleLinkedListTest, RemovesAfterItemBeforeLast) {
+  SingleLinkedList<int> ll;
+  
+  ll.push_front(1);
+  ll.push_front(2);
+  ll.push_front(3);
+
+  auto iter{ll.begin()};
+
+  ll.remove_after(iter);
+
+  EXPECT_EQ(ll.size(), 2);
+  EXPECT_EQ(ll.pop_front(), 3);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
+TEST(SingleLinkedListTest, RemovesAfterEmptyList) {
+  SingleLinkedList<int> ll;
+  
+  auto iter{ll.begin()};
+
+  ll.remove_after(iter);
+
+  EXPECT_EQ(ll.size(), 0);
+}
+
 TEST(SingleLinkedListFindTest, FindsElementInLinkedList) {
     SingleLinkedList<int> ll;
     ll.push_front(0);
