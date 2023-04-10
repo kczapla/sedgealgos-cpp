@@ -267,7 +267,7 @@ TEST(SingleLinkedListTest, InsertAfterToEmptyList) {
   EXPECT_EQ(ll.size(), 0);
 }
 
-TEST(SingleLinkedListFindTest, FindsElementInLinkedList) {
+TEST(SingleLinkedListTest, FindsElementInLinkedList) {
     SingleLinkedList<int> ll;
     ll.push_front(0);
     ll.push_front(1);
@@ -276,7 +276,7 @@ TEST(SingleLinkedListFindTest, FindsElementInLinkedList) {
     EXPECT_TRUE(find(ll, 1));
 }
 
-TEST(SingleLinkedListFindTest, DoesNotFindElementInLinkedList) {
+TEST(SingleLinkedListTest, DoesNotFindElementInLinkedList) {
     SingleLinkedList<int> ll;
     ll.push_front(0);
     ll.push_front(1);
@@ -285,7 +285,7 @@ TEST(SingleLinkedListFindTest, DoesNotFindElementInLinkedList) {
     EXPECT_FALSE(find(ll, 3));
 }
 
-TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKey) {
+TEST(SingleLinkedListTest, RemovesItemsWithGivenKey) {
   SingleLinkedList<int> ll;
 
   ll.push_front(0);
@@ -300,7 +300,7 @@ TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKey) {
   EXPECT_EQ(ll.pop_front(), 0);
 }
 
-TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListHead) {
+TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyFromListHead) {
   SingleLinkedList<int> ll;
 
   ll.push_front(0);
@@ -316,7 +316,7 @@ TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListHead) {
   EXPECT_EQ(ll.pop_front(), 0);
 }
 
-TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListTail) {
+TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyFromListTail) {
   SingleLinkedList<int> ll;
 
   ll.push_front(0);
@@ -332,7 +332,7 @@ TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListTail) {
   EXPECT_EQ(ll.pop_front(), 1);
 }
 
-TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListWithSingleItem) {
+TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyFromListWithSingleItem) {
   SingleLinkedList<int> ll;
 
   ll.push_front(2);
@@ -342,7 +342,7 @@ TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListWithSingleItem)
   EXPECT_EQ(ll.size(), 0);
 }
 
-TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyWhenSpreadAcroosTheList) {
+TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyWhenSpreadAcroosTheList) {
   SingleLinkedList<int> ll;
 
   ll.push_front(1);
@@ -363,7 +363,7 @@ TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyWhenSpreadAcroosTheList
 
 }
 
-TEST(SingleLinkedListRemoveTest, DoesNothingWhenListIsEmpty) {
+TEST(SingleLinkedListTest, DoesNothingWhenListIsEmpty) {
   SingleLinkedList<int> ll;
 
   remove(ll, 2);
@@ -371,7 +371,7 @@ TEST(SingleLinkedListRemoveTest, DoesNothingWhenListIsEmpty) {
   EXPECT_EQ(ll.size(), 0);
 }
 
-TEST(SingleLinkedListRemoveTest, DoesNothingWhenListDoesNotContainItem) {
+TEST(SingleLinkedListTest, DoesNothingWhenListDoesNotContainItem) {
   SingleLinkedList<int> ll;
 
   remove(ll, 3);
