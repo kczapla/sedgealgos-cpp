@@ -342,6 +342,18 @@ TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyFromListWithSingleItem) {
   EXPECT_EQ(ll.size(), 0);
 }
 
+TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyFromListWithTwoItems) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1);
+  ll.push_front(2);
+
+  remove(ll, 2);
+
+  EXPECT_EQ(ll.size(), 1);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
 TEST(SingleLinkedListTest, RemovesItemsWithGivenKeyWhenSpreadAcroosTheList) {
   SingleLinkedList<int> ll;
 
