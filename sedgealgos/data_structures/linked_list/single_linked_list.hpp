@@ -231,5 +231,36 @@ bool find(SingleLinkedList<Item> const& list, Item key) {
     }
     return false;
 }
+
+template<typename Item>
+void remove(SingleLinkedList<Item>& list, Item key) {
+    auto prev_iter{list.begin()};
+    auto iter{prev_iter};
+
+    if (iter == list.end()) {
+        return;
+    }
+
+    if (list.size() == 1 && *iter == key) {
+        list.remove(0);
+        return;
+    }
+
+    while (iter != list.end()) {
+        if (*iter == key) {
+            if (iter == list.begin()) {
+                ++prev_iter;
+                ++iter;
+                list.remove(0);
+            } else {
+                list.remove_after(prev_iter);
+                iter = prev_iter;
+            }
+        } else {
+            prev_iter = iter;
+        }
+        ++iter;
+    }
+}
 }
 

@@ -284,5 +284,104 @@ TEST(SingleLinkedListFindTest, DoesNotFindElementInLinkedList) {
     
     EXPECT_FALSE(find(ll, 3));
 }
+
+TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKey) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(1);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  remove(ll, 1);
+
+  EXPECT_EQ(ll.size(), 2);
+  EXPECT_EQ(ll.pop_front(), 2);
+  EXPECT_EQ(ll.pop_front(), 0);
+}
+
+TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListHead) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(1);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  remove(ll, 2);
+
+  EXPECT_EQ(ll.size(), 3);
+  EXPECT_EQ(ll.pop_front(), 1);
+  EXPECT_EQ(ll.pop_front(), 1);
+  EXPECT_EQ(ll.pop_front(), 0);
+}
+
+TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListTail) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(1);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  remove(ll, 0);
+
+  EXPECT_EQ(ll.size(), 3);
+  EXPECT_EQ(ll.pop_front(), 2);
+  EXPECT_EQ(ll.pop_front(), 1);
+  EXPECT_EQ(ll.pop_front(), 1);
+}
+
+TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyFromListWithSingleItem) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(2);
+
+  remove(ll, 2);
+
+  EXPECT_EQ(ll.size(), 0);
+}
+
+TEST(SingleLinkedListRemoveTest, RemovesItemsWithGivenKeyWhenSpreadAcroosTheList) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(1);
+  ll.push_front(2);
+  ll.push_front(3);
+  ll.push_front(1);
+  ll.push_front(4);
+  ll.push_front(4);
+  ll.push_front(1);
+
+  remove(ll, 1);
+
+  EXPECT_EQ(ll.size(), 4);
+  EXPECT_EQ(ll.pop_front(), 4);
+  EXPECT_EQ(ll.pop_front(), 4);
+  EXPECT_EQ(ll.pop_front(), 3);
+  EXPECT_EQ(ll.pop_front(), 2);
+
+}
+
+TEST(SingleLinkedListRemoveTest, DoesNothingWhenListIsEmpty) {
+  SingleLinkedList<int> ll;
+
+  remove(ll, 2);
+
+  EXPECT_EQ(ll.size(), 0);
+}
+
+TEST(SingleLinkedListRemoveTest, DoesNothingWhenListDoesNotContainItem) {
+  SingleLinkedList<int> ll;
+
+  remove(ll, 3);
+
+  ll.push_front(0);
+  ll.push_front(1);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  EXPECT_EQ(ll.size(), 4);
+}
 }
 
