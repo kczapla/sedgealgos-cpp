@@ -262,5 +262,20 @@ void remove(SingleLinkedList<Item>& list, Item key) {
         ++iter;
     }
 }
+
+template <typename Item>
+Item max(SingleLinkedList<Item> const& l) {
+    auto iter{l.begin()};
+
+    auto m{0};
+    while(iter != l.end()) {
+        if (*iter > m) {
+            m = *iter;
+        }
+        ++iter;
+    }
+
+    return m;
+}
 }
 

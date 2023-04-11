@@ -395,5 +395,22 @@ TEST(SingleLinkedListTest, DoesNothingWhenListDoesNotContainItem) {
 
   EXPECT_EQ(ll.size(), 4);
 }
+
+TEST(SingleLinkedListTest, FindsMaxElementInList) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(5);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  EXPECT_EQ(max(ll), 5);
+}
+
+TEST(SingleLinkedListTest, DoesNotFindMaxElementInList) {
+  SingleLinkedList<int> ll;
+
+  EXPECT_EQ(max(ll), 0);
+}
 }
 
