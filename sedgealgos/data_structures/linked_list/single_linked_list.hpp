@@ -277,5 +277,21 @@ Item max(SingleLinkedList<Item> const& l) {
 
     return m;
 }
+
+template <typename Item>
+Item recursive_max(typename SingleLinkedList<Item>::const_iterator first, typename SingleLinkedList<Item>::const_iterator last) {
+    if (first == last) {
+        return 0;
+    }
+    auto const max{*first++};
+    auto const potential_max{recursive_max<Item>(first, last)};
+
+    return max > potential_max ? max : potential_max; 
+}
+
+template <typename Item>
+Item recursive_max(SingleLinkedList<Item> const& l) {
+    return recursive_max<Item>(l.begin(), l.end());
+}
 }
 

@@ -412,5 +412,22 @@ TEST(SingleLinkedListTest, DoesNotFindMaxElementInList) {
 
   EXPECT_EQ(max(ll), 0);
 }
+
+TEST(SingleLinkedListTest, FindsMaxElementInListRecursively) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(5);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  EXPECT_EQ(recursive_max(ll), 5);
+}
+
+TEST(SingleLinkedListTest, DoesNotFindMaxElementInListRecursively) {
+  SingleLinkedList<int> ll;
+
+  EXPECT_EQ(recursive_max(ll), 0);
+}
 }
 
