@@ -101,6 +101,20 @@ public:
         items_no--;
     }
 
+    void reverse() {
+        Node* first{nullptr};
+        Node* second{head};
+
+        while(second != nullptr) {
+            auto third{second->next};
+            second->next = first;
+            first = second;
+            second = third;
+        }
+
+        head = first;
+    }
+
     Item& front() {
         return head->item;
     }

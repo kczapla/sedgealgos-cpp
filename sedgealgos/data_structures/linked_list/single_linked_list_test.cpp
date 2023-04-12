@@ -424,6 +424,55 @@ TEST(SingleLinkedListTest, FindsMaxElementInListRecursively) {
   EXPECT_EQ(recursive_max(ll), 5);
 }
 
+TEST(SingleLinkedListTest, ReversesListWhenMoreThan2ItemsInList) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(5);
+  ll.push_front(1);
+  ll.push_front(2);
+
+  ll.reverse();
+
+  EXPECT_EQ(ll.size(), 4);
+  EXPECT_EQ(ll.pop_front(), 0);
+  EXPECT_EQ(ll.pop_front(), 5);
+  EXPECT_EQ(ll.pop_front(), 1);
+  EXPECT_EQ(ll.pop_front(), 2);
+}
+
+TEST(SingleLinkedListTest, ReversesListWhen2ItemsInList) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+  ll.push_front(5);
+
+  ll.reverse();
+
+  EXPECT_EQ(ll.size(), 2);
+  EXPECT_EQ(ll.pop_front(), 0);
+  EXPECT_EQ(ll.pop_front(), 5);
+}
+
+TEST(SingleLinkedListTest, ReversesListWhen1ItemsInList) {
+  SingleLinkedList<int> ll;
+
+  ll.push_front(0);
+
+  ll.reverse();
+
+  EXPECT_EQ(ll.size(), 1);
+  EXPECT_EQ(ll.pop_front(), 0);
+}
+
+TEST(SingleLinkedListTest, ReversesListWhen0ItemsInList) {
+  SingleLinkedList<int> ll;
+
+  ll.reverse();
+
+  EXPECT_EQ(ll.size(), 0);
+}
+
 TEST(SingleLinkedListTest, DoesNotFindMaxElementInListRecursively) {
   SingleLinkedList<int> ll;
 
