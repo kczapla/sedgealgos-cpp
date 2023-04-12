@@ -1,5 +1,6 @@
 #include "sedgealgos/data_structures/queue/queue.hpp"
 #include "sedgealgos/data_structures/queue/resizing_array_queue.hpp"
+#include "sedgealgos/data_structures/queue/cycling_linked_list_queue.hpp"
 
 #include <gtest/gtest.h>
 
@@ -153,4 +154,5 @@ REGISTER_TYPED_TEST_SUITE_P(
 
 INSTANTIATE_TYPED_TEST_SUITE_P(LinkedList, QueueTest, sedgealgos::data_structures::queue::Queue<int>);
 INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, QueueTest, sedgealgos::data_structures::queue::ResizingArrayQueue<int>);
+INSTANTIATE_TYPED_TEST_SUITE_P(CyclingLinkedList, QueueTest, sedgealgos::data_structures::queue::CyclingLinkedListQueue<int>);
 }

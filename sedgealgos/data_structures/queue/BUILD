@@ -17,12 +17,18 @@ sedgealgos_cc_library(
     hdrs = ["queue.hpp"],
 )
 
+sedgealgos_cc_library(
+    name = "cycling_linked_list_queue",
+    hdrs = ["cycling_linked_list_queue.hpp"],
+)
+
 sedgealgos_cc_test(
     name = "queue_test",
     srcs = ["queue_test.cpp"],
     deps = [
         "queue",
         "resizing_array_queue",
+        "cycling_linked_list_queue",
     ],
 )
 
