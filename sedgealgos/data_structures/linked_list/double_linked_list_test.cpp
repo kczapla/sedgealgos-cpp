@@ -43,6 +43,14 @@ TEST(DoubleLinkedListTest, PopBackDecreasesSize) {
     EXPECT_EQ(l.size(), 0);
 }
 
+TEST(DoubleLinkedListTest, InsertBeforeIncreasesSize) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.insert_before(l.begin(), 3);
+
+    EXPECT_EQ(l.size(), 2);
+}
+
 TEST(DoubleLinkedListTest, PushFrontThenPopFrontAllElements) {
     DoubleLinkedList<int> l;
     l.push_front(1);
@@ -187,5 +195,27 @@ TEST(DoubleLinkedListTest, IterateWithForRangeLoop) {
     l.push_back(3);
 
     for ([[ maybe_unused ]] auto i : l) {}
+}
+
+TEST(DoubleLinkedListTest, InsertsBeforeFront) {
+    DoubleLinkedList<int> l;
+
+    l.push_front(1);
+    l.insert_before(l.begin(), 2);
+
+    EXPECT_EQ(l.pop_front(), 2);
+    EXPECT_EQ(l.pop_front(), 1);
+}
+
+TEST(DoubleLinkedListTest, InsertsBeforeMiddleElement) {
+    DoubleLinkedList<int> l;
+
+    l.push_front(1);
+    l.push_front(2);
+    l.insert_before(++l.begin(), 3);
+
+    EXPECT_EQ(l.pop_front(), 2);
+    EXPECT_EQ(l.pop_front(), 3);
+    EXPECT_EQ(l.pop_front(), 1);
 }
 }

@@ -20,10 +20,10 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
 
-        Iterator(Node* curr) : curr{curr} {}
+        Iterator(Node* node) : node{node} {}
 
         bool operator==(Iterator const& rhs) const {
-            return curr == rhs.curr;
+            return node == rhs.node;
         }
 
         bool operator!=(Iterator const& rhs) const {
@@ -31,23 +31,25 @@ public:
         }
 
         Iterator& operator++() {
-            curr = curr->next;
+            node = node->next;
             return *this;
         }
 
         Iterator operator++(int) {
-            auto tmp{curr};
-            curr = curr->next;
+            auto tmp{node};
+            node = node->next;
 
             return tmp;
         }
 
         reference operator*() {
-            return curr->item;
+            return node->item;
         }
 
+        friend DoubleLinkedList;
+
     private:
-        Node* curr{nullptr};
+        Node* node{nullptr};
     };
 
 
@@ -133,6 +135,26 @@ public:
         no_elements--;
 
         return tmp_item;
+    }
+
+    void insert_before(iterator iter, Item item) {
+        auto first{iter.node->previous};
+
+        auto second{new Node};
+        second->item = item;
+
+        auto third{iter.node};
+
+        if (first == nullptr) {
+            head = second;
+        } else {
+            first->next = second;
+        }
+
+        second->previous = first;
+        second->next = third;
+
+        no_elements++;
     }
 
     Size size() const {
