@@ -30,6 +30,22 @@ public:
             return !(*this == rhs);
         }
 
+        Iterator& operator++() {
+            curr = curr->next;
+            return *this;
+        }
+
+        Iterator operator++(int) {
+            auto tmp{curr};
+            curr = curr->next;
+
+            return tmp;
+        }
+
+        reference operator*() {
+            return curr->item;
+        }
+
     private:
         Node* curr{nullptr};
     };

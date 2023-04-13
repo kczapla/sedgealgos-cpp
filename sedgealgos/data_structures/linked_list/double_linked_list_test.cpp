@@ -148,4 +148,44 @@ TEST(DoubleLinkedListTest, CBeginInteratorIsNotEqualToCEndIteratorWhenListIsNotE
 
     EXPECT_TRUE(l.cbegin() != l.cend());
 }
+
+TEST(DoubleLinkedListTest, IterateOverListForwardWithPrefixIncrement) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    auto curr{l.begin()};
+
+    EXPECT_EQ(*curr, 1);
+    EXPECT_EQ(*(++curr), 2);
+    EXPECT_EQ(*(++curr), 3);
+    EXPECT_EQ(++curr, l.end());
+}
+
+TEST(DoubleLinkedListTest, IterateOverListForwardWithPostfixIncrement) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    auto curr{l.begin()};
+
+    EXPECT_EQ(*(curr++), 1);
+    EXPECT_EQ(*(curr++), 2);
+    EXPECT_EQ(*(curr++), 3);
+    EXPECT_EQ(curr, l.end());
+}
+
+TEST(DoubleLinkedListTest, IterateWithForRangeLoop) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    for ([[ maybe_unused ]] auto i : l) {}
+}
 }
