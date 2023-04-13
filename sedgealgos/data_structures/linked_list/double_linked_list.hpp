@@ -41,6 +41,8 @@ public:
         new_node->previous = tail;
         if (tail != nullptr) {
             tail->next = new_node;
+        } else {
+            head = new_node;
         }
         tail = new_node;
 
