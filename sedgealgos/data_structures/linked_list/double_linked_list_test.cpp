@@ -122,4 +122,30 @@ TEST(DoubleLinkedListTest, PushBackThenPopFrontThenPushBackSingleElement) {
 
     EXPECT_EQ(l.pop_front(), 2);
 }
+
+TEST(DoubleLinkedListTest, BeginInteratorIsEqualEndIteratorWhenListIsEmpty) {
+    DoubleLinkedList<int> l;
+    EXPECT_TRUE(l.begin() == l.end());
+}
+
+TEST(DoubleLinkedListTest, BeginInteratorIsNotEqualToEndIteratorWhenListIsNotEmpty) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+
+    EXPECT_TRUE(l.begin() != l.end());
+}
+
+TEST(DoubleLinkedListTest, CBeginInteratorIsEqualCEndIteratorWhenListIsEmpty) {
+    DoubleLinkedList<int> l;
+    EXPECT_TRUE(l.cbegin() == l.cend());
+}
+
+TEST(DoubleLinkedListTest, CBeginInteratorIsNotEqualToCEndIteratorWhenListIsNotEmpty) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+
+    EXPECT_TRUE(l.cbegin() != l.cend());
+}
 }

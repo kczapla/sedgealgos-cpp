@@ -3,8 +3,56 @@
 namespace sedgealgos::data_structures::linked_list {
 template<typename Item>
 class DoubleLinkedList {
+private:
+    struct Node {
+        Node* next{nullptr};
+        Node* previous{nullptr};
+        Item item;
+    };
+
 public:
     using Size = unsigned long;
+
+    template <typename T>
+    class Iterator {
+    public:
+        using value_type = T;
+        using pointer = value_type*;
+        using reference = value_type&;
+
+        Iterator(Node* curr) : curr{curr} {}
+
+        bool operator==(Iterator const& rhs) const {
+            return curr == rhs.curr;
+        }
+
+        bool operator!=(Iterator const& rhs) const {
+            return !(*this == rhs);
+        }
+
+    private:
+        Node* curr{nullptr};
+    };
+
+
+    using iterator = Iterator<Item>;
+    using const_iterator = Iterator<const Item>;
+
+    iterator begin() {
+        return iterator{head};
+    }
+
+    iterator end() {
+        return iterator{nullptr};
+    }
+
+    const_iterator cbegin() {
+        return const_iterator{head};
+    }
+
+    const_iterator cend() {
+        return const_iterator{nullptr};
+    }
 
     void push_front(Item item) {
         auto new_node{new Node};
@@ -76,12 +124,6 @@ public:
     }
 
 private:
-    struct Node {
-        Node* next{nullptr};
-        Node* previous{nullptr};
-        Item item;
-    };
-
     Node* head{nullptr};
     Node* tail{nullptr};
 
