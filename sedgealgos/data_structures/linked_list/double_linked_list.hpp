@@ -13,6 +13,8 @@ public:
 
         if (head != nullptr) {
             head->previous = new_node;
+        } else {
+            tail = new_node;
         }
         head = new_node;
 
