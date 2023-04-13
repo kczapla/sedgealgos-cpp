@@ -5,7 +5,7 @@
 namespace {
 using namespace sedgealgos::data_structures::linked_list;
 
-TEST(DoubleLinkedList, PushFrontIncreasesSize) {
+TEST(DoubleLinkedListTest, PushFrontIncreasesSize) {
     DoubleLinkedList<int> l;
     l.push_front(1);
     l.push_front(2);
@@ -13,7 +13,7 @@ TEST(DoubleLinkedList, PushFrontIncreasesSize) {
     EXPECT_EQ(l.size(), 2);
 }
 
-TEST(DoubleLinkedList, PopFrontDecreasesSize) {
+TEST(DoubleLinkedListTest, PopFrontDecreasesSize) {
     DoubleLinkedList<int> l;
     l.push_front(1);
     l.push_front(2);
