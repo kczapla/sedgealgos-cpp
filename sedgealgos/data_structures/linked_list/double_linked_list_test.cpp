@@ -86,4 +86,13 @@ TEST(DoubleLinkedListTest, PushBackThenPopFrontAllElements) {
     EXPECT_EQ(l.pop_front(), 2);
     EXPECT_EQ(l.pop_front(), 3);
 }
+
+TEST(DoubleLinkedListTest, PushFrontThenPopBackThenPushFrontSingleElement) {
+    DoubleLinkedList<int> l;
+    l.push_front(1);
+    l.pop_back();
+    l.push_front(2);
+
+    EXPECT_EQ(l.pop_back(), 2);
+}
 }

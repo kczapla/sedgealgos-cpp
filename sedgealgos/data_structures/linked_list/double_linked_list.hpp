@@ -53,6 +53,8 @@ public:
         auto new_tail{tail->previous};
         if (new_tail != nullptr) {
             new_tail->next = nullptr;
+        } else {
+            head = nullptr;
         }
 
         auto tmp_item{tail->item};
