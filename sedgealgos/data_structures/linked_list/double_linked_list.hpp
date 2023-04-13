@@ -23,6 +23,9 @@ public:
 
     Item pop_front() {
         auto new_head{head->next};
+        if (new_head == nullptr) {
+            tail = nullptr;
+        }
         auto tmp_item{head->item};
 
         delete head;
