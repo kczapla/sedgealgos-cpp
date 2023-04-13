@@ -153,6 +153,8 @@ public:
 
         second->previous = first;
         second->next = third;
+        
+        third->previous = second;
 
         no_elements++;
     }

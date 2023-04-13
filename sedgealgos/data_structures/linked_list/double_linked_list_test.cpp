@@ -218,4 +218,32 @@ TEST(DoubleLinkedListTest, InsertsBeforeMiddleElement) {
     EXPECT_EQ(l.pop_front(), 3);
     EXPECT_EQ(l.pop_front(), 1);
 }
+
+TEST(DoubleLinkedListTest, InsertsBeforeInsertedBeforeElement) {
+    DoubleLinkedList<int> l;
+
+    l.push_front(1);
+    l.push_front(2);
+    l.insert_before(++l.begin(), 3);
+    l.insert_before(++l.begin(), 4);
+
+    EXPECT_EQ(l.pop_front(), 2);
+    EXPECT_EQ(l.pop_front(), 4);
+    EXPECT_EQ(l.pop_front(), 3);
+    EXPECT_EQ(l.pop_front(), 1);
+}
+
+TEST(DoubleLinkedListTest, InsertBeforeElementAgain) {
+    DoubleLinkedList<int> l;
+
+    l.push_front(1);
+    l.push_front(2);
+    l.insert_before(++l.begin(), 3);
+    l.insert_before(++(++l.begin()), 4);
+
+    EXPECT_EQ(l.pop_front(), 2);
+    EXPECT_EQ(l.pop_front(), 3);
+    EXPECT_EQ(l.pop_front(), 4);
+    EXPECT_EQ(l.pop_front(), 1);
+}
 }
