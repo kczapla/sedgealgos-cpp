@@ -138,6 +138,10 @@ public:
     }
 
     void insert_before(iterator iter, Item item) {
+        if (head == nullptr) {
+            push_front(item);
+            return;
+        }
         auto first{iter.node->previous};
 
         auto second{new Node};

@@ -197,6 +197,14 @@ TEST(DoubleLinkedListTest, IterateWithForRangeLoop) {
     for ([[ maybe_unused ]] auto i : l) {}
 }
 
+TEST(DoubleLinkedListTest, InsertsBeforeFrontInEmptyList) {
+    DoubleLinkedList<int> l;
+
+    l.insert_before(l.begin(), 2);
+
+    EXPECT_EQ(l.pop_front(), 2);
+}
+
 TEST(DoubleLinkedListTest, InsertsBeforeFront) {
     DoubleLinkedList<int> l;
 
