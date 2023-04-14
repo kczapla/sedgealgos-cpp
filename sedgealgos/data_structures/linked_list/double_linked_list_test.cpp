@@ -314,4 +314,28 @@ TEST(DoubleLinkedListTest, InsertAfterTheSameElementAgain) {
     EXPECT_EQ(l.pop_back(), 5);
     EXPECT_EQ(l.pop_back(), 1);
 }
+
+TEST(DoubleLinkedListTest, InsertAfterToTheEmptyList) {
+    DoubleLinkedList<int> l;
+
+    l.insert_after(l.begin(), 4);
+
+    EXPECT_EQ(l.pop_back(), 4);
+}
+
+TEST(DoubleLinkedListTest, MixPushBacksPushFrontsInsertBeforeInsertAfter) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+    l.push_front(2);
+    l.push_back(3);
+    l.insert_after(l.begin(), 4);
+    l.insert_before(++l.begin(), 5);
+
+    EXPECT_EQ(l.pop_back(), 3);
+    EXPECT_EQ(l.pop_back(), 1);
+    EXPECT_EQ(l.pop_back(), 4);
+    EXPECT_EQ(l.pop_back(), 5);
+    EXPECT_EQ(l.pop_back(), 2);
+}
 }

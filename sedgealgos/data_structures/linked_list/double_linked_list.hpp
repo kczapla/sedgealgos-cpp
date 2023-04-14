@@ -164,6 +164,11 @@ public:
     }
 
     void insert_after(iterator iter, Item item) {
+        if (tail == nullptr) {
+            push_back(item);
+            return;
+        }
+
         auto first{iter.node};
         auto second{new Node};
         auto third{first->next};
