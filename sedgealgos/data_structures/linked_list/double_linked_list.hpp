@@ -166,11 +166,19 @@ public:
     void insert_after(iterator iter, Item item) {
         auto first{iter.node};
         auto second{new Node};
+        auto third{first->next};
+
+        if (third == nullptr) {
+            tail = second;
+        } else {
+            third->previous = second;
+        }
+
+
         second->item = item;
         second->previous = first;
+        second->next = third;
         first->next = second;
-
-        tail = second;
 
         no_elements++;
     }
