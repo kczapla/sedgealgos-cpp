@@ -59,6 +59,16 @@ TEST(DoubleLinkedListTest, InsertAfterIncreasesSize) {
     EXPECT_EQ(l.size(), 2);
 }
 
+TEST(DoubleLinkedListTest, RemoveDescreasesSize) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+
+    l.remove(l.begin());
+
+    EXPECT_EQ(l.size(), 1);
+}
+
 TEST(DoubleLinkedListTest, PushFrontThenPopFrontAllElements) {
     DoubleLinkedList<int> l;
     l.push_front(1);
@@ -337,5 +347,92 @@ TEST(DoubleLinkedListTest, MixPushBacksPushFrontsInsertBeforeInsertAfter) {
     EXPECT_EQ(l.pop_back(), 4);
     EXPECT_EQ(l.pop_back(), 5);
     EXPECT_EQ(l.pop_back(), 2);
+}
+
+TEST(DoubleLinkedListTest, RemoveElementFromSingleElementList) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+
+    l.remove(l.begin());
+
+    EXPECT_TRUE(l.begin() == l.end());
+}
+
+TEST(DoubleLinkedListTest, RemoveFirstElementFromList) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+
+    l.remove(l.begin());
+
+    EXPECT_EQ(l.pop_front(), 2);
+}
+
+TEST(DoubleLinkedListTest, RemoveLastElementFromList) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+
+    l.remove(++l.begin());
+
+    EXPECT_EQ(l.pop_front(), 1);
+}
+
+TEST(DoubleLinkedListTest, RemoveMiddleElementFromList) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    l.remove(++l.begin());
+
+    EXPECT_EQ(l.pop_front(), 1);
+    EXPECT_EQ(l.pop_front(), 3);
+}
+
+TEST(DoubleLinkedListTest, RemoveFirstElementFromListAndPopBackAllElements) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+
+    l.remove(l.begin());
+
+    EXPECT_EQ(l.pop_back(), 2);
+}
+
+TEST(DoubleLinkedListTest, RemoveLastElementFromListPopBackAllElements) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+
+    l.remove(++l.begin());
+
+    EXPECT_EQ(l.pop_back(), 1);
+}
+
+TEST(DoubleLinkedListTest, RemoveMiddleElementFromListPopBackAllElements) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    l.remove(++l.begin());
+
+    EXPECT_EQ(l.pop_back(), 3);
+    EXPECT_EQ(l.pop_back(), 1);
+}
+
+TEST(DoubleLinkedListTest, IteratreOverListAfterRemoval) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    l.remove(++l.begin());
+
+    auto iter{l.begin()};
+    EXPECT_EQ(*(iter++), 1);
+    EXPECT_EQ(*(iter++), 3);
+    EXPECT_TRUE(iter == l.end());
 }
 }

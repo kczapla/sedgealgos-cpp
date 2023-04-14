@@ -188,6 +188,28 @@ public:
         no_elements++;
     }
 
+    void remove(iterator iter) {
+        auto first{iter.node->previous};
+        auto second{iter.node};
+        auto third{iter.node->next};
+
+        if (first != nullptr) {
+            first->next = third;
+        } else {
+            head = third;
+        }
+
+        if (third != nullptr) {
+            third->previous = first;
+        } else {
+            tail = first;
+        }
+
+        delete second;
+
+        no_elements--;
+    }
+
     Size size() const {
         return no_elements;
     }
