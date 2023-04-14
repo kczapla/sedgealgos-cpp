@@ -163,6 +163,16 @@ public:
         no_elements++;
     }
 
+    void insert_after(iterator iter, Item item) {
+        auto first{iter.node};
+        auto second{new Node};
+        second->item = item;
+        second->previous = first;
+        first->next = second;
+
+        tail = second;
+    }
+
     Size size() const {
         return no_elements;
     }

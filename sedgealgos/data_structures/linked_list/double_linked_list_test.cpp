@@ -254,4 +254,14 @@ TEST(DoubleLinkedListTest, InsertBeforeElementAgain) {
     EXPECT_EQ(l.pop_front(), 4);
     EXPECT_EQ(l.pop_front(), 1);
 }
+
+TEST(DoubleLinkedListTest, InsertAfterBack) {
+    DoubleLinkedList<int> l;
+
+    l.push_back(1);
+    l.insert_after(l.begin(), 2);
+
+    EXPECT_EQ(l.pop_back(), 2);
+    EXPECT_EQ(l.pop_back(), 1);
+}
 }
