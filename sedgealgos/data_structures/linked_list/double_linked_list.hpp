@@ -52,6 +52,22 @@ public:
         Node* node{nullptr};
     };
 
+    ~DoubleLinkedList() {
+        if (head == nullptr) {
+            return;
+        }
+
+        auto curr{head};
+        auto next{curr->next};
+        while (next != nullptr) {
+            delete curr;
+
+            curr = next;
+            next = curr->next;
+        }
+        
+    }
+
 
     using iterator = Iterator<Item>;
     using const_iterator = Iterator<const Item>;
