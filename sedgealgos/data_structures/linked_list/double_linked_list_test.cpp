@@ -51,6 +51,14 @@ TEST(DoubleLinkedListTest, InsertBeforeIncreasesSize) {
     EXPECT_EQ(l.size(), 2);
 }
 
+TEST(DoubleLinkedListTest, InsertAfterIncreasesSize) {
+    DoubleLinkedList<int> l;
+    l.push_back(1);
+    l.insert_after(l.begin(), 3);
+
+    EXPECT_EQ(l.size(), 2);
+}
+
 TEST(DoubleLinkedListTest, PushFrontThenPopFrontAllElements) {
     DoubleLinkedList<int> l;
     l.push_front(1);

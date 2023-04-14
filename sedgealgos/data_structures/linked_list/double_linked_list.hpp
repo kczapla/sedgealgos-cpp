@@ -171,6 +171,8 @@ public:
         first->next = second;
 
         tail = second;
+
+        no_elements++;
     }
 
     Size size() const {
