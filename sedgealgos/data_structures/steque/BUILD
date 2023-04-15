@@ -7,7 +7,6 @@ load(
 sedgealgos_cc_library(
     name = "steque",
     hdrs = ["steque.hpp"],
-    srcs = ["steque.cpp"],
 )
 
 sedgealgos_cc_test(
