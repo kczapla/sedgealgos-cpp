@@ -1,4 +1,5 @@
 #include "sedgealgos/data_structures/deque/deque.hpp"
+#include "sedgealgos/data_structures/deque/resizing_array_deque.hpp"
 
 #include <gtest/gtest.h>
 
@@ -229,6 +230,24 @@ TYPED_TEST_P(DequeTest, PushLeftTwoItemThenPopRightOneItemThenPushRightOneAndFin
     EXPECT_EQ(this->deque.pop_left(), 3);
 }
 
+TYPED_TEST_P(DequeTest, PushManyItemsAndFinallyPopThemAll) {
+    this->deque.push_right(1);
+    this->deque.push_right(2);
+    this->deque.push_right(3);
+    this->deque.push_right(4);
+    this->deque.push_right(5);
+    this->deque.push_right(6);
+    this->deque.push_right(7);
+
+    EXPECT_EQ(this->deque.pop_right(), 7);
+    EXPECT_EQ(this->deque.pop_right(), 6);
+    EXPECT_EQ(this->deque.pop_right(), 5);
+    EXPECT_EQ(this->deque.pop_right(), 4);
+    EXPECT_EQ(this->deque.pop_right(), 3);
+    EXPECT_EQ(this->deque.pop_right(), 2);
+    EXPECT_EQ(this->deque.pop_right(), 1);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(
     DequeTest,
     IsEmptyReturnsTrueWhenEmptyDeque,
@@ -254,9 +273,13 @@ REGISTER_TYPED_TEST_SUITE_P(
     PushLeftTwoItemThenPopLeftOneItemThenPushLeftOneAndFinallyPopAll,
     PushLeftTwoItemThenPopLeftOneItemThenPushRightOneAndFinallyPopAll,
     PushLeftTwoItemThenPopRightOneItemThenPushLeftOneAndFinallyPopAll,
-    PushLeftTwoItemThenPopRightOneItemThenPushRightOneAndFinallyPopAll
+    PushLeftTwoItemThenPopRightOneItemThenPushRightOneAndFinallyPopAll,
+    PushManyItemsAndFinallyPopThemAll
 );
 
 using DoubleLinkedListDeque = Deque<int>;
+using ResizingArrayDeque = ResizingArrayDeque<int>;
+
 INSTANTIATE_TYPED_TEST_SUITE_P(DoubleLinkedList, DequeTest, DoubleLinkedListDeque);
+INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, DequeTest, ResizingArrayDeque);
 }
