@@ -5,6 +5,20 @@
 namespace {
 using namespace sedgealgos::data_structures::linked_list;
 
+TEST(DoubleLinkedListTest, IsEmptyReturnsTrueWhenEmptyDeque) {
+    DoubleLinkedList<int> l;
+
+    EXPECT_TRUE(l.is_empty());
+}
+
+TEST(DoubleLinkedListTest, IsEmptyReturnsFalseWhenDequeIsNotEmpty) {
+    DoubleLinkedList<int> l;
+
+    l.push_front(1);
+
+    EXPECT_FALSE(l.is_empty());
+}
+
 TEST(DoubleLinkedListTest, PushFrontIncreasesSize) {
     DoubleLinkedList<int> l;
     l.push_front(1);

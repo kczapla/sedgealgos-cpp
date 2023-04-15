@@ -226,6 +226,10 @@ public:
         no_elements--;
     }
 
+    bool is_empty() const {
+        return no_elements == 0;
+    }
+
     Size size() const {
         return no_elements;
     }
