@@ -78,7 +78,7 @@ TEST(RandomBagTest, IterateOverSingleItemBag) {
     EXPECT_TRUE(++iter == bag.end());
 }
 
-TEST(RandomBagTest, IterateOverArrayWithMoreThanOneElementReturnsRandomeItem) {
+TEST(RandomBagTest, IterateOverArrayWithMoreThanOneElementReturnsRandomItem) {
     RandomBag<int> bag;
 
     bag.add(1);
@@ -93,5 +93,32 @@ TEST(RandomBagTest, IterateOverArrayWithMoreThanOneElementReturnsRandomeItem) {
     EXPECT_THAT(*(++iter), IsBetween(1, 4));
     EXPECT_TRUE(++iter == bag.end());
 }
-}
 
+TEST(RandomBagTest, IterateOverArrayWithManyElements) {
+    RandomBag<int> bag;
+
+    bag.add(1);
+    bag.add(2);
+    bag.add(3);
+    bag.add(4);
+    bag.add(5);
+    bag.add(6);
+    bag.add(7);
+    bag.add(8);
+    bag.add(9);
+    bag.add(10);
+
+    auto iter{bag.begin()};
+    EXPECT_THAT(*iter, IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_THAT(*(++iter), IsBetween(1, 10));
+    EXPECT_TRUE(++iter == bag.end());
+}
+}
