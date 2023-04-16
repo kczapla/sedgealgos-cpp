@@ -5,6 +5,18 @@
 namespace {
 using namespace sedgealgos::data_structures::array;
 
+TEST(ArrayTest, CopyArrayThatIsNotEmpty) {
+    Array<int> arr(5, 1);
+
+    auto new_arr{arr};
+
+    EXPECT_EQ(new_arr[0], 1);
+    EXPECT_EQ(new_arr[0], 1);
+    EXPECT_EQ(new_arr[0], 1);
+    EXPECT_EQ(new_arr[0], 1);
+    EXPECT_EQ(new_arr[0], 1);
+}
+
 TEST(ArrayTest, InitializeArrayWithNZeroValueItemIncreasesSize) {
     Array<int> arr(5);
 

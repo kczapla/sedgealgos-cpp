@@ -24,6 +24,17 @@ public:
         capacity = size;
     }
 
+    Array(Array const& arr) {
+        data = new Item[arr.size()];
+
+        capacity = arr.capacity;
+        next_index = arr.next_index;
+
+        for (Size i{0}; i < next_index; i++) {
+            data[i] = arr.data[i];
+        }
+    }
+
     ~Array() {
         delete[] data;
     }
@@ -40,10 +51,11 @@ public:
     }
 
     Item pop_back() {
-        return data[--next_index];
+        auto old_item{data[--next_index]};
         if (next_index == (capacity/4)) {
             resize(capacity / 2);
         }
+        return old_item;
     }
 
     Size size() const {
