@@ -13,6 +13,33 @@ protected:
 
 TYPED_TEST_SUITE_P(StackTest);
 
+  TYPED_TEST_P(StackTest, EmptyStacksAreEqual) {
+      TypeParam lhs;
+
+      EXPECT_TRUE(this->stack == lhs);
+  }
+
+  TYPED_TEST_P(StackTest, StacksWithTheSameElementsAreEqual) {
+      TypeParam lhs;
+
+      this->stack.push(1);
+      lhs.push(1);
+      this->stack.push(2);
+      lhs.push(2);
+
+      EXPECT_TRUE(this->stack == lhs);
+  }
+
+  TYPED_TEST_P(StackTest, StacksWithDifferentElementsAreNotEqual) {
+      TypeParam lhs;
+
+      this->stack.push(1);
+      lhs.push(1);
+      this->stack.push(2);
+      lhs.push(3);
+
+      EXPECT_TRUE(this->stack != lhs);
+  }
 
   TYPED_TEST_P(StackTest, CreatesUsingCopyCtor) {
       this->stack.push(1);
@@ -177,6 +204,9 @@ TYPED_TEST_SUITE_P(StackIteratorTest);
 
   REGISTER_TYPED_TEST_SUITE_P(
     StackTest,
+    EmptyStacksAreEqual,
+    StacksWithTheSameElementsAreEqual,
+    StacksWithDifferentElementsAreNotEqual,
     CreatesUsingCopyCtor,
     CreatesUsingCopyAssignmentOperator,
     IsEmptyAfterCreated,

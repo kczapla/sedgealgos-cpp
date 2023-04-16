@@ -18,6 +18,8 @@ public:
   bool is_empty() const;
   unsigned long size() const;
 
+  bool operator==(Stack const& lhs) const;
+
 public:
   template <typename T>
   struct Iterator {
@@ -117,4 +119,19 @@ Item const& Stack<Item, Container>::peek() const {
   return container.front();
 }
 
+template <typename Item, typename Container>
+bool Stack<Item, Container>::operator==(Stack<Item, Container> const& lhs) const {
+  auto rhs_iter{container.cbegin()};
+  auto lhs_iter{lhs.container.cbegin()};
+
+  while (rhs_iter != container.cend() && lhs_iter != lhs.container.cend()) {
+      if (*rhs_iter != *lhs_iter) {
+          return false;
+      }
+      ++rhs_iter;
+      ++lhs_iter;
+  }
+
+  return rhs_iter == lhs_iter;
+}
 }

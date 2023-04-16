@@ -59,24 +59,23 @@ TEST(RandomBagTest, IteratorsAreEqualWhenBagIsEmpty) {
     EXPECT_FALSE(bag.begin() != bag.begin());
 }
 
-TEST(RandomBagTest, IteratorAreNotEqualWhenBagIsNotEmpty) {
+TEST(RandomBagTest, BeginIteratorsAreEqualWhenBagHasSingleElement) {
     RandomBag<int> bag;
 
     bag.add(1);
 
-    EXPECT_TRUE(bag.begin() != bag.begin());
-    EXPECT_FALSE(bag.begin() == bag.begin());
+    EXPECT_TRUE(bag.begin() == bag.begin());
+    EXPECT_FALSE(bag.begin() != bag.begin());
 }
 
-TEST(RandomBagTest, IterateOverSingleElementAlwaysReturnsTheSameValue) {
+TEST(RandomBagTest, IterateOverSingleItemBag) {
     RandomBag<int> bag;
 
     bag.add(1);
 
     auto iter{bag.begin()};
-    EXPECT_EQ(*(++iter), 1);
-    EXPECT_EQ(*(++iter), 1);
-    EXPECT_EQ(*(++iter), 1);
+    EXPECT_EQ(*iter, 1);
+    EXPECT_TRUE(++iter == bag.end());
 }
 
 TEST(RandomBagTest, IterateOverArrayWithMoreThanOneElementReturnsRandomeItem) {
@@ -88,10 +87,11 @@ TEST(RandomBagTest, IterateOverArrayWithMoreThanOneElementReturnsRandomeItem) {
     bag.add(4);
 
     auto iter{bag.begin()};
+    EXPECT_THAT(*iter, IsBetween(1, 4));
     EXPECT_THAT(*(++iter), IsBetween(1, 4));
     EXPECT_THAT(*(++iter), IsBetween(1, 4));
     EXPECT_THAT(*(++iter), IsBetween(1, 4));
-    EXPECT_THAT(*(++iter), IsBetween(1, 4));
+    EXPECT_TRUE(++iter == bag.end());
 }
 }
 

@@ -5,6 +5,18 @@
 namespace {
 using namespace sedgealgos::data_structures::array;
 
+TEST(ArrayTest, InitializeArrayWithNZeroValueItemIncreasesSize) {
+    Array<int> arr(5);
+
+    EXPECT_EQ(arr.size(), 5);
+}
+
+TEST(ArrayTest, InitializeArrayWithNMItemValuesIncreasesSize) {
+    Array<int> arr(5);
+
+    EXPECT_EQ(arr.size(), 5);
+}
+
 TEST(ArrayTest, InitializeArrayWithNZeroValuesOfItem) {
     Array<int> arr(5);
 
@@ -69,6 +81,20 @@ TEST(ArrayTest, PopsBackElements) {
 
     EXPECT_EQ(arr.pop_back(), 1);
     EXPECT_EQ(arr.size(), 0);
+}
+
+TEST(ArrayTest, BeginIteratorIsEqualEndIteratorWhenArrayIsEmpty) {
+    Array<int> arr;
+
+    EXPECT_TRUE(arr.begin() == arr.end());
+}
+
+TEST(ArrayTest, BeginIteratorIsNotEqualEndIteratorWhenArrayIsNotEmpty) {
+    Array<int> arr;
+
+    arr.push_back(1);
+
+    EXPECT_FALSE(arr.begin() == arr.end());
 }
 
 TEST(ArrayTest, IteratesOverElementsWithPostfixIncrement) {

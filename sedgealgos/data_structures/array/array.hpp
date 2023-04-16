@@ -13,15 +13,15 @@ public:
         data = new Item[capacity];
     }
 
-    Array(Size size) {
-        data = new Item[size];
-    }
+    Array(Size size) : Array{size, Item{}} {}
 
     Array(Size size, Item item) {
         data = new Item[size];
         for (Size i{0}; i < size; i++) {
             data[i] = item;
         }
+        next_index = size;
+        capacity = size;
     }
 
     ~Array() {

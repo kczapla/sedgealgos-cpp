@@ -1,6 +1,8 @@
 #pragma once
 
 #include "sedgealgos/data_structures/array/array.hpp"
+#include "sedgealgos/data_structures/linked_list/single_linked_list.hpp"
+#include "sedgealgos/stack/stack.hpp"
 #include "sedgealgos/random/std_random.hpp"
 
 namespace sedgealgos::data_structures::bag {
@@ -29,44 +31,73 @@ public:
         using pointer = T*;
         using reference = T&;
 
-        Iterator(array::Array<Item>& data) : data{data} {}
+        Iterator(array::Array<value_type>* data, Size size) : data{data} {
+            if (data == nullptr) {
+                return;
+            }
+
+            if (size == 0) {
+                return;
+            }
+
+            array::Array<bool> set(size, false);
+
+            auto any_false{[](auto const& set) {
+                for (auto flag : set) {
+                    if (!flag) {
+                        return true;
+                    }
+                }
+                return false;
+            }};
+
+            while(any_false(set)) {
+                auto i{random::StdRandom::uniform(static_cast<int>(data->size() - 1))};
+                if (set[i]) {
+                    continue;
+                }
+                set[i] = true;
+                indices.push(i);
+            }
+        }
 
         reference operator*() { 
-            auto i{random::StdRandom::uniform(static_cast<int>(data.size() - 1))};
-            return data[i];
+            return (*data)[indices.peek()];
         }
 
         Iterator& operator++() {
+            indices.pop();
             return *this;
         }
 
         bool operator==(Iterator const& rhs) const {
-            auto point_to_the_same_array{data.begin() == rhs.data.begin()};
-            auto array_is_empty{data.is_empty()};
-            return point_to_the_same_array && array_is_empty;
+            auto point_to_the_same_array{data == rhs.data};
+            auto have_the_same_indices{indices == rhs.indices};
+            return point_to_the_same_array && have_the_same_indices;
         }
 
     private:
-        array::Array<Item>& data;
+        typename array::Array<value_type>* data;
+        stack::Stack<Size, linked_list::SingleLinkedList<Size>> indices;
     };
 
     using iterator = Iterator<Item>;
     using const_iterator = Iterator<const Item>;
 
     iterator begin() {
-        return iterator{data};
+        return iterator{&data, data.size()};
     }
 
     iterator end() {
-        return iterator{data};
+        return iterator{&data, 0};
     }
 
     const_iterator cbegin() {
-        return const_iterator{data};
+        return const_iterator{&data, data.size()};
     }
 
     const_iterator cend() {
-        return const_iterator{data};
+        return const_iterator{&data, 0};
     }
 
 private:
