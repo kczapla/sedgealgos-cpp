@@ -13,6 +13,17 @@ public:
         data = new Item[capacity];
     }
 
+    Array(Size size) {
+        data = new Item[size];
+    }
+
+    Array(Size size, Item item) {
+        data = new Item[size];
+        for (Size i{0}; i < size; i++) {
+            data[i] = item;
+        }
+    }
+
     ~Array() {
         delete[] data;
     }

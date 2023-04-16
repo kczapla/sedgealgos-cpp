@@ -5,6 +5,26 @@
 namespace {
 using namespace sedgealgos::data_structures::array;
 
+TEST(ArrayTest, InitializeArrayWithNZeroValuesOfItem) {
+    Array<int> arr(5);
+
+    EXPECT_EQ(arr[0], 0);
+    EXPECT_EQ(arr[1], 0);
+    EXPECT_EQ(arr[2], 0);
+    EXPECT_EQ(arr[3], 0);
+    EXPECT_EQ(arr[4], 0);
+}
+
+TEST(ArrayTest, InitializeArrayWithNMItemValues) {
+    Array<int> arr(5, 1);
+
+    EXPECT_EQ(arr[0], 1);
+    EXPECT_EQ(arr[1], 1);
+    EXPECT_EQ(arr[2], 1);
+    EXPECT_EQ(arr[3], 1);
+    EXPECT_EQ(arr[4], 1);
+}
+
 TEST(ArrayTest, PushesBackOneElement) {
     Array<int> arr;
     arr.push_back(1);
