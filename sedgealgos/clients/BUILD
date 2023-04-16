@@ -6,6 +6,16 @@ load(
 )
 
 sedgealgos_cc_binary(
+    name = "random_bag",
+    srcs = ["random_bag.cpp"],
+    deps = [
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/data_structures/bag:random_bag",
+    ]
+)
+
+sedgealgos_cc_binary(
     name = "parantheses",
     srcs = ["parantheses.cpp"],
     deps = [
