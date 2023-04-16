@@ -5,6 +5,22 @@
 
 namespace {
 using namespace sedgealgos::data_structures::bag;
+using namespace sedgealgos::data_structures::array;
+
+template<typename T>
+class RandomGeneratorMock {
+public:
+    void add(T t) {
+        data.push_back(t);
+    }
+
+    int uniform(int) {
+        return data.pop_back();
+    }
+
+private:
+    Array<T> data;
+};
 
 MATCHER_P2(IsBetween, a, b, "") { return a <= arg && arg <= b; }
 
@@ -94,31 +110,47 @@ TEST(RandomBagTest, IterateOverArrayWithMoreThanOneElementReturnsRandomItem) {
     EXPECT_TRUE(++iter == bag.end());
 }
 
-TEST(RandomBagTest, IterateOverArrayWithManyElements) {
-    RandomBag<int> bag;
+TEST(RandomBagTest, IterateOverWithManyElements) {
+    ::RandomGeneratorMock<int> random_generator;
 
-    bag.add(1);
-    bag.add(2);
-    bag.add(3);
-    bag.add(4);
-    bag.add(5);
-    bag.add(6);
-    bag.add(7);
-    bag.add(8);
-    bag.add(9);
-    bag.add(10);
+    random_generator.add(0);
+    random_generator.add(1);
+    random_generator.add(2);
+    random_generator.add(3);
+    random_generator.add(4);
+    random_generator.add(5);
+    random_generator.add(6);
+    random_generator.add(6);
+    random_generator.add(7);
+    random_generator.add(8);
+    random_generator.add(9);
 
-    auto iter{bag.begin()};
-    EXPECT_THAT(*iter, IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_THAT(*(++iter), IsBetween(1, 10));
-    EXPECT_TRUE(++iter == bag.end());
+    Array<int> arr;
+
+    arr.push_back(0);
+    arr.push_back(1);
+    arr.push_back(2);
+    arr.push_back(3);
+    arr.push_back(4);
+    arr.push_back(5);
+    arr.push_back(6);
+    arr.push_back(7);
+    arr.push_back(8);
+    arr.push_back(9);
+
+    RandomBag<int>::Iterator<int, RandomGeneratorMock<int>> iter{&arr, arr.size(), random_generator};
+    RandomBag<int>::Iterator<int, RandomGeneratorMock<int>> end{&arr, 0, random_generator};
+
+    EXPECT_THAT(*iter, 0);
+    EXPECT_THAT(*(++iter), 1);
+    EXPECT_THAT(*(++iter), 2);
+    EXPECT_THAT(*(++iter), 3);
+    EXPECT_THAT(*(++iter), 4);
+    EXPECT_THAT(*(++iter), 5);
+    EXPECT_THAT(*(++iter), 6);
+    EXPECT_THAT(*(++iter), 7);
+    EXPECT_THAT(*(++iter), 8);
+    EXPECT_THAT(*(++iter), 9);
+    EXPECT_TRUE(++iter == end);
 }
 }

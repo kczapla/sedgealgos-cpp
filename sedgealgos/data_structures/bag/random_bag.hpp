@@ -24,14 +24,14 @@ public:
         return data.size();
     }
 
-    template<typename T>
+    template<typename T, typename RandomGenerator = random::StdRandom>
     class Iterator {
     public:
         using value_type = T;
         using pointer = T*;
         using reference = T&;
 
-        Iterator(array::Array<value_type>* data, Size size) : data{data} {
+        Iterator(array::Array<value_type>* data, Size size, RandomGenerator rg = RandomGenerator{}) : data{data}, random_generator{rg} {
             if (data == nullptr) {
                 return;
             }
@@ -52,7 +52,7 @@ public:
             }};
 
             while(any_false(set)) {
-                auto i{random::StdRandom::uniform(static_cast<int>(data->size() - 1))};
+                auto i{random_generator.uniform(static_cast<int>(data->size() - 1))};
                 if (set[i]) {
                     continue;
                 }
@@ -79,6 +79,7 @@ public:
     private:
         typename array::Array<value_type>* data;
         stack::Stack<Size, linked_list::SingleLinkedList<Size>> indices;
+        RandomGenerator random_generator;
     };
 
     using iterator = Iterator<Item>;
