@@ -1,0 +1,62 @@
+#include "sedgealgos/data_structures/queue/random_queue.hpp"
+#include "sedgealgos/random/std_random.hpp"
+
+#include <gtest/gtest.h>
+
+namespace {
+using namespace sedgealgos::data_structures::queue;
+using namespace sedgealgos::random;
+
+template <typename T>
+using GenericRandomIntQueue = RandomQueue<int, T>;
+
+using RandomIntQueue = GenericRandomIntQueue<StdRandom>;
+
+class RandomGeneratorMock {
+public:
+    static int uniform(int) {
+        return counter++;
+    }
+
+    static void reset_counter() {
+        counter = 0;
+    }
+
+private:
+    inline static int counter{0};
+};
+
+TEST(RandomQueueTest, IsEmptyReturnsTrueWhenQueueIsEmpty) {
+    RandomIntQueue rq;
+
+    EXPECT_TRUE(rq.is_empty());
+}
+
+TEST(RandomQueueTest, IsEmptyReturnsFalseWhenQueueIsNotEmpty) {
+    RandomIntQueue rq;
+
+    rq.enqueue(1);
+
+    EXPECT_FALSE(rq.is_empty());
+}
+
+TEST(RandomQueueTest, WhenQueueHasOneItemThenPeekReturnsThatItem) {
+    RandomIntQueue rq;
+
+    rq.enqueue(1);
+
+    EXPECT_EQ(rq.peek(), 1);
+}
+
+TEST(RandomQueueTest, WhenQueueHasTwoItemsThenPeekReturnsRandomItem) {
+    RandomGeneratorMock::reset_counter();
+
+    GenericRandomIntQueue<RandomGeneratorMock> rq;
+
+    rq.enqueue(0);
+    rq.enqueue(1);
+
+    EXPECT_EQ(rq.peek(), 0);
+    EXPECT_EQ(rq.peek(), 1);
+}
+}

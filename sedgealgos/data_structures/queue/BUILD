@@ -32,3 +32,19 @@ sedgealgos_cc_test(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "random_queue",
+    hdrs = ["random_queue.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
+
+sedgealgos_cc_test(
+    name = "random_queue_test",
+    srcs = ["random_queue_test.cpp"],
+    deps = [
+        "random_queue",
+        "//sedgealgos/random:std_random",
+    ],
+)
