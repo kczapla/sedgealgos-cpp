@@ -22,6 +22,10 @@ public:
         counter = 0;
     }
 
+    static void set_counter(int c) {
+        counter = c;
+    }
+
 private:
     inline static int counter{0};
 };
@@ -58,5 +62,32 @@ TEST(RandomQueueTest, WhenQueueHasTwoItemsThenPeekReturnsRandomItem) {
 
     EXPECT_EQ(rq.peek(), 0);
     EXPECT_EQ(rq.peek(), 1);
+    EXPECT_FALSE(rq.is_empty());
+}
+
+TEST(RandomQueueTest, WhenQueueHasOneItemThenDequeueReturnsThatItem) {
+    RandomIntQueue rq;
+
+    rq.enqueue(0);
+
+    EXPECT_EQ(rq.dequeue(), 0);
+    EXPECT_TRUE(rq.is_empty());
+}
+
+TEST(RandomQueueTest, WhenQueueHasTwoItemsThenDequeuReturnsRandomItem) {
+    RandomGeneratorMock::reset_counter();
+
+    GenericRandomIntQueue<RandomGeneratorMock> rq;
+
+    rq.enqueue(1);
+    rq.enqueue(0);
+
+    EXPECT_EQ(rq.dequeue(), 1);
+    RandomGeneratorMock::set_counter(0);
+
+    EXPECT_EQ(rq.dequeue(), 0);
+    RandomGeneratorMock::set_counter(1);
+
+    EXPECT_TRUE(rq.is_empty());
 }
 }

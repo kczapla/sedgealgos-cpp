@@ -14,6 +14,15 @@ public:
         data.push_back(item);
     }
 
+    Item dequeue() {
+        auto const index{RandomGenerator::uniform(static_cast<int>(data.size() - 1))};
+        auto tmp{data[index]};
+        data[index] = data[data.size() - 1];
+        data[data.size() - 1] = tmp;
+
+        return data.pop_back();
+    }
+
     Item peek() {
         auto const index{RandomGenerator::uniform(static_cast<int>(data.size() - 1))};
         return data[index];
