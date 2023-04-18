@@ -6,6 +6,17 @@ load(
 )
 
 sedgealgos_cc_binary(
+    name = "have_all_the_cards",
+    srcs = ["have_all_the_cards.cpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+        "//sedgealgos/data_structures/queue:random_queue",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/random:std_random",
+    ]
+)
+
+sedgealgos_cc_binary(
     name = "random_bag",
     srcs = ["random_bag.cpp"],
     deps = [
