@@ -49,7 +49,7 @@ TEST(RandomQueueTest, WhenQueueHasOneItemThenPeekReturnsThatItem) {
 
     rq.enqueue(1);
 
-    EXPECT_EQ(rq.peek(), 1);
+    EXPECT_EQ(rq.sample(), 1);
 }
 
 TEST(RandomQueueTest, WhenQueueHasTwoItemsThenPeekReturnsRandomItem) {
@@ -60,8 +60,8 @@ TEST(RandomQueueTest, WhenQueueHasTwoItemsThenPeekReturnsRandomItem) {
     rq.enqueue(0);
     rq.enqueue(1);
 
-    EXPECT_EQ(rq.peek(), 0);
-    EXPECT_EQ(rq.peek(), 1);
+    EXPECT_EQ(rq.sample(), 0);
+    EXPECT_EQ(rq.sample(), 1);
     EXPECT_FALSE(rq.is_empty());
 }
 

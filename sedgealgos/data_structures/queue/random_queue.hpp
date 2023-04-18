@@ -23,7 +23,7 @@ public:
         return data.pop_back();
     }
 
-    Item peek() {
+    Item sample() {
         auto const index{RandomGenerator::uniform(static_cast<int>(data.size() - 1))};
         return data[index];
     }
