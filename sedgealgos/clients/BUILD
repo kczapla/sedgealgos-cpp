@@ -6,6 +6,18 @@ load(
 )
 
 sedgealgos_cc_binary(
+    name = "josephus",
+    srcs = [
+        "josephus.cpp",
+    ],
+    deps = [
+        "//sedgealgos/data_structures/queue:queue",
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+    ],
+)
+
+sedgealgos_cc_binary(
     name = "have_all_the_cards",
     srcs = ["have_all_the_cards.cpp"],
     deps = [

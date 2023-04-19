@@ -2,13 +2,14 @@
 
 #include "sedgealgos/data_structures/array/array.hpp"
 #include "sedgealgos/data_structures/linked_list/single_linked_list.hpp"
+#include "sedgealgos/random/std_random.hpp"
 #include "sedgealgos/stack/stack.hpp"
 
 namespace sedgealgos::data_structures::queue {
 
 using LinkedListStack = stack::Stack<unsigned int, linked_list::SingleLinkedList<unsigned int>>;
 
-template<typename Item, typename RandomGenerator>
+template<typename Item, typename RandomGenerator = sedgealgos::random::StdRandom>
 class RandomQueue {
 public:
     template<typename T>

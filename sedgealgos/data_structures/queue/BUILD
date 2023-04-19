@@ -37,8 +37,9 @@ sedgealgos_cc_library(
     hdrs = ["random_queue.hpp"],
     deps = [
         "//sedgealgos/data_structures/array:array",
-        "//sedgealgos/stack:stack",
         "//sedgealgos/data_structures/linked_list:single_linked_list",
+        "//sedgealgos/stack:stack",
+        "//sedgealgos/random:std_random",
     ],
 )
 
