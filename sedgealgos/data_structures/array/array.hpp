@@ -9,6 +9,8 @@ class Array {
 public:
     using Size = unsigned long;
 
+    using value_type = Item;
+
     Array() {
         data = new Item[capacity];
     }
@@ -56,6 +58,13 @@ public:
             resize(capacity / 2);
         }
         return old_item;
+    }
+
+    void remove(Size k) {
+        for (auto i{k}; i < next_index; i++) {
+            data[i] = data[i+1];
+        }
+        --next_index;
     }
 
     Size size() const {

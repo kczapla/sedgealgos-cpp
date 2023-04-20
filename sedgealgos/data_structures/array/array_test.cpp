@@ -1,8 +1,10 @@
 #include "sedgealgos/data_structures/array/array.hpp"
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace {
+using namespace ::testing;
 using namespace sedgealgos::data_structures::array;
 
 TEST(ArrayTest, CopyArrayThatIsNotEmpty) {
@@ -109,6 +111,59 @@ TEST(ArrayTest, PushBackManyElement) {
     arr.push_back(9);
     arr.push_back(10);
     arr.push_back(11);
+}
+
+TEST(ArrayTest, RemoveItemFromSingleItemArray) {
+    Array<int> arr;
+    arr.push_back(0);
+
+    arr.remove(0);
+
+    EXPECT_TRUE(arr.is_empty());
+}
+
+TEST(ArrayTest, RemoveLastItemFromArray) {
+    Array<int> arr;
+    arr.push_back(0);
+    arr.push_back(1);
+
+    arr.remove(1);
+
+    EXPECT_THAT(arr, ElementsAre(0));
+}
+
+TEST(ArrayTest, RemoveFirstItemFromArray) {
+    Array<int> arr;
+    arr.push_back(0);
+    arr.push_back(1);
+
+    arr.remove(0);
+
+    EXPECT_THAT(arr, ElementsAre(1));
+}
+
+TEST(ArrayTest, RemoveItemFromTheMiddle) {
+    Array<int> arr;
+    arr.push_back(0);
+    arr.push_back(1);
+    arr.push_back(2);
+
+    arr.remove(1);
+
+    EXPECT_THAT(arr, ElementsAre(0, 2));
+}
+
+TEST(ArrayTest, RemoveItemFromTheMiddleAndAddNewOneAtTheEnd) {
+    Array<int> arr;
+    arr.push_back(0);
+    arr.push_back(1);
+    arr.push_back(2);
+
+    arr.remove(1);
+
+    arr.push_back(3);
+
+    EXPECT_THAT(arr, ElementsAre(0, 2, 3));
 }
 
 TEST(ArrayTest, BeginIteratorIsEqualEndIteratorWhenArrayIsEmpty) {
