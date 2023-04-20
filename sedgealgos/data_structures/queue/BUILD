@@ -70,7 +70,7 @@ sedgealgos_cc_library(
 
 sedgealgos_cc_test(
     name = "generalized_queue_test",
-    srcs = ["linked_list_generalized_queue_test.cpp"],
+    srcs = ["generalized_queue_test.cpp"],
     deps = [
         "linked_list_generalized_queue",
         "resizing_array_generalized_queue",
