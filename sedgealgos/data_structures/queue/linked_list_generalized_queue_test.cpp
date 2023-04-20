@@ -1,4 +1,5 @@
 #include "sedgealgos/data_structures/queue/linked_list_generalized_queue.hpp"
+#include "sedgealgos/data_structures/queue/resizing_array_generalized_queue.hpp"
 
 #include <gtest/gtest.h>
 
@@ -33,8 +34,6 @@ TYPED_TEST_P(GeneralizedQueueTest, RemoveOldestElement) {
     this->queue.insert(2);
     this->queue.insert(3);
     this->queue.insert(4);
-
-    this->queue.remove(0);
 
     EXPECT_EQ(this->queue.remove(0), 1);
 }
@@ -103,4 +102,5 @@ REGISTER_TYPED_TEST_SUITE_P(
 );
 
 INSTANTIATE_TYPED_TEST_SUITE_P(LinkedList, GeneralizedQueueTest, sedgealgos::data_structures::queue::LinkedListGeneralizedQueue<int>);
+INSTANTIATE_TYPED_TEST_SUITE_P(ResizingArray, GeneralizedQueueTest, sedgealgos::data_structures::queue::ResizingArrayGeneralizedQueue<int>);
 }
