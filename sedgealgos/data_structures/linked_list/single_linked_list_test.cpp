@@ -7,6 +7,17 @@ namespace {
 using ::testing::ThrowsMessage;
 using namespace sedgealgos::data_structures::linked_list;
 
+TEST(SingleLinkedListTest, IsEmptyReturnsTrueWhenListIsEmpty) {
+  SingleLinkedList<int> ll;
+  EXPECT_TRUE(ll.is_empty());
+}
+
+TEST(SingleLinkedListTest, IsEmptyReturnsFalseWhenListIsNotEmpty) {
+  SingleLinkedList<int> ll;
+  ll.push_front(1);
+  EXPECT_FALSE(ll.is_empty());
+}
+
 TEST(SingleLinkedListTest, PushesAndPopsOneElement) {
   SingleLinkedList<int> ll;
   ll.push_front(1);

@@ -127,6 +127,10 @@ public:
         return items_no;
     }
 
+    bool is_empty() const {
+        return items_no == 0;
+    }
+
 private:
   struct Node {
       Item item;
