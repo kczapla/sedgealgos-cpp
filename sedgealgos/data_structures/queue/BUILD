@@ -53,6 +53,14 @@ sedgealgos_cc_test(
 )
 
 sedgealgos_cc_library(
+    name = "resizing_array_generalized_queue",
+    hdrs = ["resizing_array_generalized_queue.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
+
+sedgealgos_cc_library(
     name = "linked_list_generalized_queue",
     hdrs = ["linked_list_generalized_queue.hpp"],
     deps = [
@@ -65,5 +73,6 @@ sedgealgos_cc_test(
     srcs = ["linked_list_generalized_queue_test.cpp"],
     deps = [
         "linked_list_generalized_queue",
+        "resizing_array_generalized_queue",
     ],
 )
