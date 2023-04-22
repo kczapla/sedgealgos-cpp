@@ -19,10 +19,20 @@ public:
     }
 
     void push(Item item) {
+        if (next_push / buffer_size == 1) {
+            next_push = 0;
+            if (next_push == next_pop) {
+                next_pop++;
+            }
+        }
+        
         data[next_push++] = item;
     }
 
     Item pop() {
+        if (next_pop / buffer_size == 1) {
+            next_pop = 0;
+        }
         return data[next_pop++];
     }
 
