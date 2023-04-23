@@ -29,6 +29,24 @@ void In::close() {
     ifs.close();
 }
 
+char In::read_char() {
+    if (is_empty()) {
+        throw InException{"Input reached eof"};
+    }
+
+    char a;
+    is >> a;
+    return a;
+}
+
+array::Array<char> In::read_chars() {
+    array::Array<char> array;
+    while (!is_empty()) {
+        array.push_back(read_char());
+    }
+    return array;
+}
+
 int In::read_int() {
     if (is_empty()) {
         throw InException{"Input reached eof"};

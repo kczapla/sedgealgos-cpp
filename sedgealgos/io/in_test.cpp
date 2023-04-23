@@ -26,6 +26,10 @@ namespace {
             std::ofstream fwd{file_with_doubles, std::ofstream::out};
             fwd << "1.1 2.2 3.3 4.4";
             fwd.close();
+
+            std::ofstream fwc{file_with_chars, std::ofstream::out};
+            fwc << "a b c 1 d e f gh";
+            fwc.close();
         }
 
         void TearDown() override {
@@ -33,6 +37,7 @@ namespace {
             std::filesystem::remove(file_with_ints);
             std::filesystem::remove(file_with_new_line_ints);
             std::filesystem::remove(file_with_doubles);
+            std::filesystem::remove(file_with_chars);
         }
 
         std::vector<int> get_ints(In& in) {
@@ -50,11 +55,20 @@ namespace {
            }
            return doubles;
         }
+
+        std::vector<char> get_chars(In& in) {
+           std::vector<char> chars{};
+           while(!in.is_empty()) {
+              chars.push_back(in.read_char());
+           }
+           return chars;
+        }
     
         std::filesystem::path empty_file{std::filesystem::temp_directory_path() / "empty_file.txt"};
         std::filesystem::path file_with_ints{std::filesystem::temp_directory_path() / "file_with_ints.txt"};
         std::filesystem::path file_with_new_line_ints{std::filesystem::temp_directory_path() / "file_with_new_line_ints.txt"};
         std::filesystem::path file_with_doubles{std::filesystem::temp_directory_path() / "file_with_doubles.txt"};
+        std::filesystem::path file_with_chars{std::filesystem::temp_directory_path() / "file_with_chars.txt"};
     };
 
     TEST_F(InTest, ReturnsTrueIfFileHasNotData) {
@@ -83,6 +97,11 @@ namespace {
        EXPECT_THAT(get_doubles(in), ElementsAre(1.1, 2.2, 3.3, 4.4));
     }
 
+    TEST_F(InTest, ReturnChars) {
+       In in{file_with_chars};
+       EXPECT_THAT(get_chars(in), ElementsAre('a', 'b', 'c', '1', 'd', 'e', 'f', 'g', 'h'));
+    }
+
     TEST_F(InTest, ReadDoubleThrowsExceptionWhenReadingFromEmptyStream) {
         In in{file_with_doubles};
         [[ maybe_unused ]] auto doubles{get_doubles(in)};
@@ -93,6 +112,12 @@ namespace {
         In in{file_with_ints};
         [[ maybe_unused ]] auto ints{get_ints(in)};
         EXPECT_THROW({[[ maybe_unused ]] auto i{in.read_int()};}, InException);
+    }
+
+    TEST_F(InTest, ReadCharThrowsExceptionWhenReadingFromEmptyStream) {
+        In in{file_with_chars};
+        [[ maybe_unused ]] auto ints{get_chars(in)};
+        EXPECT_THROW({[[ maybe_unused ]] auto i{in.read_char()};}, InException);
     }
 
 TEST_F(InTest, ReadsAll) {

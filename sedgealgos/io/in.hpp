@@ -20,6 +20,9 @@ namespace sedgealgos::io {
         In();
         In(std::string);
 
+        char read_char();
+        array::Array<char> read_chars();
+
         int read_int();
         array::Array<int> read_ints();
         
