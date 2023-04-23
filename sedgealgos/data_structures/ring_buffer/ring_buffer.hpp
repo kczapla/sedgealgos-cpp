@@ -20,10 +20,15 @@ public:
 
     void push(Item item) {
         if (next_push / buffer_size == 1) {
-            next_push = 0;
             if (next_push == next_pop) {
-                next_pop++;
+                next_pop = 0;
             }
+            next_push = 0;
+            rolled_up = true;
+        }
+
+        if (rolled_up && (next_push == next_pop)) {
+            next_pop++;
         }
         
         data[next_push++] = item;
@@ -42,6 +47,8 @@ private:
 
     Size buffer_size{0};
     Item* data{nullptr};
+
+    bool rolled_up{false};
 };
 }
 
