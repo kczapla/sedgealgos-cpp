@@ -6,6 +6,18 @@ load(
 )
 
 sedgealgos_cc_binary(
+    name = "list_directory",
+    srcs = [
+        "list_directory.cpp",
+    ],
+    deps = [
+        "//sedgealgos/data_structures/queue:queue",
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+    ],
+)
+
+sedgealgos_cc_binary(
     name = "move_to_front",
     srcs = [
         "move_to_front.cpp",
