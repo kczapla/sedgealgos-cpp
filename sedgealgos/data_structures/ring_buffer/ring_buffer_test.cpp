@@ -124,5 +124,19 @@ TEST(RingBufferTest, ShiftOldestElementFromMiddle) {
     EXPECT_EQ(rb.pop(), 5);
     EXPECT_TRUE(rb.is_empty());
 }
+
+TEST(RingBufferTest, RingBufferIsNotEmptyWhenItRollsUp) {
+    RingBuffer<int> rb{3};
+
+    rb.push(1);
+    rb.push(2);
+    rb.push(3);
+    rb.push(4);
+    rb.push(5);
+    rb.push(6);
+    rb.push(7);
+
+    EXPECT_FALSE(rb.is_empty());
+}
 }
 

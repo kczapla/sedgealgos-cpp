@@ -15,7 +15,7 @@ public:
     }
 
     bool is_empty() const {
-        return next_pop == next_push;
+        return number_of_items == 0;
     }
 
     void push(Item item) {
@@ -31,6 +31,12 @@ public:
             next_pop++;
         }
         
+        if (number_of_items == buffer_size) {
+            number_of_items = buffer_size;
+        } else {
+            ++number_of_items;
+        }
+
         data[next_push++] = item;
     }
 
@@ -38,12 +44,15 @@ public:
         if (next_pop / buffer_size == 1) {
             next_pop = 0;
         }
+        --number_of_items;
         return data[next_pop++];
     }
 
 private:
     Size next_pop{0};
     Size next_push{0};
+
+    Size number_of_items{0};
 
     Size buffer_size{0};
     Item* data{nullptr};
