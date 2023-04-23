@@ -6,6 +6,18 @@ load(
 )
 
 sedgealgos_cc_binary(
+    name = "move_to_front",
+    srcs = [
+        "move_to_front.cpp",
+    ],
+    deps = [
+        "//sedgealgos/data_structures/linked_list:single_linked_list",
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+    ],
+)
+
+sedgealgos_cc_binary(
     name = "josephus",
     srcs = [
         "josephus.cpp",
