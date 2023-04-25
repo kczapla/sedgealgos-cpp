@@ -1,4 +1,6 @@
-namespace sedgealgos::stack {
+#pragma once
+
+namespace sedgealgos::data_structures::stack {
   template <typename Item>
   class ResizingArrayStack {
   public:
@@ -13,6 +15,8 @@ namespace sedgealgos::stack {
     Item pop();
     Item& peek();
     Item const& peek() const;
+
+    bool operator==(ResizingArrayStack const& lhs) const;
 
   private:
     void resize(unsigned long);
@@ -169,5 +173,20 @@ namespace sedgealgos::stack {
   template <typename Item>
   Item const& ResizingArrayStack<Item>::peek() const {
       return const_cast<ResizingArrayStack<Item>*>(this)->peek();
+  }
+
+  template <typename Item>
+  bool ResizingArrayStack<Item>::operator==(ResizingArrayStack<Item> const& lhs) const {
+      if (this->size() != lhs.size()) {
+          return false;
+      }
+
+      for (long unsigned int i{0}; i < lhs.size(); i++) {
+          if (this->container[i] != lhs.container[i]) {
+              return false;
+          }
+      }
+
+      return true;
   }
 }

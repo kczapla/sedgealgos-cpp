@@ -3,7 +3,7 @@
 
 #include <iterator>
 
-namespace sedgealgos::stack {
+namespace sedgealgos::data_structures::stack {
 
 template <typename Item, typename Container>
 class Stack {

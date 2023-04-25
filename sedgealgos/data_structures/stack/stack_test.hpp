@@ -1,4 +1,4 @@
-#include "sedgealgos/stack/stack_copy.hpp"
+#include "sedgealgos/data_structures/stack/stack_copy.hpp"
 
 #include <gtest/gtest.h>
 

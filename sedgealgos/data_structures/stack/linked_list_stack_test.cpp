@@ -1,12 +1,12 @@
 #include "sedgealgos/data_structures/linked_list/single_linked_list.hpp"
 
-#include "sedgealgos/stack/stack_test.hpp"
-#include "sedgealgos/stack/stack.hpp"
+#include "sedgealgos/data_structures/stack/stack_test.hpp"
+#include "sedgealgos/data_structures/stack/stack.hpp"
 
 #include <gtest/gtest.h>
 
 namespace {
-using namespace sedgealgos::stack;
+using namespace sedgealgos::data_structures::stack;
 using namespace sedgealgos::data_structures::linked_list;
 
 using LinkedListStack = Stack<int, SingleLinkedList<int>>;
