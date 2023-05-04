@@ -9,5 +9,6 @@ sedgealgos_cc_binary(
     srcs = ["sort_compare.cpp"],
     deps = [
         "//sedgealgos/io:std_out",
+        "//sedgealgos/data_structures/array:array",
     ],
 )
