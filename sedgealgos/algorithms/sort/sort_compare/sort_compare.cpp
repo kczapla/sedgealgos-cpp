@@ -1,6 +1,7 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
 #include "sedgealgos/io/std_out.hpp"
+#include "sedgealgos/random/std_random.hpp"
 #include "sedgealgos/time/stopwatch/stopwatch.hpp"
 
 #include <string>
@@ -22,7 +23,7 @@ double timeRandomInput(String alg, int n, int tries) {
     
     for (int t{0}; t < tries; t++) {
         for (int i{0}; i < n; i++) {
-            ia.push_back(i);
+            ia.push_back(sedgealgos::random::StdRandom::uniform(1000000));
         }
 
         total += time(alg, ia);
