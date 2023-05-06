@@ -1,13 +1,19 @@
-#include "sedgealgos/io/std_out.hpp"
+#include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
+#include "sedgealgos/io/std_out.hpp"
+#include "sedgealgos/time/stopwatch/stopwatch.hpp"
 
 #include <string>
 
 using String = std::string;
 using IntArray = sedgealgos::data_structures::array::Array<int>;
 
-double time(String alg, IntArray const& arr) {
-    return 0;
+double time(String alg, IntArray& arr) {
+    sedgealgos::time::stopwatch::Stopwatch s;
+    if (alg == "insertion") {
+        sedgealgos::algorithms::sort::insertion_sort::sort(arr);
+    }
+    return s.elapsed();
 }
 
 double timeRandomInput(String alg, int n, int tries) {

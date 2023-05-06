@@ -8,7 +8,9 @@ sedgealgos_cc_binary(
     name = "sort_compare",
     srcs = ["sort_compare.cpp"],
     deps = [
-        "//sedgealgos/io:std_out",
+        "//sedgealgos/algorithms/sort/insertion_sort:insertion_sort",
         "//sedgealgos/data_structures/array:array",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/time/stopwatch:stopwatch",
     ],
 )
