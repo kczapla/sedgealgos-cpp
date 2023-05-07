@@ -8,34 +8,27 @@ using namespace sedgealgos::data_structures::array;
 
 namespace {
 
-TEST(InsertionSortTest, DoNothingForEmptyArray) {
-    Array<int> arr;
+struct TestParam {
+    Array<int> to_sort;
+    Array<int> sorted;
+};
 
-    sort(arr);
+struct SortTest : public ::testing::TestWithParam<TestParam> {};
 
-    EXPECT_TRUE(arr.is_empty());
+TEST_P(SortTest, SortArray) {
+    auto [to_sort, sorted]{GetParam()};
+    sort(to_sort);
+    EXPECT_EQ(to_sort, sorted);
 }
 
-TEST(InsertionSortTest, DoNothingArrayWithOneElement) {
-    Array<int> arr;
-    arr.push_back(1);
-
-    sort(arr);
-
-    EXPECT_EQ(arr[0], 1);
-    EXPECT_EQ(arr.size(), 1);
-}
-
-TEST(InsertionSortTest, DoNothingForSortedArrayOfTwo) {
-    Array<int> arr;
-    arr.push_back(1);
-    arr.push_back(2);
-
-    sort(arr);
-
-    EXPECT_EQ(arr[0], 1);
-    EXPECT_EQ(arr[1], 2);
-    EXPECT_EQ(arr.size(), 2);
-}
-
+INSTANTIATE_TEST_SUITE_P(SortTest, SortTest, testing::Values(
+    TestParam{{}, {}},
+    TestParam{{1}, {1}},
+    TestParam{{1, 2}, {1, 2}},
+    TestParam{{2, 1}, {1, 2}},
+    TestParam{{2, 1, 3}, {1, 2, 3}},
+    TestParam{{2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 3, 30, 39, 40, 187}},
+    TestParam{{2, 1, 3, -1, 40, 39, 3, 30, 187}, {-1, 1, 2, 3, 3, 30, 39, 40, 187}},
+    TestParam{{2, 2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 2, 3, 30, 39, 40, 187}}
+));
 }
