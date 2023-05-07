@@ -7,6 +7,18 @@ namespace {
 using namespace ::testing;
 using namespace sedgealgos::data_structures::array;
 
+TEST(ArrayTest, EmptyListInitializerCtor) {
+    Array<int> arr{};
+
+    EXPECT_TRUE(arr.is_empty());
+}
+
+TEST(ArrayTest, ListInitializerCtor) {
+    Array<int> arr{1, 2, 3, 4};
+
+    EXPECT_THAT(arr, ElementsAre(1, 2, 3, 4));
+}
+
 TEST(ArrayTest, CopyArrayThatIsNotEmpty) {
     Array<int> arr(5, 1);
 
@@ -219,5 +231,46 @@ TEST(ArrayTest, PerformsForRangeLoop) {
 
     for ([[maybe_unused]] auto const& a : arr) {}
 }
+
+TEST(ArrayTest, TwoEmptyArraysAreEqual) {
+    Array<int> lhs;
+    Array<int> rhs;
+
+    EXPECT_EQ(lhs, rhs);
 }
 
+TEST(ArrayTest, TwoNonEmptyArraysAreEqual) {
+    Array<int> lhs{1, 2, 3, 4};
+    Array<int> rhs{1, 2, 3, 4};
+
+    EXPECT_EQ(lhs, rhs);
+}
+
+TEST(ArrayTest, TwoNonEmptyArraysAreNotEqual) {
+    Array<int> lhs{1, 2, 3, 4};
+    Array<int> rhs{1, 2, 3, 5};
+
+    EXPECT_NE(lhs, rhs);
+}
+
+TEST(ArrayTest, TwoNonEmptyArraysHaveDifferentLengths) {
+    Array<int> lhs{1, 2, 3, 4};
+    Array<int> rhs{1, 2, 3, 4, 5};
+
+    EXPECT_NE(lhs, rhs);
+}
+
+TEST(ArrayTest, TwoArraysWithSingleDifferentElements) {
+    Array<int> lhs{1};
+    Array<int> rhs{2};
+
+    EXPECT_NE(lhs, rhs);
+}
+
+TEST(ArrayTest, EmptyArrayAndArrayWithOneElementAreNotEqual) {
+    Array<int> lhs{1};
+    Array<int> rhs{};
+
+    EXPECT_NE(lhs, rhs);
+}
+}

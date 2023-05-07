@@ -1,6 +1,8 @@
 #pragma once
 
+#include <initializer_list>
 #include <iterator>
+#include <iostream>
 
 namespace sedgealgos::data_structures::array {
 
@@ -15,7 +17,18 @@ public:
         data = new Item[capacity];
     }
 
-    Array(Size size) : Array{size, Item{}} {}
+    Array(std::initializer_list<Item> il) {
+        data = new Item[il.size()];
+
+        auto counter{0};
+        for (auto&& i : il) {
+            std::cout << "i = " << i << std::endl;
+            data[counter++] = i;
+        }
+        next_index = counter;
+    }
+
+    Array(Size size) : Array(size, Item{}) {}
 
     Array(Size size, Item item) {
         data = new Item[size];
@@ -154,5 +167,27 @@ private:
     Size next_index{0};
     Size capacity{1};
 };
-}
 
+template <typename Item>
+bool operator==(Array<Item> const& lhs, Array<Item> const& rhs) {
+    if (lhs.is_empty() && rhs.is_empty()) {
+        return true;
+    }
+    
+    if (lhs.size() != rhs.size()) {
+        return false;
+    }
+
+    auto lhs_iter{lhs.cbegin()};
+    auto rhs_iter{rhs.cbegin()};
+
+    while(lhs_iter != lhs.cend() && rhs_iter != rhs.cend()) {
+        if (*lhs_iter != *rhs_iter) {
+            return false;
+        }
+        ++lhs_iter;
+        ++rhs_iter;
+    }
+    return true;
+}
+}
