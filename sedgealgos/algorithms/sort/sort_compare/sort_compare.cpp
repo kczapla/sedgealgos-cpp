@@ -1,4 +1,5 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort.hpp"
+#include "sedgealgos/algorithms/sort/insertion_sort/selection_sort.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
 #include "sedgealgos/io/std_out.hpp"
 #include "sedgealgos/random/std_random.hpp"
@@ -13,6 +14,8 @@ double time(String alg, IntArray& arr) {
     sedgealgos::time::stopwatch::Stopwatch s;
     if (alg == "insertion") {
         sedgealgos::algorithms::sort::insertion_sort::sort(arr);
+    } else if (alg == "selection") {
+        sedgealgos::algorithms::sort::selection_sort::sort(arr);
     }
     return s.elapsed();
 }
@@ -48,7 +51,7 @@ int main(int argc, char** argv) {
     auto t1{timeRandomInput(alg1, n, t)};
     auto t2{timeRandomInput(alg2, n, t)};
 
-    std_out.printf("%s is faster '%d' times than %s\n", alg1, t1/t2, alg2);
+    std_out.printf("%s sort is '%d' times faster than %s sort\n", alg2, t2/t1, alg1);
 
     return 0;
 }

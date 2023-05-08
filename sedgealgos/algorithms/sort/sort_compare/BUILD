@@ -9,6 +9,7 @@ sedgealgos_cc_binary(
     srcs = ["sort_compare.cpp"],
     deps = [
         "//sedgealgos/algorithms/sort/insertion_sort:insertion_sort",
+        "//sedgealgos/algorithms/sort/insertion_sort:selection_sort",
         "//sedgealgos/data_structures/array:array",
         "//sedgealgos/io:std_out",
         "//sedgealgos/random:std_random",
