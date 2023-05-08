@@ -19,6 +19,17 @@ TEST(ArrayTest, ListInitializerCtor) {
     EXPECT_THAT(arr, ElementsAre(1, 2, 3, 4));
 }
 
+TEST(ArrayTest, CopyCtor) {
+    Array<int> arr{1, 2, 3, 4};
+
+    {
+        Array<int> arr1{arr};
+        EXPECT_THAT(arr, ElementsAre(1, 2, 3, 4));
+    }
+
+    EXPECT_THAT(arr, ElementsAre(1, 2, 3, 4));
+}
+
 TEST(ArrayTest, CopyArrayThatIsNotEmpty) {
     Array<int> arr(5, 1);
 

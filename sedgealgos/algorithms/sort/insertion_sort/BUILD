@@ -12,11 +12,20 @@ sedgealgos_cc_library(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "selection_sort",
+    hdrs = ["selection_sort.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
+
 sedgealgos_cc_test(
     name = "insertion_sort_test",
     srcs = ["insertion_sort_test.cpp"],
     deps = [
         "insertion_sort",
+        "selection_sort",
     ],
 )
 

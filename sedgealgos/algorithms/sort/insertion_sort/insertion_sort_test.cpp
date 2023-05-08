@@ -1,4 +1,5 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort.hpp"
+#include "sedgealgos/algorithms/sort/insertion_sort/selection_sort.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
 
 #include <gtest/gtest.h>
@@ -18,10 +19,6 @@ struct TestParam {
     SortingFunc sort;
 };
 
-TestParam make_insertion_sort_test_param(Array<int> to_sort, Array<int> sorted) {
-    return TestParam{to_sort, sorted, insertion_sort::sort<int>};
-}
-
 struct SortTest : public ::testing::TestWithParam<TestParam> {};
 
 TEST_P(SortTest, SortArray) {
@@ -30,7 +27,15 @@ TEST_P(SortTest, SortArray) {
     EXPECT_EQ(to_sort, sorted);
 }
 
-INSTANTIATE_TEST_SUITE_P(SortTest, SortTest, testing::Values(
+TestParam make_insertion_sort_test_param(Array<int> const& to_sort, Array<int> const& sorted) {
+    return TestParam{to_sort, sorted, insertion_sort::sort<int>};
+}
+
+TestParam make_selection_sort_test_param(Array<int> const& to_sort, Array<int> const& sorted) {
+    return TestParam{to_sort, sorted, selection_sort::sort<int>};
+}
+
+INSTANTIATE_TEST_SUITE_P(InsertionSortTest, SortTest, testing::Values(
     make_insertion_sort_test_param({}, {}),
     make_insertion_sort_test_param({1}, {1}),
     make_insertion_sort_test_param({1, 2}, {1, 2}),
@@ -39,5 +44,16 @@ INSTANTIATE_TEST_SUITE_P(SortTest, SortTest, testing::Values(
     make_insertion_sort_test_param({2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 3, 30, 39, 40, 187}),
     make_insertion_sort_test_param({2, 1, 3, -1, 40, 39, 3, 30, 187}, {-1, 1, 2, 3, 3, 30, 39, 40, 187}),
     make_insertion_sort_test_param({2, 2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 2, 3, 30, 39, 40, 187})
+));
+
+INSTANTIATE_TEST_SUITE_P(SelectionSort, SortTest, testing::Values(
+    make_selection_sort_test_param({}, {}),
+    make_selection_sort_test_param({1}, {1}),
+    make_selection_sort_test_param({1, 2}, {1, 2}),
+    make_selection_sort_test_param({2, 1}, {1, 2}),
+    make_selection_sort_test_param({2, 1, 3}, {1, 2, 3}),
+    make_selection_sort_test_param({2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 3, 30, 39, 40, 187}),
+    make_selection_sort_test_param({2, 1, 3, -1, 40, 39, 3, 30, 187}, {-1, 1, 2, 3, 3, 30, 39, 40, 187}),
+    make_selection_sort_test_param({2, 2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 2, 3, 30, 39, 40, 187})
 ));
 }
