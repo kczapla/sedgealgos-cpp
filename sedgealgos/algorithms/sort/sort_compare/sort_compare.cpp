@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     auto t1{timeRandomInput(alg1, n, t)};
     auto t2{timeRandomInput(alg2, n, t)};
 
-    std_out.printf("%s sort is '%d' times faster than %s sort\n", alg2, t2/t1, alg1);
+    std_out.printf("%s sort is '%d' times faster than %s sort\n", alg1, t2/t1, alg2);
 
     return 0;
 }

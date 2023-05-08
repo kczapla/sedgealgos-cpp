@@ -35,7 +35,7 @@ TestParam make_selection_sort_test_param(Array<int> const& to_sort, Array<int> c
     return TestParam{to_sort, sorted, selection_sort::sort<int>};
 }
 
-INSTANTIATE_TEST_SUITE_P(InsertionSortTest, SortTest, testing::Values(
+INSTANTIATE_TEST_SUITE_P(InsertionSort, SortTest, testing::Values(
     make_insertion_sort_test_param({}, {}),
     make_insertion_sort_test_param({1}, {1}),
     make_insertion_sort_test_param({1, 2}, {1, 2}),

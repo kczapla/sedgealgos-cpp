@@ -6,19 +6,16 @@ namespace sedgealgos::algorithms::sort::insertion_sort {
 
 template <typename T>
 void sort(sedgealgos::data_structures::array::Array<T>& arr) {
-    for (long unsigned int i{0}; i < arr.size(); i++) {
-        auto min_index{i};
-        auto min_value{arr[i]};
-
-        for (long unsigned int j{i+1}; j < arr.size(); j++) {
-            if (arr[j] < min_value) {
-                min_index = j;
-                min_value = arr[j];
+    for (long unsigned int i{1}; i < arr.size(); i++) {
+        for (long unsigned int j{i}; j > 0; j--) {
+            if (arr[j-1] > arr[j]) {
+                auto tmp{arr[j]};
+                arr[j] = arr[j-1];
+                arr[j-1] = tmp;
+            } else {
+                j = 1;
             }
-        }
-
-        arr[min_index] = arr[i];
-        arr[i] = min_value;
+        } 
     }
 }
 }
