@@ -20,12 +20,21 @@ sedgealgos_cc_library(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "shell_sort",
+    hdrs = ["shell_sort.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
+
 sedgealgos_cc_test(
     name = "sort_test",
     srcs = ["sort_test.cpp"],
     deps = [
         "insertion_sort",
         "selection_sort",
+        "shell_sort",
     ],
 )
 
