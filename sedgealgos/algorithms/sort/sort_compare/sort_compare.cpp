@@ -1,9 +1,11 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/selection_sort.hpp"
+#include "sedgealgos/algorithms/sort/insertion_sort/shell_sort.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
 #include "sedgealgos/io/std_out.hpp"
 #include "sedgealgos/random/std_random.hpp"
 #include "sedgealgos/time/stopwatch/stopwatch.hpp"
+
 
 #include <string>
 
@@ -16,6 +18,8 @@ double time(String alg, IntArray& arr) {
         sedgealgos::algorithms::sort::insertion_sort::sort(arr);
     } else if (alg == "selection") {
         sedgealgos::algorithms::sort::selection_sort::sort(arr);
+    } else if (alg == "shell") {
+        sedgealgos::algorithms::sort::shell_sort::sort(arr);
     }
     return s.elapsed();
 }
