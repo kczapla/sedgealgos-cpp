@@ -2,6 +2,7 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/selection_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_selection_sort.hpp"
+#include "sedgealgos/algorithms/sort/insertion_sort/shell_precalc_gaps_sort.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
 #include "sedgealgos/io/std_out.hpp"
 #include "sedgealgos/random/std_random.hpp"
@@ -23,6 +24,8 @@ double time(String alg, IntArray& arr) {
         sedgealgos::algorithms::sort::shell_sort::sort(arr);
     } else if (alg == "shell-selection") {
         sedgealgos::algorithms::sort::shell_selection_sort::sort(arr);
+    } else if (alg == "shell-precalc-gaps") {
+        sedgealgos::algorithms::sort::shell_precalc_gaps_sort::sort(arr);
     }
     return s.elapsed();
 }
