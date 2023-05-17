@@ -36,6 +36,15 @@ sedgealgos_cc_library(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "shell_precalc_gaps_sort",
+    hdrs = ["shell_precalc_gaps_sort.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
+
+
 sedgealgos_cc_test(
     name = "sort_test",
     srcs = ["sort_test.cpp"],
@@ -44,6 +53,7 @@ sedgealgos_cc_test(
         "selection_sort",
         "shell_sort",
         "shell_selection_sort",
+        "shell_precalc_gaps_sort",
     ],
 )
 
