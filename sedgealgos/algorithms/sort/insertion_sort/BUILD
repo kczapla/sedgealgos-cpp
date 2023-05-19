@@ -44,6 +44,13 @@ sedgealgos_cc_library(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "check_sort",
+    hdrs = ["check_sort.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
 
 sedgealgos_cc_test(
     name = "sort_test",
