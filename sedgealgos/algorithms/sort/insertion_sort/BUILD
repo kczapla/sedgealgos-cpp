@@ -13,6 +13,15 @@ sedgealgos_cc_library(
 )
 
 sedgealgos_cc_library(
+    name = "insertion_sort_with_sentry",
+    hdrs = ["insertion_sort_with_sentry.hpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+    ],
+)
+
+
+sedgealgos_cc_library(
     name = "selection_sort",
     hdrs = ["selection_sort.hpp"],
     deps = [
@@ -61,6 +70,7 @@ sedgealgos_cc_test(
         "shell_sort",
         "shell_selection_sort",
         "shell_precalc_gaps_sort",
+        "insertion_sort_with_sentry"
     ],
 )
 
