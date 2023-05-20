@@ -13,6 +13,7 @@ sedgealgos_cc_binary(
         "//sedgealgos/algorithms/sort/insertion_sort:shell_sort",
         "//sedgealgos/algorithms/sort/insertion_sort:shell_selection_sort",
         "//sedgealgos/algorithms/sort/insertion_sort:shell_precalc_gaps_sort",
+        "//sedgealgos/algorithms/sort/insertion_sort:insertion_sort_with_sentry",
         "//sedgealgos/data_structures/array:array",
         "//sedgealgos/io:std_out",
         "//sedgealgos/random:std_random",
