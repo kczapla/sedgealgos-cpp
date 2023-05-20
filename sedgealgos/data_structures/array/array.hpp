@@ -50,8 +50,25 @@ public:
         }
     }
 
+    Array& operator=(Array const& arr) {
+        data = new Item[arr.size()];
+
+        capacity = arr.capacity;
+        next_index = arr.next_index;
+
+        for (Size i{0}; i < next_index; i++) {
+            data[i] = arr.data[i];
+        }
+
+        return *this;
+    }
+
     ~Array() {
+        if (data == nullptr) {
+            return;
+        }
         delete[] data;
+        data = nullptr;
     }
 
     Item& operator[](Size index) {
