@@ -2,7 +2,6 @@
 
 #include <initializer_list>
 #include <iterator>
-#include <iostream>
 
 namespace sedgealgos::data_structures::array {
 
@@ -22,7 +21,6 @@ public:
 
         auto counter{0};
         for (auto&& i : il) {
-            std::cout << "i = " << i << std::endl;
             data[counter++] = i;
         }
         next_index = counter;
