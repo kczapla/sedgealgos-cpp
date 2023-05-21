@@ -4,6 +4,7 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_selection_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_precalc_gaps_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_with_sentry.hpp"
+#include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_without_exchange.hpp"
 #include "sedgealgos/data_structures/array/array.hpp"
 #include "sedgealgos/io/std_out.hpp"
 #include "sedgealgos/random/std_random.hpp"
@@ -29,6 +30,8 @@ double time(String alg, IntArray& arr) {
         sedgealgos::algorithms::sort::shell_precalc_gaps_sort::sort(arr);
     } else if (alg == "insertion-with-sentry") {
         sedgealgos::algorithms::sort::insertion_sort_with_sentry::sort(arr);
+    } else if (alg == "insertion-without-exchange") {
+        sedgealgos::algorithms::sort::insertion_sort_without_exchange::sort(arr);
     }
 
     return s.elapsed();
