@@ -21,3 +21,34 @@ sedgealgos_cc_binary(
         "//sedgealgos/time/stopwatch:stopwatch",
     ],
 )
+
+sedgealgos_cc_binary(
+    name = "shell_sort_cmp_counter",
+    srcs = ["shell_sort_cmp_counter.cpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/random:std_random",
+    ],
+)
+
+sedgealgos_cc_binary(
+    name = "worst_case_shell_array",
+    srcs = ["worst_case_shell_array.cpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/random:std_random",
+    ],
+)
+
+sedgealgos_cc_binary(
+    name = "shell_sort_find_gaps",
+    srcs = ["shell_sort_find_gaps.cpp"],
+    deps = [
+        "//sedgealgos/data_structures/array:array",
+        "//sedgealgos/io:std_out",
+        "//sedgealgos/random:std_random",
+        "//sedgealgos/time/stopwatch:stopwatch",
+    ],
+)
