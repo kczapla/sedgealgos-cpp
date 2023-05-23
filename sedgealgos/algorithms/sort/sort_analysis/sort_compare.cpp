@@ -37,16 +37,47 @@ double time(String alg, IntArray& arr) {
     return s.elapsed();
 }
 
-double timeRandomInput(String alg, int n, int tries) {
-    double total{0};
+IntArray generate_array(int n, String distribution) {
     IntArray ia;
+    std::random_device rd;
+    std::mt19937 gen{rd()};
+
+    if (distribution == "gauss") {
+        std::normal_distribution<> d{5, 2};
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(std::round(d(gen)));
+        }
+    } else if (distribution == "poisson") {
+        std::poisson_distribution<> d{4};
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(std::round(d(gen)));
+        }
+    } else if (distribution == "geometric") {
+        std::geometric_distribution<> d;
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(std::round(d(gen)));
+        }
+    } else if (distribution == "discrete") {
+        std::discrete_distribution<> d({40, 10, 10, 40});
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(std::round(d(gen)));
+        }
+    } else if (distribution == "uniform") {
+        std::uniform_int_distribution<> d{1000000};
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(d(gen));
+        }
+    }
+
+    return ia;
+}
+
+double timeRandomInput(String alg, String distribution, int n, int tries) {
+    double total{0};
     
     for (int t{0}; t < tries; t++) {
-        for (int i{0}; i < n; i++) {
-            ia.push_back(sedgealgos::random::StdRandom::uniform(1));
-        }
-
-        total += time(alg, ia);
+        auto arr{generate_array(n, distribution)};
+        total += time(alg, arr);
     }
 
     return total;
@@ -64,10 +95,13 @@ int main(int argc, char** argv) {
 
     auto n{std::stoi(argv[3])};
     auto t{std::stoi(argv[4])};
+    String d{argv[5]};
 
-    auto t1{timeRandomInput(alg1, n, t)};
-    auto t2{timeRandomInput(alg2, n, t)};
+    auto t1{timeRandomInput(alg1, d, n, t)};
+    auto t2{timeRandomInput(alg2, d, n, t)};
 
+    std_out.printf("%s speed is %d\n", alg1, t1);
+    std_out.printf("%s speed is %d\n", alg2, t2);
     std_out.printf("%s is %d faster than %s", alg1, t2/t1, alg2);
 
     return 0;
