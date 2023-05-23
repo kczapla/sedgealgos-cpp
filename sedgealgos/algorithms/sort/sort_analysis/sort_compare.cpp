@@ -43,7 +43,7 @@ double timeRandomInput(String alg, int n, int tries) {
     
     for (int t{0}; t < tries; t++) {
         for (int i{0}; i < n; i++) {
-            ia.push_back(sedgealgos::random::StdRandom::uniform(1000000));
+            ia.push_back(sedgealgos::random::StdRandom::uniform(1));
         }
 
         total += time(alg, ia);
@@ -54,8 +54,8 @@ double timeRandomInput(String alg, int n, int tries) {
 
 int main(int argc, char** argv) {
     sedgealgos::io::StdOut std_out;
-    if (argc != 5) {
-        std_out.println("please provide two cmdline args");
+    if (argc != 6) {
+        std_out.println("please provide 5 cmdline args");
         return 1;
     }
 
@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
     auto t1{timeRandomInput(alg1, n, t)};
     auto t2{timeRandomInput(alg2, n, t)};
 
-    std_out.printf("%s sort is '%d' times faster than %s sort\n", alg1, t2/t1, alg2);
+    std_out.printf("%s is %d faster than %s", alg1, t2/t1, alg2);
 
     return 0;
 }
