@@ -67,7 +67,40 @@ IntArray generate_array(int n, String distribution) {
         for (auto i{0}; i < n; i++) {
             ia.push_back(d(gen));
         }
+    } else if (distribution == "first-half-ones") {
+        auto i{0};
+        for (; i < n/2; i++) {
+            ia.push_back(1);
+        }
+        for (; i < n; i++) {
+            ia.push_back(0);
+        }
+    } else if (distribution == "second-half-ones") {
+        auto i{0};
+        for (; i < n/2; i++) {
+            ia.push_back(0);
+        }
+        for (; i < n; i++) {
+            ia.push_back(1);
+        }
+    } else if (distribution == "halves") {
+        auto val{0};
+
+        auto left{n/2};
+        auto start{0};
+        auto end{start + left};
+        while (left != 0) {
+            for (; start < end; start++) {
+                ia.push_back(val);
+            }
+            start = end;
+            left /= 2;
+            end = start + left;
+            val++;
+        }
+        ia.push_back(val);
     }
+
 
     return ia;
 }
