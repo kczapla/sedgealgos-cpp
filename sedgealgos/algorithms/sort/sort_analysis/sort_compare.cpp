@@ -63,7 +63,7 @@ IntArray generate_array(int n, String distribution) {
             ia.push_back(std::round(d(gen)));
         }
     } else if (distribution == "uniform") {
-        std::uniform_int_distribution<> d{1000000};
+        std::uniform_int_distribution<> d{n};
         for (auto i{0}; i < n; i++) {
             ia.push_back(d(gen));
         }
@@ -99,8 +99,17 @@ IntArray generate_array(int n, String distribution) {
             val++;
         }
         ia.push_back(val);
-    }
+    } else if (distribution == "half-zero-half-random") {
+        auto i{0};
+        for (; i < n/2; i++) {
+            ia.push_back(0);
+        }
+        std::uniform_int_distribution<> d{n};
 
+        for (; i < n; i++) {
+            ia.push_back(d(gen));
+        }
+    }
 
     return ia;
 }
