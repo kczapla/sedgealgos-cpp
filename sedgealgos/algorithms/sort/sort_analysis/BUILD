@@ -16,6 +16,7 @@ sedgealgos_cc_binary(
         "//sedgealgos/algorithms/sort/insertion_sort:insertion_sort_with_sentry",
         "//sedgealgos/algorithms/sort/insertion_sort:insertion_sort_without_exchange",
         "//sedgealgos/data_structures/array:array",
+        "//sedgealgos/data_structures/hash_map:hash_map",
         "//sedgealgos/io:std_out",
         "//sedgealgos/random:std_random",
         "//sedgealgos/time/stopwatch:stopwatch",

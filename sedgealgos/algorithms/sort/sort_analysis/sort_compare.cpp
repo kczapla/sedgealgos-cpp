@@ -122,7 +122,12 @@ IntArray generate_array(int n, String distribution) {
         }
     } else if (distribution == "scatter-to-10") {
         for (auto i{0}; i < n; i++) {
-            ia.push_back(i);
+            std::uniform_int_distribution<> d{i - 10, i + 10};
+            auto random_value{d(gen)};
+            ia.push_back(random_value);
+        }
+        for (auto i{0}; i < n; i++) {
+            std::cout << ia[i] << ", ";
         }
     } else if (distribution == "95-sorted-5-scattered") {
         for (auto i{0}; i < n; i++) {
