@@ -109,6 +109,34 @@ IntArray generate_array(int n, String distribution) {
         for (; i < n; i++) {
             ia.push_back(d(gen));
         }
+    } else if (distribution == "95-sorted-5-random") {
+        std::uniform_int_distribution<> d{n};
+
+        auto i{0};
+        for (i = 0; i < 0.95*n; i++) {
+            ia.push_back(i);
+        }
+
+        for (; i < n; i++) {
+            ia.push_back(d(gen));
+        }
+    } else if (distribution == "scatter-to-10") {
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(i);
+        }
+    } else if (distribution == "95-sorted-5-scattered") {
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(i);
+        }
+
+        std::uniform_int_distribution<> d{0, n-1};
+        for (auto i{0}; i < 0.025 * n; i++) {
+            auto random_index1{d(gen)};
+            auto random_index2{d(gen)};
+            auto tmp{ia[random_index1]};
+            ia[random_index1] = ia[random_index2];
+            ia[random_index2] = tmp;
+        }
     }
 
     return ia;
