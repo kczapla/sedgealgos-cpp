@@ -80,6 +80,8 @@ sedgealgos_cc_test(
         "shell_precalc_gaps_sort",
         "insertion_sort_with_sentry",
         "insertion_sort_without_exchange",
+        "//sedgealgos/algorithms/sort/merge_sort/top_down:merge_sort",
+        "//sedgealgos/algorithms/sort/sort:callbacks_mock",
     ],
 )
 

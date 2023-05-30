@@ -5,6 +5,8 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_precalc_gaps_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_with_sentry.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_without_exchange.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
+#include "sedgealgos/algorithms/sort/sort/callbacks_mock.hpp"
 
 #include "sedgealgos/data_structures/array/array.hpp"
 
@@ -137,4 +139,9 @@ INSTANTIATE_TEST_SUITE_P(InsertionSortWithoutExchange, SortTest, testing::Values
     make_insertion_sort_without_exchange({2, 1, 3, -1, 40, 39, 3, 30, 187}, {-1, 1, 2, 3, 3, 30, 39, 40, 187}),
     make_insertion_sort_without_exchange({2, 2, 1, 3, -1, 40, 39, 30, 187}, {-1, 1, 2, 2, 3, 30, 39, 40, 187})
 ));
+
+TEST(TopDownMergeSort, Test) {
+    sort::CallbacksMock cm;
+    merge_sort::top_down::Sort ms{&cm};
+}
 }
