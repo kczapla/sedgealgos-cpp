@@ -81,6 +81,7 @@ sedgealgos_cc_test(
         "insertion_sort_with_sentry",
         "insertion_sort_without_exchange",
         "//sedgealgos/algorithms/sort/merge_sort/top_down:merge_sort",
+        "//sedgealgos/algorithms/sort/merge_sort/bottom_up:sort",
         "//sedgealgos/algorithms/sort/sort:callbacks_mock",
     ],
 )

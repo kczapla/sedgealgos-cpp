@@ -6,6 +6,7 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_with_sentry.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_without_exchange.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
 #include "sedgealgos/algorithms/sort/sort/callbacks_mock.hpp"
 
 #include "sedgealgos/data_structures/array/array.hpp"
@@ -95,6 +96,16 @@ TEST_P(SortTest, TopDownMergeSort) {
     EXPECT_EQ(to_sort, sorted);
 }
 
+TEST_P(SortTest, BottomUpMergeSort) {
+    auto [to_sort, sorted]{GetParam()};
+
+    sort::CallbacksMock cm;
+    merge_sort::bottom_up::Sort ms{&cm};
+
+    ms.sort(to_sort);
+
+    EXPECT_EQ(to_sort, sorted);
+}
 
 INSTANTIATE_TEST_SUITE_P(Sort, SortTest, testing::Values(
     TestParam{{}, {}},
