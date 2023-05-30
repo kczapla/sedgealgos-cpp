@@ -85,11 +85,12 @@ TEST_P(SortTest, InsertionSortWithoutExchange) {
 }
 
 TEST_P(SortTest, TopDownMergeSort) {
-    GTEST_SKIP();
     auto [to_sort, sorted]{GetParam()};
 
     sort::CallbacksMock cm;
     merge_sort::top_down::Sort ms{&cm};
+
+    ms.sort(to_sort);
 
     EXPECT_EQ(to_sort, sorted);
 }
