@@ -1,16 +1,29 @@
-// #include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
 #include "sedgealgos/algorithms/sort/sort/callbacks/sort_statistics.hpp"
 #include "sedgealgos/algorithms/sort/sort_analysis/generate_array.hpp"
 #include "sedgealgos/data_structures/string/string.hpp"
 #include "sedgealgos/io/std_out.hpp"
 
+void run_top_down_merge_sort(auto* callbacks, auto arr) {
+    sedgealgos::algorithms::sort::merge_sort::top_down::Sort top_down{callbacks};
+    top_down.sort(arr);
+}
+
+void run_bottom_up_merge_sort(auto* callbacks, auto arr) {
+    sedgealgos::algorithms::sort::merge_sort::top_down::Sort bottom_up{callbacks};
+    bottom_up.sort(arr);
+}
+
 sedgealgos::data_structures::string::String run(auto alg, auto distribution, auto n) {
     auto arr{sedgealgos::algorithms::sort::sort_analysis::generate_array<int>(n, distribution)};
     sedgealgos::algorithms::sort::sort::callbacks::SortStatistics stats_callbacks;
-    sedgealgos::algorithms::sort::merge_sort::top_down::Sort top_down_merge_sort{&stats_callbacks};
 
-    top_down_merge_sort.sort(arr);
+    if (alg == "top-down-merge") {
+        run_top_down_merge_sort(&stats_callbacks, arr);
+    } else if (alg == "bottom-up-merge") {
+        run_bottom_up_merge_sort(&stats_callbacks, arr);
+    }
 
     return stats_callbacks.to_json();
 }
