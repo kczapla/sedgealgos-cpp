@@ -2,6 +2,8 @@
 
 #include "sedgealgos/algorithms/sort/sort/callbacks.hpp"
 
+#include <algorithm>
+
 namespace sedgealgos::algorithms::sort::merge_sort::bottom_up {
 
 class Sort {
