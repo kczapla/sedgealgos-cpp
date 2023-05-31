@@ -11,7 +11,7 @@ void run_top_down_merge_sort(auto* callbacks, auto arr) {
 }
 
 void run_bottom_up_merge_sort(auto* callbacks, auto arr) {
-    sedgealgos::algorithms::sort::merge_sort::top_down::Sort bottom_up{callbacks};
+    sedgealgos::algorithms::sort::merge_sort::bottom_up::Sort bottom_up{callbacks};
     bottom_up.sort(arr);
 }
 
