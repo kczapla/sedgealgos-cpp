@@ -8,7 +8,7 @@ namespace sedgealgos::algorithms::sort::merge_sort::top_down {
 
 class Sort {
 public:
-    Sort(sort::Callbacks*) {}
+    Sort(sort::Callbacks* clbkcs) : callbacks{clbkcs} {}
 
     template<typename Container>
     void sort(Container& c) {
@@ -47,7 +47,11 @@ private:
             } else {
                 c[k] = aux[j++];
             }
+            callbacks->on_compare();
+            callbacks->on_swap();
         }
     }
+
+    sort::Callbacks* callbacks{nullptr};
 };
 }
