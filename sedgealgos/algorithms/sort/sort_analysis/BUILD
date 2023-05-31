@@ -96,5 +96,6 @@ sedgealgos_cc_binary(
         "//sedgealgos/algorithms/sort/sort_analysis:generate_array",
         "//sedgealgos/data_structures/string:string",
         "//sedgealgos/io:std_out",
+        "//sedgealgos/algorithms/sort/sort/callbacks:sort_statistics",
     ],
 )
