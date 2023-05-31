@@ -5,6 +5,14 @@
 #include "sedgealgos/data_structures/string/string.hpp"
 #include "sedgealgos/io/std_out.hpp"
 
+struct Config {
+    sedgealgos::data_structures::string::String algorithm_name;
+    sedgealgos::data_structures::string::String distribution_name;
+    int min_array_size{1};
+    int array_size_increment{1};
+    int max_array_size{1};
+};
+
 void run_top_down_merge_sort(auto* callbacks, auto arr) {
     sedgealgos::algorithms::sort::merge_sort::top_down::Sort top_down{callbacks};
     top_down.sort(arr);
@@ -15,13 +23,13 @@ void run_bottom_up_merge_sort(auto* callbacks, auto arr) {
     bottom_up.sort(arr);
 }
 
-sedgealgos::data_structures::string::String run(auto alg, auto distribution, auto n) {
-    auto arr{sedgealgos::algorithms::sort::sort_analysis::generate_array<int>(n, distribution)};
+sedgealgos::data_structures::string::String run(Config const& config) {
+    auto arr{sedgealgos::algorithms::sort::sort_analysis::generate_array<int>(config.max_array_size, config.distribution_name)};
     sedgealgos::algorithms::sort::sort::callbacks::SortStatistics stats_callbacks;
 
-    if (alg == "top-down-merge") {
+    if (config.algorithm_name == "top-down-merge") {
         run_top_down_merge_sort(&stats_callbacks, arr);
-    } else if (alg == "bottom-up-merge") {
+    } else if (config.algorithm_name == "bottom-up-merge") {
         run_bottom_up_merge_sort(&stats_callbacks, arr);
     }
 
@@ -30,16 +38,19 @@ sedgealgos::data_structures::string::String run(auto alg, auto distribution, aut
 
 int main(int argc, char** argv) {
     sedgealgos::io::StdOut std_out;
-    if (argc != 4) {
-        std_out.println("please provide 3 cmdline args");
+    if (argc != 6) {
+        std_out.println("please provide 5 cmdline args");
         return 1;
     }
 
-    sedgealgos::data_structures::string::String alg{argv[1]};
-    sedgealgos::data_structures::string::String distribution{argv[2]};
-    auto n{std::stoi(argv[3])};
+    Config config;
+    config.algorithm_name = argv[1];
+    config.distribution_name = argv[2];
+    config.min_array_size = std::stoi(argv[3]);
+    config.array_size_increment = std::stoi(argv[4]);
+    config.max_array_size = std::stoi(argv[5]);
     
-    auto result{run(alg, distribution, n)};
+    auto result{run(config)};
 
     std_out.printf("%s\n", result);
     
