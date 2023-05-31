@@ -14,5 +14,6 @@ sedgealgos_cc_library(
     deps = [
         "//sedgealgos/algorithms/sort/sort:callbacks",
         "//sedgealgos/data_structures/string:string",
+        "//sedgealgos/time/stopwatch:stopwatch",
     ],
 )

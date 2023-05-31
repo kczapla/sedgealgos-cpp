@@ -18,6 +18,8 @@ public:
 
         auto const n{c.size() - 1}; 
 
+        callbacks->on_sort_start();
+
         for (typename Container::Size sz{1}; sz <= n; sz = sz + sz) {
             for (typename Container::Size k{0}; k <= n ; k += sz + sz) {
                 auto lo{k};
@@ -26,6 +28,8 @@ public:
                 merge(c, lo, mid, std::min(n, hi));
             }
         }
+
+        callbacks->on_sort_stop();
     }
 
 private:

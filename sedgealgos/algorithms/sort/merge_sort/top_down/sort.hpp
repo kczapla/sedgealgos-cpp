@@ -16,7 +16,9 @@ public:
             return;
         }
 
+        callbacks->on_sort_start();
         sort(c, static_cast<Container::Size>(0), c.size() - 1);
+        callbacks->on_sort_stop();
     }
 
 private:
