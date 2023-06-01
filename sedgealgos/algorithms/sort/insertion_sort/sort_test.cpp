@@ -89,6 +89,9 @@ TEST_P(SortTest, TopDownMergeSort) {
     auto [to_sort, sorted]{GetParam()};
 
     sort::CallbacksMock cm;
+    EXPECT_CALL(cm, on_array_access).Times(::testing::AnyNumber());
+    EXPECT_CALL(cm, on_sort_start).Times(::testing::AnyNumber());
+    EXPECT_CALL(cm, on_sort_stop).Times(::testing::AnyNumber());
     merge_sort::top_down::Sort ms{&cm};
 
     ms.sort(to_sort);
@@ -100,6 +103,10 @@ TEST_P(SortTest, BottomUpMergeSort) {
     auto [to_sort, sorted]{GetParam()};
 
     sort::CallbacksMock cm;
+    EXPECT_CALL(cm, on_array_access).Times(::testing::AnyNumber());
+    EXPECT_CALL(cm, on_sort_start).Times(::testing::AnyNumber());
+    EXPECT_CALL(cm, on_sort_stop).Times(::testing::AnyNumber());
+
     merge_sort::bottom_up::Sort ms{&cm};
 
     ms.sort(to_sort);
