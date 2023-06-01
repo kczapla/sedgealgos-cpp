@@ -17,25 +17,25 @@ public:
         }
 
         callbacks->on_sort_start();
-        sort(c, static_cast<Container::Size>(0), c.size() - 1);
+        Container aux(c.size());
+        sort(c, aux, static_cast<Container::Size>(0), c.size() - 1);
         callbacks->on_sort_stop();
     }
 
 private:
     template<typename Container>
-    void sort(Container& c, Container::Size lo, Container::Size hi) {
+    void sort(Container& c, Container& aux, Container::Size lo, Container::Size hi) {
         if ((hi - lo) == 0) {
             return;
         }
         auto const mid{(hi + lo)/2};
-        sort(c, lo, mid);
-        sort(c, mid + 1, hi);
-        merge(c, lo, mid, hi);
+        sort(c, aux, lo, mid);
+        sort(c, aux, mid + 1, hi);
+        merge(c, aux, lo, mid, hi);
     }
 
     template<typename Container>
-    void merge(Container& c, Container::Size lo, Container::Size mid, Container::Size hi) {
-        Container aux(c.size());
+    void merge(Container& c, Container& aux, Container::Size lo, Container::Size mid, Container::Size hi) {
         for (typename Container::Size i{lo}; i < hi; i++) {
             aux[i] = c[i];
             callbacks->on_array_access(2);

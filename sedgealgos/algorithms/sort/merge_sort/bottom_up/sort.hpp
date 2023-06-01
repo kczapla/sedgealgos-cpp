@@ -19,13 +19,13 @@ public:
         auto const n{c.size() - 1}; 
 
         callbacks->on_sort_start();
-
+        Container aux(c.size());
         for (typename Container::Size sz{1}; sz <= n; sz = sz + sz) {
             for (typename Container::Size k{0}; k <= n ; k += sz + sz) {
                 auto lo{k};
                 auto mid{k + sz - 1};
                 auto hi{std::min(mid + sz, n)};
-                merge(c, lo, mid, std::min(n, hi));
+                merge(c, aux, lo, mid, std::min(n, hi));
             }
         }
 
@@ -34,8 +34,7 @@ public:
 
 private:
     template<typename Container>
-    void merge(Container& c, Container::Size lo, Container::Size mid, Container::Size hi) {
-        Container aux(c.size());
+    void merge(Container& c, Container& aux, Container::Size lo, Container::Size mid, Container::Size hi) {
         for (typename Container::Size i{lo}; i < hi; i++) {
             aux[i] = c[i];
             callbacks->on_array_access(2);
