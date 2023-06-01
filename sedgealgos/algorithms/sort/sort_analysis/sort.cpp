@@ -25,7 +25,7 @@ void run_bottom_up_merge_sort(auto* callbacks, auto arr) {
 
 sedgealgos::data_structures::string::String run(Config const& config) {
     auto arr{sedgealgos::algorithms::sort::sort_analysis::generate_array<int>(config.max_array_size, config.distribution_name)};
-    sedgealgos::algorithms::sort::sort::callbacks::SortStatistics stats_callbacks;
+    sedgealgos::algorithms::sort::sort::callbacks::SortStatistics stats_callbacks{arr.size()};
 
     if (config.algorithm_name == "top-down-merge") {
         run_top_down_merge_sort(&stats_callbacks, arr);

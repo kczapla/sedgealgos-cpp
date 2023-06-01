@@ -11,5 +11,6 @@ public:
     MOCK_METHOD(void, on_swap, ());
     MOCK_METHOD(void, on_sort_start, ());
     MOCK_METHOD(void, on_sort_stop, ());
+    MOCK_METHOD(void, on_array_access, (int));
 };
 }
