@@ -116,6 +116,10 @@ Array<T> generate_array(int n, data_structures::string::String const& distributi
             ia[random_index1] = ia[random_index2];
             ia[random_index2] = tmp;
         }
+    } else if (distribution == "sorted") {
+        for (auto i{0}; i < n; i++) {
+            ia.push_back(i);
+        }
     }
 
     return ia;
