@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sedgealgos/algorithms/sort/merge_sort/merge/merge.hpp"
+
 #include "sedgealgos/algorithms/sort/sort/callbacks.hpp"
 
 #include <algorithm>
@@ -26,7 +27,7 @@ public:
                 auto lo{k};
                 auto mid{k + sz - 1};
                 auto hi{std::min(mid + sz, n)};
-                merge::merge(callbacks, c, aux, lo, mid, std::min(n, hi));
+                merge::merge<Container>(callbacks, c, aux, lo, mid, std::min(n, hi));
             }
         }
 

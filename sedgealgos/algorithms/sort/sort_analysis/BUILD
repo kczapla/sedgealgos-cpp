@@ -93,6 +93,7 @@ sedgealgos_cc_binary(
     deps = [
         "//sedgealgos/algorithms/sort/merge_sort/bottom_up:sort",
         "//sedgealgos/algorithms/sort/merge_sort/top_down:merge_sort",
+        "//sedgealgos/algorithms/sort/merge_sort/merge:merge",
         "//sedgealgos/algorithms/sort/sort_analysis:generate_array",
         "//sedgealgos/data_structures/string:string",
         "//sedgealgos/io:std_out",

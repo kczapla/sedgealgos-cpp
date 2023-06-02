@@ -10,7 +10,7 @@ sedgealgos_cc_library(
         "sort.hpp",
     ],
     deps = [
-        "//sedgealgos/algorithms/sort/merge_sort/merge:merge",
+        "//sedgealgos/algorithms/sort/merge_sort:merge_sort",
         "//sedgealgos/algorithms/sort/sort:callbacks",
     ]
 )

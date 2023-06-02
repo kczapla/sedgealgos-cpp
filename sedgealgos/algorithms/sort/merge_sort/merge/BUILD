@@ -12,3 +12,13 @@ sedgealgos_cc_library(
         "//sedgealgos/algorithms/sort/sort:callbacks",
     ],
 )
+
+sedgealgos_cc_library(
+    name = "faster_merge",
+    hdrs = [
+        "faster_merge.hpp",
+    ],
+    deps = [
+        "//sedgealgos/algorithms/sort/sort:callbacks",        
+    ]
+)

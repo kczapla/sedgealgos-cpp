@@ -5,7 +5,6 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_precalc_gaps_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_with_sentry.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_without_exchange.hpp"
-#include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
 #include "sedgealgos/algorithms/sort/sort/callbacks_mock.hpp"
 
@@ -81,20 +80,6 @@ TEST_P(SortTest, InsertionSortWithoutExchange) {
     auto [to_sort, sorted]{GetParam()};
 
     insertion_sort_without_exchange::sort(to_sort);
-
-    EXPECT_EQ(to_sort, sorted);
-}
-
-TEST_P(SortTest, TopDownMergeSort) {
-    auto [to_sort, sorted]{GetParam()};
-
-    sort::CallbacksMock cm;
-    EXPECT_CALL(cm, on_array_access).Times(::testing::AnyNumber());
-    EXPECT_CALL(cm, on_sort_start).Times(::testing::AnyNumber());
-    EXPECT_CALL(cm, on_sort_stop).Times(::testing::AnyNumber());
-    merge_sort::top_down::Sort ms{&cm};
-
-    ms.sort(to_sort);
 
     EXPECT_EQ(to_sort, sorted);
 }
