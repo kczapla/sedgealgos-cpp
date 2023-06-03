@@ -22,9 +22,11 @@ sedgealgos_cc_test(
     deps = [
         "//sedgealgos/data_structures/array:array",
         "//sedgealgos/algorithms/sort/sort:callbacks_mock",
+        "//sedgealgos/algorithms/sort/insertion_sort:insertion_sort",
         "//sedgealgos/algorithms/sort/merge_sort/merge:merge",
         "//sedgealgos/algorithms/sort/merge_sort/merge:faster_merge",
         "//sedgealgos/algorithms/sort/merge_sort/top_down:merge_sort",
+        "//sedgealgos/algorithms/sort/merge_sort/improved_top_down:merge_sort",
         "//sedgealgos/algorithms/sort/merge_sort/bottom_up:sort",
     ],
 )

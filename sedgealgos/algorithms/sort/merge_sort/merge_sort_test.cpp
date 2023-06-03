@@ -1,4 +1,6 @@
+#include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/improved_top_down/merge_sort.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
 #include "sedgealgos/algorithms/sort/sort/callbacks_mock.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/merge/merge.hpp"
@@ -46,13 +48,33 @@ TEST_P(MergeSortTest, TopDownStandardMerge) {
 
     ms.sort(to_sort);
 
-    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end()));
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
 }
 
 TEST_P(MergeSortTest, TopDownFasterMerge) {
     auto [to_sort]{GetParam()};
 
     merge_sort::top_down::Sort<Container, merge_sort::merge::FasterMerge> ms{&callbacks};
+
+    ms.sort(to_sort);
+
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
+}
+
+TEST_P(MergeSortTest, ImprovedTopDownStandardMerge) {
+    auto [to_sort]{GetParam()};
+
+    merge_sort::improved_top_down::Sort<Container, insertion_sort::InsertionSort, merge_sort::merge::StandardMerge> ms{&callbacks};
+
+    ms.sort(to_sort);
+
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
+}
+
+TEST_P(MergeSortTest, ImprovedTopDownFasterMerge) {
+    auto [to_sort]{GetParam()};
+
+    merge_sort::improved_top_down::Sort<Container, insertion_sort::InsertionSort, merge_sort::merge::FasterMerge> ms{&callbacks};
 
     ms.sort(to_sort);
 
@@ -66,7 +88,7 @@ TEST_P(MergeSortTest, BottomUpStandardMerge) {
 
     ms.sort(to_sort);
 
-    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end()));
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
 }
 
 TEST_P(MergeSortTest, BottomUpFasterMerge) {
@@ -78,7 +100,6 @@ TEST_P(MergeSortTest, BottomUpFasterMerge) {
 
     EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
 }
-
 
 Container generate_test_container(typename Container::Size size) {
     std::random_device rd;

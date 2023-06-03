@@ -13,12 +13,12 @@ struct FasterMerge {
            typename Container::Size mid,
            typename Container::Size hi) {
         
-        for (typename Container::Size i{lo}; i <= mid; i++) {
+        for (typename Container::Size i{lo}; i <= std::min(mid, hi); i++) {
             aux[i] = c[i];
             callbacks->on_array_access(2);
         }
 
-        typename Container::Size i{mid+1};
+        typename Container::Size i{std::min(mid+1, hi)};
         typename Container::Size j{hi};
         while (i <= hi) {
             aux[i++] = c[j--];    

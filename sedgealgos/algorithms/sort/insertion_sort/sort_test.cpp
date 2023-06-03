@@ -34,6 +34,14 @@ TEST_P(SortTest, InsertionSort) {
     EXPECT_EQ(to_sort, sorted);
 }
 
+TEST_P(SortTest, InsertionSortClass) {
+    auto [to_sort, sorted]{GetParam()};
+
+    insertion_sort::InsertionSort<Array<int>>::sort(to_sort);
+
+    EXPECT_EQ(to_sort, sorted);
+}
+
 TEST_P(SortTest, SelectionSort) {
     auto [to_sort, sorted]{GetParam()};
 

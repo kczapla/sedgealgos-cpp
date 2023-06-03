@@ -49,6 +49,14 @@ public:
         }
     }
 
+    Array(Array&& arr) {
+        data = std::move(arr.data);
+        arr.data = nullptr;
+
+        capacity = arr.capacity;
+        next_index = arr.next_index;
+    }
+
     Array& operator=(Array const& arr) {
         data = new Item[arr.size()];
 
@@ -61,6 +69,17 @@ public:
 
         return *this;
     }
+
+    Array& operator=(Array&& arr) {
+        data = std::move(arr.data);
+        arr.data = nullptr;
+
+        capacity = arr.capacity;
+        next_index = arr.next_index;
+
+        return *this;
+    }
+
 
     ~Array() {
         if (data == nullptr) {
