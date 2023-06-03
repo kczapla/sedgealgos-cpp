@@ -1,4 +1,5 @@
 #include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
 #include "sedgealgos/algorithms/sort/sort/callbacks_mock.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/merge/merge.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/merge/faster_merge.hpp"
@@ -27,9 +28,9 @@ std::ostream& operator<<(std::ostream& os, TestParam const& tp) {
     return os;
 }
 
-struct TopDownMergeSortTest : public ::testing::TestWithParam<TestParam> {
+struct MergeSortTest : public ::testing::TestWithParam<TestParam> {
 protected:
-    TopDownMergeSortTest() {
+    MergeSortTest() {
         EXPECT_CALL(callbacks, on_array_access).Times(::testing::AnyNumber());
         EXPECT_CALL(callbacks, on_sort_start).Times(::testing::AnyNumber());
         EXPECT_CALL(callbacks, on_sort_stop).Times(::testing::AnyNumber());
@@ -38,7 +39,7 @@ protected:
     sort::CallbacksMock callbacks;
 };
 
-TEST_P(TopDownMergeSortTest, StandardMerge) {
+TEST_P(MergeSortTest, TopDownStandardMerge) {
     auto [to_sort]{GetParam()};
 
     merge_sort::top_down::Sort<Container, merge_sort::merge::StandardMerge> ms{&callbacks};
@@ -48,10 +49,30 @@ TEST_P(TopDownMergeSortTest, StandardMerge) {
     EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end()));
 }
 
-TEST_P(TopDownMergeSortTest, FasterMerge) {
+TEST_P(MergeSortTest, TopDownFasterMerge) {
     auto [to_sort]{GetParam()};
 
     merge_sort::top_down::Sort<Container, merge_sort::merge::FasterMerge> ms{&callbacks};
+
+    ms.sort(to_sort);
+
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
+}
+
+TEST_P(MergeSortTest, BottomUpStandardMerge) {
+    auto [to_sort]{GetParam()};
+
+    merge_sort::bottom_up::Sort<Container, merge_sort::merge::StandardMerge> ms{&callbacks};
+
+    ms.sort(to_sort);
+
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end()));
+}
+
+TEST_P(MergeSortTest, BottomUpFasterMerge) {
+    auto [to_sort]{GetParam()};
+
+    merge_sort::bottom_up::Sort<Container, merge_sort::merge::FasterMerge> ms{&callbacks};
 
     ms.sort(to_sort);
 
@@ -72,7 +93,7 @@ Container generate_test_container(typename Container::Size size) {
     return container;
 }
 
-INSTANTIATE_TEST_SUITE_P(MergeSort, TopDownMergeSortTest, testing::Values(
+INSTANTIATE_TEST_SUITE_P(MergeSort, MergeSortTest, testing::Values(
     TestParam{generate_test_container(0)},
     TestParam{generate_test_container(1)},
     TestParam{generate_test_container(2)},

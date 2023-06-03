@@ -8,11 +8,11 @@
 
 namespace sedgealgos::algorithms::sort::merge_sort::bottom_up {
 
+template<typename Container, template<typename = Container> typename Merge> 
 class Sort {
 public:
     Sort(sort::Callbacks* clbcks) : callbacks{clbcks} {}
 
-    template<typename Container>
     void sort(Container& c) {
         if (c.is_empty() || c.size() == 0) {
             return;
@@ -27,7 +27,7 @@ public:
                 auto lo{k};
                 auto mid{k + sz - 1};
                 auto hi{std::min(mid + sz, n)};
-                merge::merge<Container>(callbacks, c, aux, lo, mid, std::min(n, hi));
+                Merge<>::merge(callbacks, c, aux, lo, mid, std::min(n, hi));
             }
         }
 

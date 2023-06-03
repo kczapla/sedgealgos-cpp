@@ -2,6 +2,7 @@
 
 #include <initializer_list>
 #include <iterator>
+#include <ostream>
 
 namespace sedgealgos::data_structures::array {
 

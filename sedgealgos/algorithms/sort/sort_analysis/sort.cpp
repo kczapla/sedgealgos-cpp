@@ -36,10 +36,14 @@ sedgealgos::data_structures::string::String run(Config const& config) {
         sedgealgos::algorithms::sort::merge_sort::top_down::Sort<Container, StandardMerge> top_down{&stats_callbacks};
         top_down.sort(arr);
     } else if (config.algorithm_name == "top-down-faster-merge") {
-        sedgealgos::algorithms::sort::merge_sort::top_down::Sort<Container, StandardMerge> top_down{&stats_callbacks};
+        sedgealgos::algorithms::sort::merge_sort::top_down::Sort<Container, FasterMerge> top_down{&stats_callbacks};
         top_down.sort(arr);
-    } else if (config.algorithm_name == "bottom-up-merge") {
-        run_bottom_up_merge_sort(&stats_callbacks, arr);
+    } else if (config.algorithm_name == "bottom-up-standard-merge") {
+        sedgealgos::algorithms::sort::merge_sort::bottom_up::Sort<Container, StandardMerge> bottom_up{&stats_callbacks};
+        bottom_up.sort(arr);
+    } else if (config.algorithm_name == "bottom-up-faster-merge") {
+        sedgealgos::algorithms::sort::merge_sort::bottom_up::Sort<Container, FasterMerge> bottom_up{&stats_callbacks};
+        bottom_up.sort(arr);
     }
 
     return stats_callbacks.to_json();
