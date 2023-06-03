@@ -1,5 +1,6 @@
 #include "sedgealgos/algorithms/sort/merge_sort/bottom_up/sort.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/merge/merge.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/merge/faster_merge.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/top_down/sort.hpp"
 #include "sedgealgos/algorithms/sort/sort/callbacks/sort_statistics.hpp"
 #include "sedgealgos/algorithms/sort/sort_analysis/generate_array.hpp"
@@ -8,6 +9,12 @@
 
 using Container = sedgealgos::data_structures::array::Array<int>;
 
+template <typename C>
+using StandardMerge = sedgealgos::algorithms::sort::merge_sort::merge::StandardMerge<C>;
+
+template <typename C>
+using FasterMerge = sedgealgos::algorithms::sort::merge_sort::merge::FasterMerge<C>;
+
 struct Config {
     sedgealgos::data_structures::string::String algorithm_name;
     sedgealgos::data_structures::string::String distribution_name;
@@ -15,11 +22,6 @@ struct Config {
     int array_size_increment{1};
     int max_array_size{1};
 };
-
-void run_top_down_standard_merge_sort(auto merge, auto* callbacks, auto arr) {
-    sedgealgos::algorithms::sort::merge_sort::top_down::Sort<Container> top_down{merge, callbacks};
-    top_down.sort(arr);
-}
 
 void run_bottom_up_merge_sort(auto* callbacks, auto arr) {
     sedgealgos::algorithms::sort::merge_sort::bottom_up::Sort bottom_up{callbacks};
@@ -31,11 +33,11 @@ sedgealgos::data_structures::string::String run(Config const& config) {
     sedgealgos::algorithms::sort::sort::callbacks::SortStatistics stats_callbacks{arr.size()};
 
     if (config.algorithm_name == "top-down-standard-merge") {
-        run_top_down_standard_merge_sort(
-            sedgealgos::algorithms::sort::merge_sort::merge::merge<Container>,
-            &stats_callbacks,
-            arr
-        );
+        sedgealgos::algorithms::sort::merge_sort::top_down::Sort<Container, StandardMerge> top_down{&stats_callbacks};
+        top_down.sort(arr);
+    } else if (config.algorithm_name == "top-down-faster-merge") {
+        sedgealgos::algorithms::sort::merge_sort::top_down::Sort<Container, StandardMerge> top_down{&stats_callbacks};
+        top_down.sort(arr);
     } else if (config.algorithm_name == "bottom-up-merge") {
         run_bottom_up_merge_sort(&stats_callbacks, arr);
     }

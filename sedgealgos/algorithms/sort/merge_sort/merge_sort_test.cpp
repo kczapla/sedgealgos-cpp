@@ -41,7 +41,7 @@ protected:
 TEST_P(TopDownMergeSortTest, StandardMerge) {
     auto [to_sort]{GetParam()};
 
-    merge_sort::top_down::Sort<Container> ms{merge_sort::merge::merge<Container>, &callbacks};
+    merge_sort::top_down::Sort<Container, merge_sort::merge::StandardMerge> ms{&callbacks};
 
     ms.sort(to_sort);
 
@@ -51,7 +51,7 @@ TEST_P(TopDownMergeSortTest, StandardMerge) {
 TEST_P(TopDownMergeSortTest, FasterMerge) {
     auto [to_sort]{GetParam()};
 
-    merge_sort::top_down::Sort<Container> ms{merge_sort::merge::faster_merge<Container>, &callbacks};
+    merge_sort::top_down::Sort<Container, merge_sort::merge::FasterMerge> ms{&callbacks};
 
     ms.sort(to_sort);
 
