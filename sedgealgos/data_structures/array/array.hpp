@@ -205,4 +205,22 @@ bool operator==(Array<Item> const& lhs, Array<Item> const& rhs) {
     }
     return true;
 }
+
+template <typename Item>
+std::ostream& operator<<(std::ostream& os, Array<Item> arr) {
+    os << "[ ";
+
+    if (arr.is_empty()) {
+        os << "]";
+        return os;
+    }
+    
+    for (typename Array<Item>::Size i{0}; i < arr.size() - 1; i++) {
+        os << arr[i] << ", ";
+    }
+
+    os << arr[arr.size() - 1] << " ]";
+
+    return os;
+}
 }

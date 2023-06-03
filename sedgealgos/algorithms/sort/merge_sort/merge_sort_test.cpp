@@ -21,6 +21,12 @@ struct TestParam {
     Container to_sort;
 };
 
+std::ostream& operator<<(std::ostream& os, TestParam const& tp) {
+    os << "{ to_sort: " << tp.to_sort << " }";
+    
+    return os;
+}
+
 struct TopDownMergeSortTest : public ::testing::TestWithParam<TestParam> {
 protected:
     TopDownMergeSortTest() {
@@ -49,7 +55,7 @@ TEST_P(TopDownMergeSortTest, FasterMerge) {
 
     ms.sort(to_sort);
 
-    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end()));
+    EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
 }
 
 
@@ -58,7 +64,7 @@ Container generate_test_container(typename Container::Size size) {
     std::mt19937 gen{rd()};
 
     Container container;
-    std::uniform_int_distribution<> d{static_cast<int>(size)};
+    std::uniform_int_distribution<> d{0, static_cast<int>(size)};
     for (typename Container::Size i{0}; i < size; i++) {
         container.push_back(d(gen));
     }

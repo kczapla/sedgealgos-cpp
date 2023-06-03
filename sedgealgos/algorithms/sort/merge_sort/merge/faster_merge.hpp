@@ -17,21 +17,15 @@ void faster_merge(sort::Callbacks* callbacks,
         callbacks->on_array_access(2);
     }
 
-    for (typename Container::Size i{hi}; i >= mid + 1; i--) {
-        aux[i] = c[i];
-        callbacks->on_array_access(2);
+    typename Container::Size i{mid+1};
+    typename Container::Size j{hi};
+    while (i <= hi) {
+        aux[i++] = c[j--];    
     }
 
-    auto i{lo};
-    auto j{hi};
+    i = lo;
+    j = hi;
     for (typename Container::Size k{lo}; k <= hi; k++) {
-        // if (mid < i) {
-        //     c[k] = aux[j++];
-        //     callbacks->on_array_access(2);
-        // } else if (hi < j) {
-        //     c[k] = aux[i++];
-        //     callbacks->on_array_access(2);
-        // } else
         if (aux[i] < aux[j]) {
             c[k] = aux[i++];
             callbacks->on_array_access(4);
