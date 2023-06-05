@@ -11,6 +11,13 @@ sedgealgos_cc_library(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "is_sorted",
+    hdrs = [
+        "is_sorted.hpp",
+    ],
+)
+
 sedgealgos_cc_test_library(
     name = "callbacks_mock",
     hdrs = [

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sedgealgos/algorithms/sort/sort/callbacks.hpp"
+#include "sedgealgos/algorithms/sort/sort/is_sorted.hpp"
 
 #include <iostream>
 
@@ -15,6 +16,10 @@ public:
 
     void sort(Container& c) {
         if (c.is_empty() || c.size() == 0) {
+            return;
+        }
+
+        if (sort::is_sorted(c)) {
             return;
         }
 

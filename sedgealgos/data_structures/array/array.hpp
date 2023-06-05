@@ -93,6 +93,10 @@ public:
         return data[index];
     }
 
+    Item& operator[](Size index) const {
+        return data[index];
+    }
+
     void push_back(Item item) {
         data[next_index++] = item;
         if (next_index == capacity) {

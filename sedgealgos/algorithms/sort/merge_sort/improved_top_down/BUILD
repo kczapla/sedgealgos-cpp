@@ -11,5 +11,6 @@ sedgealgos_cc_library(
     ],
     deps = [
         "//sedgealgos/algorithms/sort/sort:callbacks",
+        "//sedgealgos/algorithms/sort/sort:is_sorted",
     ]
 )
