@@ -19,10 +19,6 @@ public:
             return;
         }
 
-        if (sort::is_sorted(c)) {
-            return;
-        }
-
         callbacks->on_sort_start();
         Container aux(c.size());
         sort(c, aux, static_cast<Container::Size>(0), c.size() - 1);
@@ -41,6 +37,11 @@ private:
         auto const mid{(hi + lo)/2};
         sort(c, aux, lo, mid);
         sort(c, aux, mid + 1, hi);
+        
+        if (c[mid] <= c[mid+1]) {
+            return;
+        }
+
         Merge<>::merge(callbacks, c, aux, lo, mid, hi);
     }
 
