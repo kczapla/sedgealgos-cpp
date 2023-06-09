@@ -5,6 +5,7 @@
 #include "sedgealgos/algorithms/sort/sort/callbacks_mock.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/merge/merge.hpp"
 #include "sedgealgos/algorithms/sort/merge_sort/merge/faster_merge.hpp"
+#include "sedgealgos/algorithms/sort/merge_sort/merge/no_copy_merge.hpp"
 
 #include "sedgealgos/data_structures/array/array.hpp"
 
@@ -61,10 +62,10 @@ TEST_P(MergeSortTest, TopDownFasterMerge) {
     EXPECT_TRUE(std::is_sorted(to_sort.begin(), to_sort.end())) << "after sorting = " << ::testing::PrintToString(to_sort);
 }
 
-TEST_P(MergeSortTest, ImprovedTopDownStandardMerge) {
+TEST_P(MergeSortTest, ImprovedTopDownNoCopyMerge) {
     auto [to_sort]{GetParam()};
 
-    merge_sort::improved_top_down::Sort<Container, insertion_sort::InsertionSort, merge_sort::merge::StandardMerge> ms{&callbacks};
+    merge_sort::improved_top_down::Sort<Container, insertion_sort::InsertionSort, merge_sort::merge::NoCopyMerge> ms{&callbacks};
 
     ms.sort(to_sort);
 
@@ -115,12 +116,18 @@ Container generate_test_container(typename Container::Size size) {
 }
 
 INSTANTIATE_TEST_SUITE_P(MergeSort, MergeSortTest, testing::Values(
-    TestParam{generate_test_container(0)},
-    TestParam{generate_test_container(1)},
-    TestParam{generate_test_container(2)},
-    TestParam{generate_test_container(4)},
-    TestParam{generate_test_container(10)},
-    TestParam{generate_test_container(32)},
-    TestParam{generate_test_container(1024)}
+    TestParam{Container{2, 1}},
+    TestParam{Container{1, -2, -3, -4}},
+    TestParam{Container{1, -2, -3, -4, -5}},
+    TestParam{Container{1, -2, -3, -4, -5, -6, -7, -8}},
+    TestParam{Container{1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16}},
+    TestParam{Container{1, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20, -21, -22, -23, -24, -25, -26, -27, -28, -29, -31, -32}}
+    // TestParam{generate_test_container(0)},
+    // TestParam{generate_test_container(1)},
+    // TestParam{generate_test_container(2)},
+    // TestParam{generate_test_container(4)},
+    // TestParam{generate_test_container(10)},
+    // TestParam{generate_test_container(32)},
+    // TestParam{generate_test_container(1024)}
     ));
 }

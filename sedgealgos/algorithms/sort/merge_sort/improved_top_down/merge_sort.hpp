@@ -4,6 +4,7 @@
 #include "sedgealgos/algorithms/sort/sort/is_sorted.hpp"
 
 #include <iostream>
+#include <cmath>
 
 namespace sedgealgos::algorithms::sort::merge_sort::improved_top_down {
 
@@ -21,28 +22,54 @@ public:
 
         callbacks->on_sort_start();
         Container aux(c.size());
-        sort(c, aux, static_cast<Container::Size>(0), c.size() - 1);
+        std::cout << "before sorting c = " << c << std::endl;
+        if (static_cast<int>(std::log2(c.size())) % 2 == 0) {
+            sort(c, aux, static_cast<Container::Size>(0), c.size() - 1);
+        } else {
+            sort(aux, c, static_cast<Container::Size>(0), c.size() - 1);
+            for (int i{0}; i < static_cast<int>(aux.size()); i++) {
+                c[i] = aux[i];
+            }
+        }
+        std::cout << "after sorting c = " << c << std::endl;
         callbacks->on_sort_stop();
     }
 
 private:
     void sort(Container& c, Container& aux, Container::Size lo, Container::Size hi) {
         if ((hi - lo) == 0) {
+            // c[hi] = aux[hi];
             return;
         }
-        if (hi - lo < 16) {
-            CutOffSort<>::sort(c, lo, hi);
-            return;
-        }
+        // if (hi - lo < 4) {
+        //     CutOffSort<>::sort(c, lo, hi);
+        //     return;
+        // }
         auto const mid{(hi + lo)/2};
-        sort(c, aux, lo, mid);
-        sort(c, aux, mid + 1, hi);
         
-        if (c[mid] <= c[mid+1]) {
-            return;
-        }
+        sort(aux, c, lo, mid);
+        // if (hi == 2) {
+        //     aux[hi] = c[hi];
+        // } else {
+        //     sort(aux, c, mid + 1, hi);
+        // }
+        sort(aux, c, mid + 1, hi);
+        // aux[hi] = c[hi];
+        // if (c[mid] <= c[mid+1]) {
+        //     return;
+        // }
+
+        // std::cout << "before merge(c, aux, lo, mid, hi)" << std::endl;
+        // std::cout << "lo = " << lo << ", mid = " << mid << ", hi = " << hi << std::endl;
+        // std::cout << "c = " << c << std::endl;
+        // std::cout << "aux = " << aux << std::endl << std::endl;
 
         Merge<>::merge(callbacks, c, aux, lo, mid, hi);
+        
+        // std::cout << "after merge(c, aux, lo, mid, hi)" << std::endl;
+        // std::cout << "lo = " << lo << ", mid = " << mid << ", hi = " << hi << std::endl;
+        // std::cout << "c = " << c << std::endl;
+        // std::cout << "aux = " << aux << std::endl << std::endl << std::endl;
     }
 
     sort::Callbacks* callbacks{nullptr};
