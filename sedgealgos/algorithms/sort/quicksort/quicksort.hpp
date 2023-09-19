@@ -34,6 +34,9 @@ private:
             if (i >= j) {
                 break; 
             }
+            auto const tmp{container[j]};
+            container[j] = container[i];
+            container[i] = tmp;
         }
 
         container[lo] = container[j];

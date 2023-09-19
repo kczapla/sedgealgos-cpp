@@ -24,6 +24,7 @@ TEST_P(QuicksortTest, SortContainer) {
 }
 
 INSTANTIATE_TEST_SUITE_P(Quicksort, QuicksortTest, testing::Values(
-    TestParam{Container{5, 4, 3, 2, 1}}
+    TestParam{Container{5, 4, 3, 2, 1}},
+    TestParam{Container{ 3, 1, 2, 4, 7, 5, 0, 9, 5, 6 }}
     ));
 }
