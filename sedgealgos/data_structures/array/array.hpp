@@ -17,6 +17,8 @@ public:
         data = new Item[capacity];
     }
 
+    
+
     Array(std::initializer_list<Item> il) {
         data = new Item[il.size()];
 
@@ -188,6 +190,18 @@ public:
 
     const_iterator end() const {
         return cend();
+    }
+
+    Array(iterator first, iterator last) : Array{} {
+	for (auto it{first}; it != last; ++it) {
+	    this->push_back(*it);
+	}
+    }
+
+    Array(const_iterator first, const_iterator last) : Array{} {
+	for (auto it{first}; it != last; ++it) {
+	    this->push_back(*it);
+	}
     }
 
 private:

@@ -13,6 +13,16 @@ TEST(ArrayTest, EmptyListInitializerCtor) {
     EXPECT_TRUE(arr.is_empty());
 }
 
+TEST(ArrayTest, IteratorCtor) {
+    Array<int> arr1{1, 2, 3, 4};
+    Array<int> arr2{arr1.cbegin(), arr1.cend()};
+
+    EXPECT_EQ(arr2[0], 1);
+    EXPECT_EQ(arr2[1], 2);
+    EXPECT_EQ(arr2[2], 3);
+    EXPECT_EQ(arr2[3], 4);
+}
+
 TEST(ArrayTest, ListInitializerCtor) {
     Array<int> arr{1, 2, 3, 4};
 
