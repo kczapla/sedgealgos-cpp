@@ -5,7 +5,6 @@
 namespace sedgealgos::data_structures::priority_queue {
 template <typename T, typename K>
 concept PriorityQueue = requires(T pq, K key) {
-    T{};
     std::constructible_from<T, int>;
     std::constructible_from<T, typename T::container>;
     pq.insert(key);
