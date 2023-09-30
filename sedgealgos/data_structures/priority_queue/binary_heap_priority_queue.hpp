@@ -15,7 +15,7 @@ public:
 		: BinaryHeapPriorityQueue(container.size() + static_cast<Container::Size>(1)) {
 		
 		for (auto&& elem : container) {
-			this->insert(elem);
+			insert(elem);
 		}
 	};
 
@@ -24,12 +24,12 @@ public:
 		swim(heap_size);
 	};
 
-	T const& top() const { return this->c[1]; };
+	T const& top() const { return c[1]; };
 
 	T pop() { 
 		std::swap(c[1], c[heap_size]);
 
-		auto const top{this->c[heap_size--]};
+		auto const top{c[heap_size--]};
 		sink(1);
 
 		return top;
@@ -49,17 +49,17 @@ private:
 	void swim(unsigned long i) {
 		while(i > 1) {
 			auto const parent{i/2};
-			if (Compare{}(c[i], this->c[parent])) break;
+			if (Compare{}(c[i], c[parent])) break;
 			std::swap(c[parent], c[i]);
 			i = parent;
 		}
 	}
 
 	void sink(unsigned long i) {
-		while(i * 2 <= this->heap_size) {
+		while(i * 2 <= heap_size) {
 			auto j{i * 2};
 			
-			if (j < this->heap_size && Compare{}(this->c[j], this->c[j+1])) ++j;
+			if (j < heap_size && Compare{}(c[j], c[j+1])) ++j;
 			std::swap(c[i], c[j]);
 
 			i = j;
