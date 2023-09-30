@@ -49,7 +49,7 @@ private:
 	void swim(unsigned long i) {
 		while(i > 1) {
 			auto const parent{i/2};
-			if (c[i] < this->c[parent]) break;
+			if (Compare{}(c[i], this->c[parent])) break;
 			std::swap(c[parent], c[i]);
 			i = parent;
 		}
@@ -59,8 +59,7 @@ private:
 		while(i * 2 <= this->heap_size) {
 			auto j{i * 2};
 			
-			if (j+1 <= this->heap_size && this->c[j] < this->c[j+1]) ++j;
-
+			if (j < this->heap_size && Compare{}(this->c[j], this->c[j+1])) ++j;
 			std::swap(c[i], c[j]);
 
 			i = j;
