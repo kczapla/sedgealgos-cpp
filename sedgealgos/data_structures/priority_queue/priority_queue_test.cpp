@@ -11,7 +11,7 @@ namespace {
 using MaxPriorityQueue = MaxBinaryHeapPriorityQueue<int>;
 
 TEST(MaxPriorityQueueTest, MakePriorityListFromArray) {
-	MaxPriorityQueue mpq{Array<int>{3, 2, 9, 5, 4, 1, 0, 7, 6, 0}};
+	MaxPriorityQueue mpq{Array<int>{3, 2, 9, 5, 4, 1, -1, 7, 6, 0}};
 
 	EXPECT_EQ(mpq.pop(), 9);
 	EXPECT_EQ(mpq.pop(), 7);
@@ -22,7 +22,7 @@ TEST(MaxPriorityQueueTest, MakePriorityListFromArray) {
 	EXPECT_EQ(mpq.pop(), 2);
 	EXPECT_EQ(mpq.pop(), 1);
 	EXPECT_EQ(mpq.pop(), 0);
-	EXPECT_EQ(mpq.pop(), 0);
+	EXPECT_EQ(mpq.pop(), -1);
 }
 
 TEST(MaxPriorityQueueTest, MakeOneElementPriorityQueue) {
@@ -89,6 +89,21 @@ TEST(MaxPriorityQueueTest, MakePriorityListFromInserts) {
 	EXPECT_EQ(mpq.pop(), 1);
 	EXPECT_EQ(mpq.pop(), 0);
 	EXPECT_EQ(mpq.pop(), 0);
+}
+
+TEST(MinPriorityQueueTest, MakePriorityListFromArray) {
+	MinBinaryHeapPriorityQueue mpq{Array<int>{3, 2, 9, 5, 4, 1, 0, 7, 6, 0}};
+
+	EXPECT_EQ(mpq.pop(), 0);
+	EXPECT_EQ(mpq.pop(), 0);
+	EXPECT_EQ(mpq.pop(), 1);
+	EXPECT_EQ(mpq.pop(), 2);
+	EXPECT_EQ(mpq.pop(), 3);
+	EXPECT_EQ(mpq.pop(), 4);
+	EXPECT_EQ(mpq.pop(), 5);
+	EXPECT_EQ(mpq.pop(), 6);
+	EXPECT_EQ(mpq.pop(), 7);
+	EXPECT_EQ(mpq.pop(), 9);
 }
 }
 

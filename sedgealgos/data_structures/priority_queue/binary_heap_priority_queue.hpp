@@ -60,6 +60,8 @@ private:
 			auto j{i * 2};
 			
 			if (j < heap_size && Compare{}(c[j], c[j+1])) ++j;
+			if (!Compare{}(c[i], c[j])) break;
+
 			std::swap(c[i], c[j]);
 
 			i = j;
@@ -69,4 +71,7 @@ private:
 
 template <typename T>
 using MaxBinaryHeapPriorityQueue = BinaryHeapPriorityQueue<T, array::Array<T>, std::less<T>>;
+
+template <typename T>
+using MinBinaryHeapPriorityQueue = BinaryHeapPriorityQueue<T, array::Array<T>, std::greater<T>>;
 }
