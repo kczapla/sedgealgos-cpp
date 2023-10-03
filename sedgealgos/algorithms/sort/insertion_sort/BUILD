@@ -80,6 +80,7 @@ sedgealgos_cc_test(
         "shell_precalc_gaps_sort",
         "insertion_sort_with_sentry",
         "insertion_sort_without_exchange",
+        "//sedgealgos/algorithms/sort/heap_sort:heap_sort",
     ],
 )
 

@@ -5,6 +5,7 @@
 #include "sedgealgos/algorithms/sort/insertion_sort/shell_precalc_gaps_sort.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_with_sentry.hpp"
 #include "sedgealgos/algorithms/sort/insertion_sort/insertion_sort_without_exchange.hpp"
+#include "sedgealgos/algorithms/sort/heap_sort/heap_sort.hpp"
 
 #include "sedgealgos/data_structures/array/array.hpp"
 
@@ -89,6 +90,15 @@ TEST_P(SortTest, InsertionSortWithoutExchange) {
 
     EXPECT_EQ(to_sort, sorted);
 }
+
+TEST_P(SortTest, HeapSort) {
+    auto [to_sort, sorted]{GetParam()};
+
+    heap_sort::sort(to_sort);
+
+    EXPECT_EQ(to_sort, sorted);
+}
+
 
 INSTANTIATE_TEST_SUITE_P(Sort, SortTest, testing::Values(
     TestParam{{}, {}},
