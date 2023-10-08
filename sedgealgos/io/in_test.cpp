@@ -30,6 +30,10 @@ namespace {
             std::ofstream fwc{file_with_chars, std::ofstream::out};
             fwc << "a b c 1 d e f gh";
             fwc.close();
+
+	    std::ofstream fws{file_with_strings, std::ofstream::out};
+	    fws << "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit,\n";
+	    fws.close();
         }
 
         void TearDown() override {
@@ -38,6 +42,7 @@ namespace {
             std::filesystem::remove(file_with_new_line_ints);
             std::filesystem::remove(file_with_doubles);
             std::filesystem::remove(file_with_chars);
+            std::filesystem::remove(file_with_strings);
         }
 
         std::vector<int> get_ints(In& in) {
@@ -69,6 +74,7 @@ namespace {
         std::filesystem::path file_with_new_line_ints{std::filesystem::temp_directory_path() / "file_with_new_line_ints.txt"};
         std::filesystem::path file_with_doubles{std::filesystem::temp_directory_path() / "file_with_doubles.txt"};
         std::filesystem::path file_with_chars{std::filesystem::temp_directory_path() / "file_with_chars.txt"};
+        std::filesystem::path file_with_strings{std::filesystem::temp_directory_path() / "file_with_strings.txt"};
     };
 
     TEST_F(InTest, ReturnsTrueIfFileHasNotData) {
@@ -132,5 +138,10 @@ TEST_F(InTest, ReadInts) {
 TEST_F(InTest, ReadsIntsIntoArray) {
     In in{file_with_ints};
     EXPECT_THAT(in.read_ints(), ElementsAre(1, 2, 3, 4, 5, 6, 7));
+}
+
+TEST_F(InTest, ReadStringReturnsStringsSeparatedByWhiteSpaces) {
+    In in{file_with_strings};
+    EXPECT_THAT(in.read_strings(), ElementsAre("Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit,"));
 }
 }

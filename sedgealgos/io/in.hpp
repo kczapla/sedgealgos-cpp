@@ -25,6 +25,10 @@ namespace sedgealgos::io {
 
         int read_int();
         array::Array<int> read_ints();
+
+	std::string read_string();
+	array::Array<std::string> read_strings();
+
         
         double read_double();
         std::string reads_all();

@@ -81,4 +81,23 @@ std::string In::reads_all() {
     std::string all(std::istreambuf_iterator<char>(is), {});
     return all;
 }
+
+std::string In::read_string() {
+	if (is_empty()) {
+		return "";
+	}
+	std::string s;
+	is >> s;
+	return s;
+}
+
+array::Array<std::string> In::read_strings() {
+	array::Array<std::string> arr;
+	while(!is_empty()) {
+		if (auto s{read_string()}; s != "") {
+			arr.push_back(s);
+		}
+	}
+	return arr;
+}
 }
