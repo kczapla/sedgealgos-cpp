@@ -125,3 +125,13 @@ sedgealgos_cc_test(
         "infix_to_postfix_converter",
     ],
 )
+
+sedgealgos_cc_binary(
+    name = "frequency_counter",
+    srcs = ["frequency_counter.cpp"],
+    deps = [
+        "//sedgealgos/io:in",
+        "//sedgealgos/io:std_out",
+    ]
+)
+
