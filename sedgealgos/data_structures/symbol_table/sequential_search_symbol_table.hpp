@@ -11,6 +11,19 @@ public:
 		return head == nullptr;
 	}
 
+	bool contains(Key key) const {
+		auto curr{head};
+		while (curr != nullptr) {
+			if (curr->key == key) {
+				return true;
+			}
+
+			curr = curr->next;
+		}
+
+		return false;
+	}
+
 	void put(Key key, Value value) {
 		Node* prev{nullptr};
 		auto curr{head};

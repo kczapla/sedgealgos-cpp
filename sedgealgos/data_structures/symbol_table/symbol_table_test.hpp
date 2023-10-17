@@ -24,6 +24,30 @@ TYPED_TEST_P(UnorderedSymbolTableTest, PutOverwritesValueOfExistingKey) {
 	ASSERT_EQ(st.get("test1"), 2);
 }
 
+TYPED_TEST_P(UnorderedSymbolTableTest, ContainsReturnsTrueIfElementExists) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+
+	ASSERT_TRUE(st.contains("test1"));
+}
+
+TYPED_TEST_P(UnorderedSymbolTableTest, ContainsReturnsFalseIfSymbolTableIsEmpty) {
+	TypeParam st{};
+
+	ASSERT_FALSE(st.contains("test1"));
+}
+
+TYPED_TEST_P(UnorderedSymbolTableTest, ContainsReturnsFalseIfElementIsNotInSymbolTable) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+
+	ASSERT_FALSE(st.contains("test4"));
+}
+
 TYPED_TEST_P(UnorderedSymbolTableTest, GetOnNonExistentKeyReturnsError) {
 	TypeParam st{};
 
@@ -84,5 +108,8 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    IsEmptyReturnsTrueWhenNoElementsInSymbolTable,
 			    PutPlacesElementInSymbolTable,
 			    GetOnNonExistentKeyReturnsError,
-			    PutOverwritesValueOfExistingKey
+			    PutOverwritesValueOfExistingKey,
+			    ContainsReturnsTrueIfElementExists,
+			    ContainsReturnsFalseIfSymbolTableIsEmpty,
+			    ContainsReturnsFalseIfElementIsNotInSymbolTable
 			    );
