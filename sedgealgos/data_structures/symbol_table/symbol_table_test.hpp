@@ -16,6 +16,20 @@ TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	ASSERT_EQ(st.get("test1"), 1);
 }
 
+TYPED_TEST_P(UnorderedSymbolTableTest, PutOverwritesValueOfExistingKey) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test1", 2);
+	ASSERT_EQ(st.get("test1"), 2);
+}
+
+TYPED_TEST_P(UnorderedSymbolTableTest, GetOnNonExistentKeyReturnsError) {
+	TypeParam st{};
+
+	ASSERT_THROW({ st.get("test1"); }, std::out_of_range);
+}
+
 TYPED_TEST_P(UnorderedSymbolTableTest, IsEmptyReturnsTrueWhenNoElementsInSymbolTable) {
 	TypeParam st{};
 
@@ -68,5 +82,7 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    IsEmptyReturnsFalseWhenMoreThanOneElementIsInSymbolTable,
 			    IsEmptyReturnsFalseWhenOneElementIsInSymbolTable,
 			    IsEmptyReturnsTrueWhenNoElementsInSymbolTable,
-			    PutPlacesElementInSymbolTable
+			    PutPlacesElementInSymbolTable,
+			    GetOnNonExistentKeyReturnsError,
+			    PutOverwritesValueOfExistingKey
 			    );

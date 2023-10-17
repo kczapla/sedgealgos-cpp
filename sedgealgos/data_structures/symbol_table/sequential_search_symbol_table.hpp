@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 namespace sedgealgos::data_structures::symbol_table {
 
 template <typename Key, typename Value>
@@ -10,18 +12,31 @@ public:
 	}
 
 	void put(Key key, Value value) {
+		Node* prev{nullptr};
+		auto curr{head};
+		while(curr != nullptr) {
+			if (curr->key == key) {
+				curr->value = value;
+				return;
+			}
+			prev = curr;
+			curr = curr->next;
+		}
+
 		Node* n{new Node};
 		n->key = key;
 		n->value = value;
+		n->next = nullptr;
 
 		if (head == nullptr) {
 			head = n;
 			return;
 		}
-		head->next = n;
+
+		prev->next = n;
 	}
 
-	Value get(Key key) {
+	Value& get(Key key) {
 		auto curr{head};
 		
 		while (curr != nullptr) {
@@ -31,7 +46,7 @@ public:
 			curr = curr->next;
 		}
 
-		return {};
+		throw std::out_of_range{"key not found"};
 	}
 
 	void del(Key key) {
