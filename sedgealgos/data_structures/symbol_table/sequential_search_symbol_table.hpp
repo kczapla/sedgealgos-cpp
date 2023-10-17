@@ -7,8 +7,16 @@ namespace sedgealgos::data_structures::symbol_table {
 template <typename Key, typename Value>
 class SequentialSearchSymbolTable {
 public:
+	using Size = unsigned long long;
+
+	SequentialSearchSymbolTable() : number_of_elements{0} {}
+
 	bool is_empty() const {
 		return head == nullptr;
+	}
+
+	Size size() const {
+		return number_of_elements;
 	}
 
 	bool contains(Key key) const {
@@ -25,6 +33,8 @@ public:
 	}
 
 	void put(Key key, Value value) {
+		++number_of_elements;
+
 		Node* prev{nullptr};
 		auto curr{head};
 		while(curr != nullptr) {
@@ -65,6 +75,8 @@ public:
 	void del(Key key) {
 		delete head;
 		head = nullptr;
+
+		number_of_elements--;
 	}
 
 private:
@@ -74,6 +86,7 @@ private:
 		Value value;
 	};
 
+	Size number_of_elements{};
 	Node* head{nullptr};
 };
 }

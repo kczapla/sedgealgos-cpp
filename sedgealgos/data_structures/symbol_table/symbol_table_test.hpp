@@ -99,6 +99,35 @@ TYPED_TEST_P(UnorderedSymbolTableTest, DelKeyOnEmptySymbolTableDoesNothing) {
 	ASSERT_NO_THROW({ st.del("test2"); });
 }
 
+TYPED_TEST_P(UnorderedSymbolTableTest, DelDecreasesSizeOfTheSymbolTable) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+
+	ASSERT_EQ(st.size(), 3);
+
+	st.del("test2");
+
+	ASSERT_EQ(st.size(), 2);
+}
+
+TYPED_TEST_P(UnorderedSymbolTableTest, SizeReturnsZeroIfSymbolTableIsEmpty) {
+	TypeParam st{};
+
+	ASSERT_EQ(st.size(), 0);
+}
+
+TYPED_TEST_P(UnorderedSymbolTableTest, SizeReturnsNonZeroIfSymbolTableIsNotEmpty) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 1);
+
+	ASSERT_EQ(st.size(), 2);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -111,5 +140,8 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    PutOverwritesValueOfExistingKey,
 			    ContainsReturnsTrueIfElementExists,
 			    ContainsReturnsFalseIfSymbolTableIsEmpty,
-			    ContainsReturnsFalseIfElementIsNotInSymbolTable
+			    ContainsReturnsFalseIfElementIsNotInSymbolTable,
+			    SizeReturnsZeroIfSymbolTableIsEmpty,
+			    SizeReturnsNonZeroIfSymbolTableIsNotEmpty,
+			    DelDecreasesSizeOfTheSymbolTable
 			    );
