@@ -210,7 +210,7 @@ private:
         for (Size i{0}; i < next_index; ++i) {
             new_data[i] = data[i];
         }
-        delete data;
+        delete[] data;
         data = new_data;
 
         capacity = new_capacity;
