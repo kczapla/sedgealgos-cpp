@@ -8,6 +8,9 @@ load(
 sedgealgos_cc_library(
     name = "sequential_search_symbol_table",
     hdrs = ["sequential_search_symbol_table.hpp"],
+    deps = [
+	    "//sedgealgos/data_structures/array:array",
+    ],
 )
 
 sedgealgos_cc_test(

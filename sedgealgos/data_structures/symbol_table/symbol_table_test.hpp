@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <string>
 
@@ -128,6 +129,23 @@ TYPED_TEST_P(UnorderedSymbolTableTest, SizeReturnsNonZeroIfSymbolTableIsNotEmpty
 	ASSERT_EQ(st.size(), 2);
 }
 
+TYPED_TEST_P(UnorderedSymbolTableTest, KeysReturnsEmptyArrayIfSymbolTableIsEmpty) {
+	TypeParam st{};
+
+	ASSERT_TRUE(st.keys().is_empty());
+}
+
+TYPED_TEST_P(UnorderedSymbolTableTest, KeysReturnsArrayOfKeys) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+	st.put("test4", 1);
+
+	ASSERT_THAT(st.keys(), ::testing::ElementsAre("test1", "test2", "test3", "test4"));
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -143,5 +161,7 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    ContainsReturnsFalseIfElementIsNotInSymbolTable,
 			    SizeReturnsZeroIfSymbolTableIsEmpty,
 			    SizeReturnsNonZeroIfSymbolTableIsNotEmpty,
-			    DelDecreasesSizeOfTheSymbolTable
+			    DelDecreasesSizeOfTheSymbolTable,
+			    KeysReturnsEmptyArrayIfSymbolTableIsEmpty,
+			    KeysReturnsArrayOfKeys
 			    );

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sedgealgos/data_structures/array/array.hpp"
+
 #include <stdexcept>
 
 namespace sedgealgos::data_structures::symbol_table {
@@ -77,6 +79,17 @@ public:
 		head = nullptr;
 
 		number_of_elements--;
+	}
+
+	array::Array<Key> keys() const {
+		array::Array<Key> arr{};
+		auto curr{head};
+		while (curr != nullptr) {
+			arr.push_back(curr->key);
+			curr = curr->next;
+		}
+
+		return arr;
 	}
 
 private:
