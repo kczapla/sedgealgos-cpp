@@ -157,6 +157,37 @@ TYPED_TEST_P(OrderedSymbolTableTest, RankReturnsIndexZeroWhenSymbolTableIsEmpty)
 	ASSERT_EQ(st.rank("test1"), 0);
 }
 
+TYPED_TEST_P(OrderedSymbolTableTest, RankReturnsLastIndexWhenKeyIsLargestInTheSymbolTable) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+
+	ASSERT_EQ(st.rank("test2"), 1);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RankReturnsLastIndexWhenKeyIsLowestInTheSymbolTable) {
+	TypeParam st{};
+
+	st.put("test2", 1);
+
+	ASSERT_EQ(st.rank("test1"), 0);
+}
+
+
+TYPED_TEST_P(OrderedSymbolTableTest, RankReturnsNumberOfKeysLessThanGivenKey) {
+	TypeParam st{};
+
+	st.put("test8", 1);
+	st.put("test7", 1);
+	st.put("test4", 1);
+	st.put("test3", 1);
+	st.put("test2", 1);
+	st.put("test1", 1);
+	st.put("test0", 1);
+
+	ASSERT_EQ(st.rank("test6"), 5);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -178,7 +209,10 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    );
 
 REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
-			    RankReturnsIndexZeroWhenSymbolTableIsEmpty
+			    RankReturnsIndexZeroWhenSymbolTableIsEmpty,
+			    RankReturnsLastIndexWhenKeyIsLargestInTheSymbolTable,
+			    RankReturnsLastIndexWhenKeyIsLowestInTheSymbolTable,
+			    RankReturnsNumberOfKeysLessThanGivenKey
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;

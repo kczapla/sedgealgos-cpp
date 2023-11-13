@@ -43,6 +43,11 @@ public:
 		return lo;
 	}
 
+	void put(Key key, Value value) {
+		keys.push_back(key);
+		values.push_back(value);
+	}
+
 private:
 	array::Array<Key> keys;
 	array::Array<Value> values;
