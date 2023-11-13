@@ -1,14 +1,19 @@
+#include "sedgealgos/data_structures/symbol_table/ordered_binary_search_symbol_table.hpp"
+#include "sedgealgos/data_structures/symbol_table/sequential_search_symbol_table.hpp"
+
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
 #include <string>
 
 template <typename T>
-class UnorderedSymbolTableTest : public ::testing::Test {
-protected:
-};
+class UnorderedSymbolTableTest : public ::testing::Test {};
+
+template <typename T>
+class OrderedSymbolTableTest : public ::testing::Test {};
 
 TYPED_TEST_SUITE_P(UnorderedSymbolTableTest);
+TYPED_TEST_SUITE_P(OrderedSymbolTableTest);
 
 TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	TypeParam st{};
@@ -146,6 +151,12 @@ TYPED_TEST_P(UnorderedSymbolTableTest, KeysReturnsArrayOfKeys) {
 	ASSERT_THAT(st.keys(), ::testing::ElementsAre("test1", "test2", "test3", "test4"));
 }
 
+TYPED_TEST_P(OrderedSymbolTableTest, RankReturnsIndexZeroWhenSymbolTableIsEmpty) {
+	TypeParam st{};
+
+	ASSERT_EQ(st.rank("test1"), 0);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -165,3 +176,13 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    KeysReturnsEmptyArrayIfSymbolTableIsEmpty,
 			    KeysReturnsArrayOfKeys
 			    );
+
+REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
+			    RankReturnsIndexZeroWhenSymbolTableIsEmpty
+			   );
+
+using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
+using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
+
+INSTANTIATE_TYPED_TEST_SUITE_P(ST, UnorderedSymbolTableTest, SISSST);
+INSTANTIATE_TYPED_TEST_SUITE_P(ST, OrderedSymbolTableTest, OBSST);

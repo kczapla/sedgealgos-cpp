@@ -2,7 +2,6 @@ load(
     "@sedgealgos-cpp//bazel:sedgealgos_build_system.bzl",
     "sedgealgos_cc_library",
     "sedgealgos_cc_test",
-    "sedgealgos_cc_test_library",
 )
 
 sedgealgos_cc_library(
@@ -13,17 +12,20 @@ sedgealgos_cc_library(
     ],
 )
 
-sedgealgos_cc_test(
-    name = "sequential_search_symbol_table_test",
-    srcs = ["sequential_search_symbol_table_test.cpp"],
+sedgealgos_cc_library(
+    name = "ordered_binary_search_symbol_table",
+    hdrs = ["ordered_binary_search_symbol_table.hpp"],
     deps = [
-	    "sequential_search_symbol_table",
-	    "symbol_table_test",
+	    "//sedgealgos/data_structures/array:array",
     ],
 )
 
-sedgealgos_cc_test_library(
+sedgealgos_cc_test(
     name = "symbol_table_test",
-    hdrs = ["symbol_table_test.hpp"],
+    srcs = ["symbol_table_test.cpp"],
+    deps = [
+	    "ordered_binary_search_symbol_table",
+	    "sequential_search_symbol_table",
+    ],
 )
 
