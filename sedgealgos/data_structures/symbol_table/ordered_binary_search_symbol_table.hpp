@@ -75,6 +75,10 @@ public:
 		return keys[keys.size() - 1];
 	}
 
+	Key min() const {
+		return keys[0];
+	}
+
 private:
 	array::Array<Key> keys;
 	array::Array<Value> values;
