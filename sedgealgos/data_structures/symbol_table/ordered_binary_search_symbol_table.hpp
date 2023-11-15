@@ -84,6 +84,10 @@ public:
 		return keys[0];
 	}
 
+	Key floor(Key key) const {
+		return keys[rank(key)-1];
+	}
+
 private:
 	array::Array<Key> keys;
 	array::Array<Value> values;
