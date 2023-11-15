@@ -275,7 +275,9 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 		            MaxReturnsMaxElement,
 			    MaxThrowsAnErrorWhenArrayIsEmpty,
 			    MinReturnsTheLowestElementInSymbolTable,
-			    MinThrowsAnErrorWhenSymbolTableIsEmpty
+			    MinThrowsAnErrorWhenSymbolTableIsEmpty,
+			    GetKeyValue,
+			    GetThrowsAnErrorWhenSymbolTableDoesNotHaveKey
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;

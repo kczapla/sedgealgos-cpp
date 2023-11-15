@@ -71,6 +71,11 @@ public:
 
 	}
 
+	Value get(Key key) const {
+		auto const index{rank(key)};
+		return values[index];
+	}
+
 	Key max() const {
 		return keys[keys.size() - 1];
 	}
