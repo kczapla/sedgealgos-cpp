@@ -209,6 +209,24 @@ TYPED_TEST_P(OrderedSymbolTableTest, SelectThrowsAnErrorWhenThereIsNoKeyWithGive
 	ASSERT_THROW({ st.select(2); }, std::runtime_error);
 }
 
+TYPED_TEST_P(OrderedSymbolTableTest, MaxReturnsMaxElement) {
+	TypeParam st{};
+
+	st.put("test8", 1);
+	st.put("test7", 1);
+	st.put("test4", 1);
+
+	ASSERT_EQ(st.max(), "test8");
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, MaxThrowsAnErrorWhenArrayIsEmpty) {
+	GTEST_SKIP();
+
+	TypeParam st{};
+
+	ASSERT_THROW({ st.max(); }, std::runtime_error);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -235,7 +253,9 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    RankReturnsLastIndexWhenKeyIsLowestInTheSymbolTable,
 			    RankReturnsNumberOfKeysLessThanGivenKey,
 			    SelectReturnsKeyForGivenRank,
-			    SelectThrowsAnErrorWhenThereIsNoKeyWithGivenRank
+			    SelectThrowsAnErrorWhenThereIsNoKeyWithGivenRank,
+		            MaxReturnsMaxElement,
+			    MaxThrowsAnErrorWhenArrayIsEmpty
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;

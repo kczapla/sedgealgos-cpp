@@ -71,6 +71,10 @@ public:
 
 	}
 
+	Key max() const {
+		return keys[keys.size() - 1];
+	}
+
 private:
 	array::Array<Key> keys;
 	array::Array<Value> values;
