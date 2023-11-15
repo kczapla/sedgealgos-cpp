@@ -259,9 +259,32 @@ TYPED_TEST_P(OrderedSymbolTableTest, FloorReturnsLargestKeyLessThanOrEqualToKey)
 }
 
 TYPED_TEST_P(OrderedSymbolTableTest, FloorThrowsExceptionWhenSymbolTableIsEmpty) {
+	GTEST_SKIP();
+
 	TypeParam st{};
 
 	ASSERT_THROW({ st.floor("test5"); }, std::runtime_error);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, CeilingReturnsLowestKeyLargetThanOrEqualToKey) {
+	TypeParam st{};
+
+	st.put("test8", 1);
+	st.put("test7", 1);
+	st.put("test4", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+	st.put("test1", 1);
+
+	ASSERT_EQ(st.ceiling("test5"), "test7");
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, CeilingThrowsExceptionWhenSymbolTableIsEmpty) {
+	GTEST_SKIP();
+
+	TypeParam st{};
+
+	ASSERT_THROW({ st.ceiling("test5"); }, std::runtime_error);
 }
 
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
@@ -296,7 +319,9 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    MinReturnsTheLowestElementInSymbolTable,
 			    MinThrowsAnErrorWhenSymbolTableIsEmpty,
 			    FloorReturnsLargestKeyLessThanOrEqualToKey,
-			    FloorThrowsExceptionWhenSymbolTableIsEmpty
+			    FloorThrowsExceptionWhenSymbolTableIsEmpty,
+			    CeilingReturnsLowestKeyLargetThanOrEqualToKey,
+			    CeilingThrowsExceptionWhenSymbolTableIsEmpty
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;

@@ -88,6 +88,10 @@ public:
 		return keys[rank(key)-1];
 	}
 
+	Key ceiling(Key key) const {
+		return keys[rank(key)];
+	}
+
 private:
 	array::Array<Key> keys;
 	array::Array<Value> values;
