@@ -44,8 +44,27 @@ public:
 	}
 
 	void put(Key key, Value value) {
-		keys.push_back(key);
-		values.push_back(value);
+		auto const new_key_index{rank(key)};
+
+		array::Array<Key> new_keys(keys.size() + 1);
+		array::Array<Value> new_values(values.size() + 1);
+
+		for (long long unsigned int i{0}; i < new_key_index; ++i) {
+			new_keys[i] = keys[i];
+			new_values[i] = values[i];
+		}
+
+		new_keys[new_key_index] = key;
+		new_values[new_key_index] = value;
+
+		for (auto i{new_key_index}; i < keys.size(); i++) {
+			new_keys[i+1] = keys[i];
+			new_values[i+1] = values[i];
+		}
+
+		keys = new_keys;
+		values = new_values;
+
 	}
 
 private:
