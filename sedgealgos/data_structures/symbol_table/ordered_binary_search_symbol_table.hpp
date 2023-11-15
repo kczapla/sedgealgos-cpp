@@ -43,6 +43,10 @@ public:
 		return lo;
 	}
 
+	Key select(int const rank) const {
+		return keys[rank];
+	}
+
 	void put(Key key, Value value) {
 		auto const new_key_index{rank(key)};
 
