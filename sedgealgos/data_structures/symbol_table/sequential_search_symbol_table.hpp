@@ -75,10 +75,23 @@ public:
 	}
 
 	void del(Key key) {
-		delete head;
-		head = nullptr;
+		auto curr{head};
+		while (curr != nullptr) {
+			auto next{curr->next};
+			if (curr->key != key) {
+				curr = next;
+				continue;
+			}
 
-		number_of_elements--;
+			if (curr == head) {
+				head = nullptr;
+			}
+
+			delete curr;
+			curr = next;
+			number_of_elements--;
+			break;
+		}
 	}
 
 	array::Array<Key> keys() const {
