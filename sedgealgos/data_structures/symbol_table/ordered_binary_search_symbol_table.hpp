@@ -73,7 +73,11 @@ public:
 
 	Value get(Key key) const {
 		auto const index{rank(key)};
-		return values[index];
+		if (keys[index] == key) {
+			return values[index];
+		}
+
+		throw std::out_of_range{"given key does not exist"};
 	}
 
 	Key max() const {
@@ -90,6 +94,11 @@ public:
 
 	Key ceiling(Key key) const {
 		return keys[rank(key)];
+	}
+
+	void deleteMin() {
+		keys.remove(0);
+		values.remove(0);
 	}
 
 private:

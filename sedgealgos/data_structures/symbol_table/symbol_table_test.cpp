@@ -287,6 +287,21 @@ TYPED_TEST_P(OrderedSymbolTableTest, CeilingThrowsExceptionWhenSymbolTableIsEmpt
 	ASSERT_THROW({ st.ceiling("test5"); }, std::runtime_error);
 }
 
+TYPED_TEST_P(OrderedSymbolTableTest, DeleteMinDeletesSmallestElement) {
+	TypeParam st{};
+
+	st.put("test8", 1);
+	st.put("test7", 1);
+	st.put("test4", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+	st.put("test1", 1);
+
+	st.deleteMin();
+
+	ASSERT_THROW({ st.get("test1"); }, std::out_of_range);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -321,7 +336,8 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    FloorReturnsLargestKeyLessThanOrEqualToKey,
 			    FloorThrowsExceptionWhenSymbolTableIsEmpty,
 			    CeilingReturnsLowestKeyLargetThanOrEqualToKey,
-			    CeilingThrowsExceptionWhenSymbolTableIsEmpty
+			    CeilingThrowsExceptionWhenSymbolTableIsEmpty,
+			    DeleteMinDeletesSmallestElement
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
