@@ -14,11 +14,11 @@ public:
 	OrderedBinarySearchSymbolTable() {}
 
 	bool is_empty() const {
-		return keys.is_empty();
+		return keys_.is_empty();
 	}
 
 	Size size() const {
-		return keys.size();
+		return keys_.size();
 	}
 
 	Size rank(Key key) const {
@@ -28,11 +28,11 @@ public:
 		while (lo != hi) {
 			auto mid{(hi + lo)/2};
 			
-			if (keys[mid] == key) {
+			if (keys_[mid] == key) {
 				return mid;
 			}
 
-			if (keys[mid] < key) {
+			if (keys_[mid] < key) {
 				lo = mid + 1;
 				continue;
 			}
@@ -44,36 +44,40 @@ public:
 	}
 
 	Key select(int const rank) const {
-		return keys[rank];
+		return keys_[rank];
 	}
 
 	void put(Key key, Value value) {
 		auto const new_key_index{rank(key)};
 
-		array::Array<Key> new_keys(keys.size() + 1);
+		if (keys_[new_key_index] == key) {
+			values[new_key_index] = value;
+		}
+
+		array::Array<Key> new_keys(keys_.size() + 1);
 		array::Array<Value> new_values(values.size() + 1);
 
 		for (long long unsigned int i{0}; i < new_key_index; ++i) {
-			new_keys[i] = keys[i];
+			new_keys[i] = keys_[i];
 			new_values[i] = values[i];
 		}
 
 		new_keys[new_key_index] = key;
 		new_values[new_key_index] = value;
 
-		for (auto i{new_key_index}; i < keys.size(); i++) {
-			new_keys[i+1] = keys[i];
+		for (auto i{new_key_index}; i < keys_.size(); i++) {
+			new_keys[i+1] = keys_[i];
 			new_values[i+1] = values[i];
 		}
 
-		keys = new_keys;
+		keys_ = new_keys;
 		values = new_values;
 
 	}
 
 	Value get(Key key) const {
 		auto const index{rank(key)};
-		if (keys[index] == key) {
+		if (keys_[index] == key) {
 			return values[index];
 		}
 
@@ -81,28 +85,49 @@ public:
 	}
 
 	Key max() const {
-		return keys[keys.size() - 1];
+		return keys_[keys_.size() - 1];
 	}
 
 	Key min() const {
-		return keys[0];
+		return keys_[0];
 	}
 
 	Key floor(Key key) const {
-		return keys[rank(key)-1];
+		return keys_[rank(key)-1];
 	}
 
 	Key ceiling(Key key) const {
-		return keys[rank(key)];
+		return keys_[rank(key)];
 	}
 
 	void deleteMin() {
-		keys.remove(0);
+		keys_.remove(0);
 		values.remove(0);
 	}
 
+	void del(Key key) {
+		auto const index{rank(key)};
+		if (keys_[index] != key) {
+			return;
+		}
+		keys_.remove(index);
+		values.remove(index);
+	}
+
+	bool contains(Key key) const {
+		auto const index{rank(key)};
+		if (keys_[index] == key) {
+			return true;
+		}
+		return false;
+	}
+
+	array::Array<Key> keys() const {
+		return keys_;
+	}
+
 private:
-	array::Array<Key> keys;
+	array::Array<Key> keys_;
 	array::Array<Value> values;
 };
 }

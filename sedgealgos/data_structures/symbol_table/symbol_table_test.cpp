@@ -97,7 +97,7 @@ TYPED_TEST_P(UnorderedSymbolTableTest, IsEmptyReturnsFalseWhenElementIsDeletedFr
 	st.put("test3", 1);
 	st.del("test2");
 
-	ASSERT_TRUE(st.is_empty());
+	ASSERT_FALSE(st.is_empty());
 }
 
 TYPED_TEST_P(UnorderedSymbolTableTest, DelKeyOnEmptySymbolTableDoesNothing) {
@@ -343,5 +343,6 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
 using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
 
-INSTANTIATE_TYPED_TEST_SUITE_P(ST, UnorderedSymbolTableTest, SISSST);
-INSTANTIATE_TYPED_TEST_SUITE_P(ST, OrderedSymbolTableTest, OBSST);
+INSTANTIATE_TYPED_TEST_SUITE_P(SISSST, UnorderedSymbolTableTest, SISSST);
+INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, UnorderedSymbolTableTest, OBSST);
+INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, OrderedSymbolTableTest, OBSST);
