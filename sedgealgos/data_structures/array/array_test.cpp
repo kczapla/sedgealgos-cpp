@@ -199,6 +199,20 @@ TEST(ArrayTest, RemoveItemFromTheMiddleAndAddNewOneAtTheEnd) {
     EXPECT_THAT(arr, ElementsAre(0, 2, 3));
 }
 
+TEST(ArrayTest, RemoveFirstItemInTheArrayWhenThereAreNItems) {
+    Array<int> arr(6);
+    arr[0] = 0;
+    arr[1] = 1;
+    arr[2] = 2;
+    arr[3] = 3;
+    arr[4] = 4;
+    arr[5] = 5;
+
+    arr.remove(0);
+
+    EXPECT_THAT(arr, ElementsAre(1, 2, 3, 4, 5));
+}
+
 TEST(ArrayTest, BeginIteratorIsEqualEndIteratorWhenArrayIsEmpty) {
     Array<int> arr;
 

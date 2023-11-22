@@ -115,10 +115,10 @@ public:
     }
 
     void remove(Size k) {
+        --next_index;
         for (auto i{k}; i < next_index; i++) {
             data[i] = data[i+1];
         }
-        --next_index;
     }
 
     Size size() const {
