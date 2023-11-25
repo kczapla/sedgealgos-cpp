@@ -314,6 +314,34 @@ TYPED_TEST_P(OrderedSymbolTableTest, DeleteMinDeletesSmallestElement) {
 	ASSERT_THROW({ st.get("test1"); }, std::out_of_range);
 }
 
+TYPED_TEST_P(OrderedSymbolTableTest, DeleteMaxDeletesBiggestElement) {
+	TypeParam st{};
+
+	st.put("test8", 1);
+	st.put("test7", 1);
+	st.put("test4", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+	st.put("test1", 1);
+
+	st.deleteMax();
+
+	ASSERT_THAT(st.keys(), ::testing::ElementsAre("test1", "test2", "test3", "test4", "test7"));
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, ContainsLastElementReturnFalseAfterDeleteMax) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 2);
+	st.put("test3", 3);
+	st.put("test4", 4);
+
+	st.deleteMax();
+
+	ASSERT_FALSE(st.contains("test4"));
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -327,6 +355,7 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    ContainsReturnsTrueIfElementExists,
 			    ContainsReturnsFalseIfSymbolTableIsEmpty,
 			    ContainsReturnsFalseIfElementIsNotInSymbolTable,
+			    ContainsForNReturnsFalseIfNWasDeletedAndNWasLastElement,
 			    SizeReturnsZeroIfSymbolTableIsEmpty,
 			    SizeReturnsNonZeroIfSymbolTableIsNotEmpty,
 			    DelDecreasesSizeOfTheSymbolTable,
@@ -349,7 +378,9 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    FloorThrowsExceptionWhenSymbolTableIsEmpty,
 			    CeilingReturnsLowestKeyLargetThanOrEqualToKey,
 			    CeilingThrowsExceptionWhenSymbolTableIsEmpty,
-			    DeleteMinDeletesSmallestElement
+			    DeleteMinDeletesSmallestElement,
+			    DeleteMaxDeletesBiggestElement,
+			    ContainsLastElementReturnFalseAfterDeleteMax
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;

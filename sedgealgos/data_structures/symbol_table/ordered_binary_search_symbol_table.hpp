@@ -114,9 +114,15 @@ public:
 		values.remove(index);
 	}
 
+	void deleteMax() {
+		auto const last_element_index{keys_.size() - 1};
+		keys_.remove(last_element_index);
+		values.remove(last_element_index);
+	}
+
 	bool contains(Key key) const {
 		auto const index{rank(key)};
-		if (keys_[index] == key) {
+		if (index < keys_.size() && keys_[index] == key) {
 			return true;
 		}
 		return false;
