@@ -227,6 +227,35 @@ TEST(ArrayTest, BeginIteratorIsNotEqualEndIteratorWhenArrayIsNotEmpty) {
     EXPECT_FALSE(arr.begin() == arr.end());
 }
 
+TEST(ArrayTest, IteratesOverElementsWithAddOperator) {
+    Array<int> arr;
+    arr.push_back(1);
+    arr.push_back(2);
+    arr.push_back(3);
+    arr.push_back(4);
+    arr.push_back(5);
+    arr.push_back(6);
+
+    auto iter{arr.begin() + 2};
+    EXPECT_EQ(*iter, 3);
+    
+    iter = iter + 1;
+    EXPECT_EQ(*iter, 4);
+
+    iter = iter + 2;
+    EXPECT_EQ(*iter, 6);
+
+    auto const_iter{arr.begin() + 2};
+    EXPECT_EQ(*const_iter, 3);
+    
+    const_iter = const_iter + 1;
+    EXPECT_EQ(*const_iter, 4);
+
+    const_iter = const_iter + 2;
+    EXPECT_EQ(*const_iter, 6);
+
+}
+
 TEST(ArrayTest, IteratesOverElementsWithPostfixIncrement) {
     Array<int> arr;
     arr.push_back(1);

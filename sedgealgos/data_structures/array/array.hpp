@@ -153,6 +153,14 @@ public:
           return tmp;
       }
 
+      Iterator operator+(difference_type d) {
+	  Iterator tmp{*this};
+
+	  tmp.ptr += d;
+
+	  return tmp;
+      }
+
       bool operator==(Iterator const& left) const {
           return this->ptr == left.ptr;
       }
