@@ -119,6 +119,18 @@ TYPED_TEST_P(UnorderedSymbolTableTest, DelDecreasesSizeOfTheSymbolTable) {
 	ASSERT_EQ(st.size(), 2);
 }
 
+TYPED_TEST_P(UnorderedSymbolTableTest, ContainsForNReturnsFalseIfNWasDeletedAndNWasLastElement) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+
+	st.del("test3");
+
+	ASSERT_FALSE(st.contains("test3"));
+}
+
 TYPED_TEST_P(UnorderedSymbolTableTest, SizeReturnsZeroIfSymbolTableIsEmpty) {
 	TypeParam st{};
 

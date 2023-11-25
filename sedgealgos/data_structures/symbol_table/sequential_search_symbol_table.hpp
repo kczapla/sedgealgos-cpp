@@ -75,20 +75,31 @@ public:
 	}
 
 	void del(Key key) {
-		auto curr{head};
+		auto prev{head};
+		if (prev == nullptr) {
+			return;
+		}
+
+		if (prev->key == key) {
+			head = prev->next;
+			delete prev;
+			--number_of_elements;
+			return;
+		}
+
+		auto curr{prev->next};
+
 		while (curr != nullptr) {
-			auto next{curr->next};
 			if (curr->key != key) {
-				curr = next;
+				prev = curr;
+				curr = prev->next;
 				continue;
 			}
-
-			if (curr == head) {
-				head = nullptr;
-			}
-
+			prev->next = curr->next;
 			delete curr;
-			curr = next;
+
+			curr = prev->next;
+
 			number_of_elements--;
 			break;
 		}
