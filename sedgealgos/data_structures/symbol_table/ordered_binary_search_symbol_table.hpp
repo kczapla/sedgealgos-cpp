@@ -107,7 +107,7 @@ public:
 
 	void del(Key key) {
 		auto const index{rank(key)};
-		if (keys_[index] != key) {
+		if (index >= keys_.size() || keys_[index] != key) {
 			return;
 		}
 		keys_.remove(index);
