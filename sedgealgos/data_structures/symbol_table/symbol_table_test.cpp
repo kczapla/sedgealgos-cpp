@@ -119,6 +119,18 @@ TYPED_TEST_P(UnorderedSymbolTableTest, DelDecreasesSizeOfTheSymbolTable) {
 	ASSERT_EQ(st.size(), 2);
 }
 
+TYPED_TEST_P(UnorderedSymbolTableTest, KeysAfterDelReturnIterableOfKeysWithoutDeletedKey) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 1);
+	st.put("test3", 1);
+
+	st.del("test3");
+
+	ASSERT_THAT(st.keys(), ::testing::ElementsAre("test1", "test2"));
+}
+
 TYPED_TEST_P(UnorderedSymbolTableTest, ContainsForNReturnsFalseIfNWasDeletedAndNWasLastElement) {
 	TypeParam st{};
 
@@ -369,6 +381,7 @@ REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    ContainsReturnsFalseIfSymbolTableIsEmpty,
 			    ContainsReturnsFalseIfElementIsNotInSymbolTable,
 			    ContainsForNReturnsFalseIfNWasDeletedAndNWasLastElement,
+			    KeysAfterDelReturnIterableOfKeysWithoutDeletedKey,
 			    SizeReturnsZeroIfSymbolTableIsEmpty,
 			    SizeReturnsNonZeroIfSymbolTableIsNotEmpty,
 			    DelDecreasesSizeOfTheSymbolTable,
