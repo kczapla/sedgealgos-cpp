@@ -21,6 +21,10 @@ public:
 		return keys_.size();
 	}
 
+	Size size(Key const lo, Key const hi) const {
+		return keys(lo, hi).size();
+	}
+
 	Size rank(Key key) const {
 		Size lo{0};
 		Size hi{size()};
@@ -130,6 +134,22 @@ public:
 
 	array::Array<Key> keys() const {
 		return keys_;
+	}
+
+	array::Array<Key> keys(Key lo, Key hi) const {
+		auto const all_keys{keys()};
+
+		auto const lo_index{rank(lo)};
+		auto const hi_index{rank(hi)};
+
+		auto first{keys_.begin() + lo_index};
+		auto last{keys_.begin() + hi_index};
+
+		if (*last == hi) {
+			last++;
+		}
+
+		return array::Array<Key>(first, last);
 	}
 
 private:

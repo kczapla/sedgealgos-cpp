@@ -367,6 +367,111 @@ TYPED_TEST_P(OrderedSymbolTableTest, ContainsLastElementReturnFalseAfterDeleteMa
 	ASSERT_FALSE(st.contains("test4"));
 }
 
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsNumberOfElementsEqualToBothSidesClosedRangeOfElementsBetweenKeys) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 2);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test7", 7);
+	st.put("test8", 8);
+
+	EXPECT_THAT(st.keys("test2", "test6"), ::testing::ElementsAre("test2", "test3", "test4", "test5", "test6"));
+	EXPECT_EQ(st.size("test2", "test6"), 5);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutRightOne) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 2);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test8", 8);
+
+	EXPECT_THAT(st.keys("test2", "test7"), ::testing::ElementsAre("test2", "test3", "test4", "test5", "test6"));
+	EXPECT_EQ(st.size("test2", "test7"), 5);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutLeftOne) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test7", 7);
+	st.put("test8", 8);
+
+	EXPECT_EQ(st.size("test2", "test7"), 5);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutLeftAndRightOne) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test7", 7);
+	st.put("test9", 7);
+
+	EXPECT_THAT(st.keys("test2", "test8"), ::testing::ElementsAre("test3", "test4", "test5", "test6", "test7"));
+	EXPECT_EQ(st.size("test2", "test8"), 5);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsOneIfLoAndHiAreEqualAndInTheRange) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test7", 7);
+	st.put("test9", 7);
+
+	EXPECT_THAT(st.keys("test3", "test3"), ::testing::ElementsAre("test3"));
+	EXPECT_EQ(st.size("test3", "test3"), 1);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsZeroIfLoAndHiAreEqualAndNotInTheRange) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test7", 7);
+	st.put("test9", 7);
+
+	EXPECT_THAT(st.keys("test2", "test2"), ::testing::ElementsAre());
+	EXPECT_EQ(st.size("test2", "test2"), 0);
+}
+
+TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsSizeOfTheArrayIfLoIsEqualToFirstElemAndHiIsEqualToLastElem) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test3", 3);
+	st.put("test4", 4);
+	st.put("test5", 5);
+	st.put("test6", 6);
+	st.put("test7", 7);
+	st.put("test9", 7);
+
+	EXPECT_THAT(st.keys("test1", "test9"), ::testing::ElementsAre("test1", "test3", "test4", "test5", "test6", "test7", "test9"));
+	EXPECT_EQ(st.size("test1", "test9"), 7);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -407,7 +512,14 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    CeilingThrowsExceptionWhenSymbolTableIsEmpty,
 			    DeleteMinDeletesSmallestElement,
 			    DeleteMaxDeletesBiggestElement,
-			    ContainsLastElementReturnFalseAfterDeleteMax
+			    ContainsLastElementReturnFalseAfterDeleteMax,
+			    RangeSizeReturnsNumberOfElementsEqualToBothSidesClosedRangeOfElementsBetweenKeys,
+			    RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutRightOne,
+			    RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutLeftOne,
+			    RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutLeftAndRightOne,
+			    RangeSizeReturnsOneIfLoAndHiAreEqualAndInTheRange,
+			    RangeSizeReturnsZeroIfLoAndHiAreEqualAndNotInTheRange,
+			    RangeSizeReturnsSizeOfTheArrayIfLoIsEqualToFirstElemAndHiIsEqualToLastElem
 			   );
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
