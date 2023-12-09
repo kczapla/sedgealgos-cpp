@@ -161,11 +161,18 @@ private:
 	}
 
 	void deleteMin(Node** node) {
-		if (!(*node)->left) {
-			delete *node;
-			*node = nullptr;
+		if (!(*node)) {
+			return;
 		}
-		deleteMin(node);
+
+		if ((*node)->left) {
+			deleteMin(&((*node)->left));
+			(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+			return;
+		}
+
+		delete *node;
+		*node = nullptr;
 	}
 
 	void deleteMinRef(Node** node) {
@@ -183,13 +190,13 @@ private:
 			return 0;
 		}
 
-		if (key == node->key) {
-			return size(root->left);
-		} else if (key < node->key) {
-			return rank(node->left, key);
+		if (node->key == key) {
+			return size(node->left);
+		} else if (node->key < key) {
+			return size(node->left) + 1 + rank(node->right, key);
 		}
 
-		return size(root->left) + 1 + rank(node, key);
+		return rank(node->left, key);
 	}
 
 	Node* min(Node* node) const {
@@ -219,18 +226,15 @@ private:
 	}
 
 	Node* ceiling(Node* node, Key key) const {
+		if (!node) {
+			return nullptr;
+		}
 		if (key <= node->key) {
-			if (!node->left) {
-				return node;
-			}
+			auto n{ceiling(node->left, key)};
+			return n ? n : node; 
+		}
 
-			auto const n{ceiling(node, key)};
-			return n ? n : node;
-		}
-		if (node->right) {
-			return ceiling(node->right, key);
-		}
-		return nullptr;
+		return ceiling(node->right, key);
 	}
 
 	Size size(Node* node) const {
