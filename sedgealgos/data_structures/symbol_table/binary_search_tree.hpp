@@ -1,5 +1,9 @@
 #pragma once
 
+#include "sedgealgos/data_structures/array/array.hpp"
+
+#include <stdexcept>
+
 namespace sedgealgos::data_structures::symbol_table {
 
 template <typename Key, typename Value>
@@ -17,6 +21,27 @@ public:
 			throw std::out_of_range{"given key does not exist"};
 		}
 		return node->value;
+	}
+
+	bool is_empty() const {
+		return size(root) == 0;
+	}
+
+	void del(Key key) {
+	}
+
+	void deleteMin() {
+	}
+
+	void deleteMax() {
+	}
+
+	Size rank(Key key) const {
+		return rank(root, key);
+	}
+
+	Key select(Size i) const {
+		return Key{};
 	}
 
 	Key min() const {
@@ -39,10 +64,22 @@ public:
 		return size(root);
 	}
 
+	Size size(Key from, Key to) const {
+		return 0;
+	}
+
 	bool contains(Key key) const {
 		auto const node{get(root, key)};
 
 		return node ? true : false;
+	}
+
+	array::Array<Key> keys() const {
+		return array::Array<Key>( 0 );
+	}
+
+	array::Array<Key> keys(Key from, Key to) const {
+		return array::Array<Key>( 0 );
 	}
 
 private:
@@ -78,9 +115,23 @@ private:
 			return node;
 		} else if (key < node->key) {
 			return get(node->left, key);
-		} else if (node->key < key) {
-			return get(node->right, key);
 		}
+
+		return get(node->right, key);
+	}
+
+	Size rank(Node* node, Key key) const {
+		if (!node) {
+			return 0;
+		}
+
+		if (key == node->key) {
+			return size(root->left);
+		} else if (key < node->key) {
+			return rank(node->left, key);
+		}
+
+		return size(root->left) + 1 + rank(node, key);
 	}
 
 	Node* min(Node* node) const {
@@ -100,7 +151,7 @@ private:
 			}
 
 			auto const n{floor(node->right, key)};
-			return n ? n : node
+			return n ? n : node;
 		} else {
 			if (!node->left) {
 				return nullptr;
@@ -109,7 +160,7 @@ private:
 		}
 	}
 
-	Node* ceiling(Node* node) const {
+	Node* ceiling(Node* node, Key key) const {
 		if (key <= node->key) {
 			if (!node->left) {
 				return node;
@@ -119,7 +170,7 @@ private:
 			return n ? n : node;
 		}
 		if (node->right) {
-			return celing(node->right, key);
+			return ceiling(node->right, key);
 		}
 		return nullptr;
 	}

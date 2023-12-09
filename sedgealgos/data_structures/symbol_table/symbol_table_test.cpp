@@ -530,5 +530,5 @@ using BST = sedgealgos::data_structures::symbol_table::BinarySearchTree<std::str
 INSTANTIATE_TYPED_TEST_SUITE_P(SISSST, UnorderedSymbolTableTest, SISSST);
 INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, UnorderedSymbolTableTest, OBSST);
 INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, OrderedSymbolTableTest, OBSST);
-INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, UnorderedSymbolTableTest, BST);
-INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, OrderedSymbolTableTest, BST);
+INSTANTIATE_TYPED_TEST_SUITE_P(BST, UnorderedSymbolTableTest, BST);
+INSTANTIATE_TYPED_TEST_SUITE_P(BST, OrderedSymbolTableTest, BST);
