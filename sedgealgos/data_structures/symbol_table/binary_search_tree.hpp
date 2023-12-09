@@ -12,7 +12,7 @@ public:
 	using Size = unsigned long long;
 
 	void put(Key key, Value value) {
-		put(root, key, value);
+		put(&root, key, value);
 	}
 
 	Value get(Key key) const {
@@ -91,21 +91,21 @@ private:
 		Size size;
 	};
 
-	void put(Node* node, Key key, Value value) {
-		if (!node) {
-			node = new Node{key, value, nullptr, nullptr, 1};
+	void put(Node** node, Key key, Value value) {
+		if (!(*node)) {
+			*node = new Node{key, value, nullptr, nullptr, 1};
 			return;
 		}
 
-		if (key < node->key) {
-			put(node->left, key, value);
-		} else if (node->key < key) {
-			put(node->right, key, value);
+		if (key < (*node)->key) {
+			put(&((*node)->left), key, value);
+		} else if ((*node)->key < key) {
+			put(&((*node)->right), key, value);
 		} else {
-			node->value = value;
+			(*node)->value = value;
 		}
 
-		node->size = 1 + size(node->left) + size(node->right);
+		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
 	}
 
 	Node* get(Node* node, Key key) const {
