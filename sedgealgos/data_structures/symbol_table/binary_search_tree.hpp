@@ -36,6 +36,8 @@ public:
 	}
 
 	void deleteMax() {
+		auto max_node_key{max()};
+		del(max_node_key);
 	}
 
 	Size rank(Key key) const {
@@ -176,12 +178,28 @@ private:
 	}
 
 	void deleteMinRef(Node** node) {
+		if (!(*node)) {
+			return;
+		}
+
 		if (!(*node)->left) {
 			*node = nullptr;
 			return;
 		}
 		deleteMinRef(node);
 		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+	}
+
+	void deleteMax(Node** node) {
+		if (!(*node)) {
+			return;
+		}
+
+		if ((*node)->right) {
+			deleteMax(&((*node)->right));
+			(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+			return;
+		}
 
 	}
 

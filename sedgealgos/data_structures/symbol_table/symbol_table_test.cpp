@@ -337,10 +337,10 @@ TYPED_TEST_P(OrderedSymbolTableTest, DeleteMinDeletesSmallestElement) {
 
 	st.deleteMin();
 
-	ASSERT_THROW({ st.get("test1"); }, std::out_of_range);
+	ASSERT_THAT(st.keys(), ::testing::ElementsAre("test2", "test3", "test4", "test7", "test8"));
 }
 
-TYPED_TEST_P(OrderedSymbolTableTest, DeleteMaxDeletesBiggestElement) {
+TYPED_TEST_P(OrderedSymbolTableTest, DeleteMaxDeletesLargestElement) {
 	TypeParam st{};
 
 	st.put("test8", 1);
@@ -512,7 +512,7 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    CeilingReturnsLowestKeyLargetThanOrEqualToKey,
 			    CeilingThrowsExceptionWhenSymbolTableIsEmpty,
 			    DeleteMinDeletesSmallestElement,
-			    DeleteMaxDeletesBiggestElement,
+			    DeleteMaxDeletesLargestElement,
 			    ContainsLastElementReturnFalseAfterDeleteMax,
 			    RangeSizeReturnsNumberOfElementsEqualToBothSidesClosedRangeOfElementsBetweenKeys,
 			    RangeSizeReturnsNumberOfElementsThatAreBetweenKeysButWithoutRightOne,
