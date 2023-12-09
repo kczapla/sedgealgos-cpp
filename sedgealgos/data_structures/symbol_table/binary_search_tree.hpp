@@ -28,16 +28,24 @@ public:
 	}
 
 	void del(Key key) {
-		del(&root, key);
+		if (!root) {
+			return;
+		}
+		root = del(root, key);
 	}
 
 	void deleteMin() {
-		deleteMin(&root);
+		if (!root) {
+			return;
+		}
+		root = deleteMin(root);
 	}
 
 	void deleteMax() {
-		auto max_node_key{max()};
-		del(max_node_key);
+		if (!root) {
+			return;
+		}
+		root = deleteMax(root);
 	}
 
 	Size rank(Key key) const {
@@ -126,81 +134,79 @@ private:
 		return get(node->right, key);
 	}
 
-	void del(Node** node, Key key) {
-		if (!*node) {
-			return;
+	Node* del(Node* node, Key key) {
+		if (!node) {
+			return nullptr;
 		}
 
-		if (key < (*node)->key) {
-			del(&(*node)->left, key);
-			(*node)->size = 1 + size((*node)->left) + size((*node)->right);
-			return;
-		} else if ((*node)->key < key) {
-			del(&(*node)->right, key);
-			(*node)->size = 1 + size((*node)->left) + size((*node)->right);
-			return;
+		if (node->key < key) {
+			node->right = del(node->right, key);
+			node->size = 1 + size(node->left) + size(node->right);
+			return node;
 		}
 
-		auto node_to_del{*node};
-		if ((*node)->right) {
-			*node = min((*node)->right);
-		} else if ((*node)->left) {
-			*node = max((*node)->left);
-		} else {
-			delete *node;
-			*node = nullptr;
-			return;
+		if (key < node->key) {
+			node->left = del(node->left, key);
+			node->size = 1 + size(node->left) + size(node->right);
+			return node;
 		}
 
-		(*node)->left = node_to_del->left;
-		(*node)->right = node_to_del->right;
-		deleteMinRef(&(node_to_del->right));
+		auto node_to_delete{node};
+		if (!node->left) {
+			auto node_to_return{node->right};
 
-		delete node_to_del;
-		node_to_del = nullptr;
+			delete node_to_delete;
 
-		(*node)->size = size((*node)->left) + size((*node)->right);
+			return node_to_return;
+		}
+
+		if (!node->right) {
+			auto node_to_return{node->left};
+
+			delete node_to_delete;
+
+			return node_to_return;
+		}
+
+		node = min(node->right);
+		node->left = node_to_delete->left;
+		node->right = deleteMinRef(node_to_delete->right);
+
+		node->size = size(node->left) + size(node->right);
+
+		delete node_to_delete;
+
+		return node;
 	}
 
-	void deleteMin(Node** node) {
-		if (!(*node)) {
-			return;
+	Node* deleteMin(Node* node) {
+		if (!node->left) {
+			auto node_to_delete{node};
+			auto node_to_return{node->right};
+			delete node_to_delete;
+			return node_to_return;
 		}
-
-		if ((*node)->left) {
-			deleteMin(&((*node)->left));
-			(*node)->size = 1 + size((*node)->left) + size((*node)->right);
-			return;
-		}
-
-		delete *node;
-		*node = nullptr;
+		node->left = deleteMin(node->left);
+		return node;
 	}
 
-	void deleteMinRef(Node** node) {
-		if (!(*node)) {
-			return;
+	Node* deleteMinRef(Node* node) {
+		if (!node->left) {
+			return node->right;
 		}
-
-		if (!(*node)->left) {
-			*node = nullptr;
-			return;
-		}
-		deleteMinRef(node);
-		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+		node->left = deleteMin(node->left);
+		return node;
 	}
 
-	void deleteMax(Node** node) {
-		if (!(*node)) {
-			return;
+	Node* deleteMax(Node* node) {
+		if (!node->right) {
+			auto node_to_delete{node};
+			auto node_to_return{node->left};
+			delete node_to_delete;
+			return node_to_return;
 		}
-
-		if ((*node)->right) {
-			deleteMax(&((*node)->right));
-			(*node)->size = 1 + size((*node)->left) + size((*node)->right);
-			return;
-		}
-
+		node->right = deleteMax(node->right);
+		return node;
 	}
 
 	Size rank(Node* node, Key key) const {
