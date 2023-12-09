@@ -150,12 +150,12 @@ private:
 
 		(*node)->left = node_to_del->left;
 		(*node)->right = node_to_del->right;
-		deleteMinRef(&node_to_del);
+		deleteMinRef(&(node_to_del->right));
 
 		delete node_to_del;
 		node_to_del = nullptr;
 
-		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+		(*node)->size = size((*node)->left) + size((*node)->right);
 	}
 
 	void deleteMin(Node** node) {
@@ -172,6 +172,8 @@ private:
 			return;
 		}
 		deleteMinRef(node);
+		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+
 	}
 
 	Size rank(Node* node, Key key) const {
