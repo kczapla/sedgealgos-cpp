@@ -53,7 +53,7 @@ public:
 	}
 
 	Key select(Size i) const {
-		return Key{};
+		return select(root, i)->key;
 	}
 
 	Key min() const {
@@ -221,6 +221,16 @@ private:
 		}
 
 		return rank(node->left, key);
+	}
+
+
+	Node* select(Node* node, Size rank) const {
+		if (rank == size(node->left)) {
+			return node;
+		} else if (rank < size(node->left)) {
+			return select(node->left, rank);
+		}
+		return select(node->right, rank - (size(node->left) + 1));
 	}
 
 	Node* min(Node* node) const {
