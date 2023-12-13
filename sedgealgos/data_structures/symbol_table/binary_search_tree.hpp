@@ -91,7 +91,13 @@ public:
 
 	array::Array<Key> keys() const {
 		array::Array<Key> arr;
-		keys(root, arr);
+
+		if (!root) {
+			return arr;
+		}
+
+		keys(root, arr, min(), max());
+
 		return arr;
 	}
 
@@ -281,22 +287,6 @@ private:
 			return 0;
 		}
 		return node->size;
-	}
-
-	void keys(Node* node, array::Array<Key>& arr) const {
-		if (!node) {
-			return;
-		}
-
-		if (node->left) {
-			keys(node->left, arr);
-		}
-
-		arr.push_back(node->key);
-
-		if (node->right) {
-			keys(node->right, arr);
-		}
 	}
 
 	void keys(Node* node, array::Array<Key>& arr, Key from, Key to) const {
