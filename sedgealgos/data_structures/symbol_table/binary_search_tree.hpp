@@ -77,7 +77,10 @@ public:
 	}
 
 	Size size(Key from, Key to) const {
-		return 0;
+		array::Array<Key> arr;
+		keys(root, arr, from, to);
+
+		return arr.size();
 	}
 
 	bool contains(Key key) const {
