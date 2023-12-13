@@ -93,7 +93,9 @@ public:
 	}
 
 	array::Array<Key> keys(Key from, Key to) const {
-		return array::Array<Key>( 0 );
+		array::Array<Key> arr;
+		keys(root, arr, from, to);
+		return arr;
 	}
 
 private:
@@ -291,6 +293,24 @@ private:
 
 		if (node->right) {
 			keys(node->right, arr);
+		}
+	}
+
+	void keys(Node* node, array::Array<Key>& arr, Key from, Key to) const {
+		if (!node) {
+			return;
+		}
+
+		if (node->left) {
+			keys(node->left, arr, from, to);
+		}
+
+		if ((from <= node->key) && (node->key <= to)) {
+			arr.push_back(node->key);
+		}
+
+		if (node->right) {
+			keys(node->right, arr, from, to);
 		}
 	}
 
