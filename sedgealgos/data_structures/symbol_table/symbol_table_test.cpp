@@ -14,8 +14,12 @@ class UnorderedSymbolTableTest : public ::testing::Test {};
 template <typename T>
 class OrderedSymbolTableTest : public ::testing::Test {};
 
+template <typename T>
+class SelfBalancingSymbolTable : public ::testing::Test {};
+
 TYPED_TEST_SUITE_P(UnorderedSymbolTableTest);
 TYPED_TEST_SUITE_P(OrderedSymbolTableTest);
+TYPED_TEST_SUITE_P(SelfBalancingSymbolTable);
 
 TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	TypeParam st{};
@@ -474,6 +478,33 @@ TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsSizeOfTheArrayIfLoIsEqualTo
 	EXPECT_EQ(st.size("test1", "test9"), 7);
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, PutTwoElements) {
+	TypeParam st{};
+
+	st.put("test1", 1);
+	st.put("test2", 2);
+
+	ASSERT_EQ(st.get("test1"), 1);
+	ASSERT_EQ(st.get("test2"), 2);
+	ASSERT_EQ(st.size(), 2);
+}
+
+
+TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElements) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("b"), 2);
+	ASSERT_EQ(st.get("c"), 3);
+
+	ASSERT_EQ(st.size(), 3);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -524,6 +555,13 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			    RangeSizeReturnsSizeOfTheArrayIfLoIsEqualToFirstElemAndHiIsEqualToLastElem
 			   );
 
+REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
+		    	    PutTwoElements,
+			    PutThreeElements
+			   );
+
+
+
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
 using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
 using BST = sedgealgos::data_structures::symbol_table::BinarySearchTree<std::string, int>;
@@ -536,3 +574,4 @@ INSTANTIATE_TYPED_TEST_SUITE_P(BST, UnorderedSymbolTableTest, BST);
 INSTANTIATE_TYPED_TEST_SUITE_P(BST, OrderedSymbolTableTest, BST);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, UnorderedSymbolTableTest, RBT);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, OrderedSymbolTableTest, RBT);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT, SelfBalancingSymbolTable, RBT);

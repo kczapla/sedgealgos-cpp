@@ -120,18 +120,65 @@ private:
 		Size size;
 		bool color;
 
-		bool is_red() const {
-			return color;
-		}
 	};
 
 
+	bool is_red(Node* node) {
+		return node ? node->color : false;
+	}
 
 	void put(Node** node, Key key, Value value) {
+		if (*node == nullptr) {
+			*node = new Node{key, value, nullptr, nullptr, 1, Node::RED};
+			return;
+		}
+
+		if (key == (*node)->key) {
+			(*node)->value = value;
+			return;
+		}
+
+		if (key < (*node)->key) put(&((*node)->left), key, value);
+		else put(&((*node)->right), key, value);
+
+		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
+
+		if (is_red((*node)->left) && is_red((*node)->right)) {
+			flip_colors(*node);
+		}
+
+		if (is_red((*node)->right)) {
+			*node = rotate_left(*node);
+		}
+	}
+
+	void flip_colors(Node* node) const {
+		node->left->color = Node::BLACK;
+		node->right->color = Node::BLACK;
+		node->color = Node::RED;
+	}
+
+	Node* rotate_left(Node* node) {
+		auto* x{node->right};
+		node->right = nullptr;
+		x->left = node;
+		x->color = node->color;
+		node->color = Node::RED;
+		node->size = 1 + size(node->left) + size(node->right);
+
+		x->size = 1 + node->size;
+
+		return x;
 	}
 
 	Node* get(Node* node, Key key) const {
-		return nullptr;
+		if (node == nullptr) return nullptr;
+
+		if (node->key == key) return node;
+
+		if (key < node->key) return get(node->left, key);
+
+		return get(node->right, key);
 	}
 
 	Node* del(Node* node, Key key) {
@@ -176,11 +223,13 @@ private:
 	}
 
 	Size size(Node* node) const {
-		return 0;
+		if (!node) return 0;
+		return node->size;
 	}
 
 	void keys(Node* node, array::Array<Key>& arr, Key from, Key to) const {
 	}
+
 	Node* root;
 };
 }
