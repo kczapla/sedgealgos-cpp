@@ -28,6 +28,14 @@ sedgealgos_cc_library(
     ],
 )
 
+sedgealgos_cc_library(
+    name = "red_black_tree",
+    hdrs = ["red_black_tree.hpp"],
+    deps = [
+	    "//sedgealgos/data_structures/array:array",
+    ],
+)
+
 sedgealgos_cc_test(
     name = "symbol_table_test",
     srcs = ["symbol_table_test.cpp"],
@@ -35,6 +43,7 @@ sedgealgos_cc_test(
 	    "ordered_binary_search_symbol_table",
 	    "sequential_search_symbol_table",
 	    "binary_search_tree",
+	    "red_black_tree",
     ],
 )
 

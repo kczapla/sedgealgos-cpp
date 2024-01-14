@@ -1,4 +1,5 @@
 #include "sedgealgos/data_structures/symbol_table/binary_search_tree.hpp"
+#include "sedgealgos/data_structures/symbol_table/red_black_tree.hpp"
 #include "sedgealgos/data_structures/symbol_table/ordered_binary_search_symbol_table.hpp"
 #include "sedgealgos/data_structures/symbol_table/sequential_search_symbol_table.hpp"
 
@@ -526,9 +527,12 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
 using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
 using BST = sedgealgos::data_structures::symbol_table::BinarySearchTree<std::string, int>;
+using RBT = sedgealgos::data_structures::symbol_table::RedBlackTree<std::string, int>;
 
 INSTANTIATE_TYPED_TEST_SUITE_P(SISSST, UnorderedSymbolTableTest, SISSST);
 INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, UnorderedSymbolTableTest, OBSST);
 INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, OrderedSymbolTableTest, OBSST);
 INSTANTIATE_TYPED_TEST_SUITE_P(BST, UnorderedSymbolTableTest, BST);
 INSTANTIATE_TYPED_TEST_SUITE_P(BST, OrderedSymbolTableTest, BST);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT, UnorderedSymbolTableTest, RBT);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT, OrderedSymbolTableTest, RBT);
