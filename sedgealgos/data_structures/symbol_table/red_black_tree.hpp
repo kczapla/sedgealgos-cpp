@@ -143,12 +143,16 @@ private:
 
 		(*node)->size = 1 + size((*node)->left) + size((*node)->right);
 
-		if (is_red((*node)->left) && is_red((*node)->right)) {
-			flip_colors(*node);
+		if (!is_red((*node)->left) && is_red((*node)->right)) {
+			*node = rotate_left(*node);
 		}
 
-		if (is_red((*node)->right)) {
-			*node = rotate_left(*node);
+		if (is_red((*node)->left) && is_red((*node)->left->left)) {
+			*node = rotate_right(*node);
+		}
+
+		if (is_red((*node)->left) && is_red((*node)->right)) {
+			flip_colors(*node);
 		}
 	}
 
@@ -160,13 +164,28 @@ private:
 
 	Node* rotate_left(Node* node) {
 		auto* x{node->right};
-		node->right = nullptr;
+		node->right = x->left;
 		x->left = node;
+
 		x->color = node->color;
 		node->color = Node::RED;
-		node->size = 1 + size(node->left) + size(node->right);
 
-		x->size = 1 + node->size;
+		node->size = 1 + size(node->left) + size(node->right);
+		x->size = 1 + size(x->left) + size(x->right);
+
+		return x;
+	}
+
+	Node* rotate_right(Node* node) {
+		auto* x{node->left};
+		node->left = x->right;
+		x->right = node;
+
+		x->color = node->color;
+		node->color = Node::RED;
+
+		node->size = 1 + size(node->left) + size(node->right);
+		x->size = 1 + size(x->left) + size(x->right);
 
 		return x;
 	}

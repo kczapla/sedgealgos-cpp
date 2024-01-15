@@ -478,7 +478,7 @@ TYPED_TEST_P(OrderedSymbolTableTest, RangeSizeReturnsSizeOfTheArrayIfLoIsEqualTo
 	EXPECT_EQ(st.size("test1", "test9"), 7);
 }
 
-TYPED_TEST_P(SelfBalancingSymbolTable, PutTwoElements) {
+TYPED_TEST_P(SelfBalancingSymbolTable, PutTwoElementsInIncreasingOrder) {
 	TypeParam st{};
 
 	st.put("test1", 1);
@@ -490,7 +490,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutTwoElements) {
 }
 
 
-TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElements) {
+TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElementsInIncreasingOrder) {
 	TypeParam st{};
 
 	st.put("a", 1);
@@ -503,6 +503,95 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElements) {
 	ASSERT_EQ(st.get("c"), 3);
 
 	ASSERT_EQ(st.size(), 3);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, PutFiveElementsInIncreasingOrder) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("b"), 2);
+	ASSERT_EQ(st.get("c"), 3);
+	ASSERT_EQ(st.get("d"), 4);
+	ASSERT_EQ(st.get("e"), 5);
+	ASSERT_EQ(st.size(), 5);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsInIncreasingOrder) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.put("f", 6);
+	st.put("g", 7);
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("b"), 2);
+	ASSERT_EQ(st.get("c"), 3);
+	ASSERT_EQ(st.get("d"), 4);
+	ASSERT_EQ(st.get("e"), 5);
+	ASSERT_EQ(st.get("f"), 6);
+	ASSERT_EQ(st.get("g"), 7);
+	ASSERT_EQ(st.size(), 7);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElementsInDecreasingOrder) {
+	TypeParam st{};
+
+	st.put("c", 3);
+	st.put("b", 2);
+	st.put("a", 1);
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("b"), 2);
+	ASSERT_EQ(st.get("c"), 3);
+	ASSERT_EQ(st.size(), 3);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, PutFiveElementsInDecreasingOrder) {
+	TypeParam st{};
+
+	st.put("e", 5);
+	st.put("d", 4);
+	st.put("c", 3);
+	st.put("b", 2);
+	st.put("a", 1);
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("b"), 2);
+	ASSERT_EQ(st.get("c"), 3);
+	ASSERT_EQ(st.get("d"), 4);
+	ASSERT_EQ(st.get("e"), 5);
+	ASSERT_EQ(st.size(), 5);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsInDecreasingOrder) {
+	TypeParam st{};
+
+	st.put("g", 7);
+	st.put("f", 6);
+	st.put("e", 5);
+	st.put("d", 4);
+	st.put("c", 3);
+	st.put("b", 2);
+	st.put("a", 1);
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("b"), 2);
+	ASSERT_EQ(st.get("c"), 3);
+	ASSERT_EQ(st.get("d"), 4);
+	ASSERT_EQ(st.get("e"), 5);
+	ASSERT_EQ(st.get("f"), 6);
+	ASSERT_EQ(st.get("g"), 7);
+	ASSERT_EQ(st.size(), 7);
 }
 
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
@@ -556,8 +645,13 @@ REGISTER_TYPED_TEST_SUITE_P(OrderedSymbolTableTest,
 			   );
 
 REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
-		    	    PutTwoElements,
-			    PutThreeElements
+		            PutTwoElementsInIncreasingOrder,
+			    PutThreeElementsInIncreasingOrder,
+			    PutFiveElementsInIncreasingOrder,
+			    PutSevenElementsInIncreasingOrder,
+			    PutThreeElementsInDecreasingOrder,
+			    PutFiveElementsInDecreasingOrder,
+			    PutSevenElementsInDecreasingOrder
 			   );
 
 
