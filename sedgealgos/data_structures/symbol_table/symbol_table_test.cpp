@@ -594,6 +594,27 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsInDecreasingOrder) {
 	ASSERT_EQ(st.size(), 7);
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsSoThatMiddleNodeGetsFilled) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("k", 2);
+	st.put("u", 3);
+	st.put("r", 4);
+	st.put("n", 5);
+	st.put("i", 6);
+	st.put("j", 7);
+
+	ASSERT_EQ(st.get("a"), 1);
+	ASSERT_EQ(st.get("k"), 2);
+	ASSERT_EQ(st.get("u"), 3);
+	ASSERT_EQ(st.get("r"), 4);
+	ASSERT_EQ(st.get("n"), 5);
+	ASSERT_EQ(st.get("i"), 6);
+	ASSERT_EQ(st.get("j"), 7);
+	ASSERT_EQ(st.size(), 7);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -651,7 +672,8 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    PutSevenElementsInIncreasingOrder,
 			    PutThreeElementsInDecreasingOrder,
 			    PutFiveElementsInDecreasingOrder,
-			    PutSevenElementsInDecreasingOrder
+			    PutSevenElementsInDecreasingOrder,
+			    PutSevenElementsSoThatMiddleNodeGetsFilled
 			   );
 
 
