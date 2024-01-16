@@ -483,6 +483,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutTwoElementsInIncreasingOrder) {
 
 	st.put("test1", 1);
 	st.put("test2", 2);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("test1"), 1);
 	ASSERT_EQ(st.get("test2"), 2);
@@ -496,7 +497,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElementsInIncreasingOrder) {
 	st.put("a", 1);
 	st.put("b", 2);
 	st.put("c", 3);
-
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("b"), 2);
@@ -513,6 +514,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutFiveElementsInIncreasingOrder) {
 	st.put("c", 3);
 	st.put("d", 4);
 	st.put("e", 5);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("b"), 2);
@@ -532,6 +534,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsInIncreasingOrder) {
 	st.put("e", 5);
 	st.put("f", 6);
 	st.put("g", 7);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("b"), 2);
@@ -549,6 +552,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutThreeElementsInDecreasingOrder) {
 	st.put("c", 3);
 	st.put("b", 2);
 	st.put("a", 1);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("b"), 2);
@@ -564,6 +568,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutFiveElementsInDecreasingOrder) {
 	st.put("c", 3);
 	st.put("b", 2);
 	st.put("a", 1);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("b"), 2);
@@ -583,6 +588,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsInDecreasingOrder) {
 	st.put("c", 3);
 	st.put("b", 2);
 	st.put("a", 1);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("b"), 2);
@@ -604,6 +610,7 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsSoThatMiddleNodeGetsFille
 	st.put("n", 5);
 	st.put("i", 6);
 	st.put("j", 7);
+	ASSERT_TRUE(st.balanced());
 
 	ASSERT_EQ(st.get("a"), 1);
 	ASSERT_EQ(st.get("k"), 2);

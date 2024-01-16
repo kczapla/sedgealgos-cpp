@@ -2,6 +2,7 @@
 
 #include "sedgealgos/data_structures/array/array.hpp"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace sedgealgos::data_structures::symbol_table {
@@ -107,7 +108,22 @@ public:
 		return arr;
 	}
 
+	bool balanced() const {
+		Paths paths;
+		balanced(root, 0, paths);
+
+		if (paths.is_empty()) return true;
+
+		return std::all_of(
+			paths.cbegin(),
+			paths.cend(),
+			[&paths](auto item){ return paths[0] == item; }
+		);
+	}
+
 private:
+	using Paths = array::Array<int>;
+
 	struct Node {
 		using Color = bool;
 		static const Color RED = true;
@@ -123,7 +139,7 @@ private:
 	};
 
 
-	bool is_red(Node* node) {
+	bool is_red(Node* node) const {
 		return node ? node->color : false;
 	}
 
@@ -247,6 +263,20 @@ private:
 	}
 
 	void keys(Node* node, array::Array<Key>& arr, Key from, Key to) const {
+	}
+
+	void balanced(Node* node, int counter, Paths& paths) const {
+		if (node == nullptr) {
+			paths.push_back(counter);
+			return;
+		}
+
+		if (!is_red(node)) {
+			counter += 1;
+		}
+
+		balanced(node->left, counter, paths);
+		balanced(node->right, counter, paths);
 	}
 
 	Node* root;
