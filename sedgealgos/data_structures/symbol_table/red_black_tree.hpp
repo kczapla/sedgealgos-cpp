@@ -221,7 +221,29 @@ private:
 	}
 
 	Node* deleteMin(Node* node) {
-		return nullptr;
+		if (is_red(node->left)) {
+			node->left = deleteMin(node->left);
+			return node;
+		}
+
+		if (node->left && node->right) {
+			flip_colors_on_delete(node);
+			node->left = deleteMin(node->left);
+			return node;
+		}
+
+		auto* right_node{node->right};
+
+		delete node;
+		node = nullptr;
+
+		return right_node;
+	}
+
+	void flip_colors_on_delete(Node* node) const {
+		node->color = Node::BLACK;
+		node->left->color = Node::RED;
+		node->right->color = Node::RED;
 	}
 
 	Node* deleteMinRef(Node* node) {

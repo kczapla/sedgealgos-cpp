@@ -622,6 +622,64 @@ TYPED_TEST_P(SelfBalancingSymbolTable, PutSevenElementsSoThatMiddleNodeGetsFille
 	ASSERT_EQ(st.size(), 7);
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSingleNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromTwoNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromThreeNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.put("f", 6);
+	st.put("g", 7);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -680,7 +738,12 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    PutThreeElementsInDecreasingOrder,
 			    PutFiveElementsInDecreasingOrder,
 			    PutSevenElementsInDecreasingOrder,
-			    PutSevenElementsSoThatMiddleNodeGetsFilled
+			    PutSevenElementsSoThatMiddleNodeGetsFilled,
+			    DeleteMinFromSingleNodeTree,
+			    DeleteMinFromTwoNodeTree,
+			    DeleteMinFromThreeNodeTree,
+			    DeleteMinFromFiveNodeTree,
+			    DeleteMinFromSevenNodeTree
 			   );
 
 
