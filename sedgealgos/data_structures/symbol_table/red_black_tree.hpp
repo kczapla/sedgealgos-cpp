@@ -110,7 +110,9 @@ public:
 
 	bool balanced() const {
 		Paths paths;
-		balanced(root, 0, paths);
+		if (!balanced(root, 0, paths)) {
+			return false;
+		}
 
 		if (paths.is_empty()) return true;
 
@@ -223,13 +225,13 @@ private:
 	Node* deleteMin(Node* node) {
 		if (is_red(node->left)) {
 			node->left = deleteMin(node->left);
-			return node;
+			return balance(node);
 		}
 
 		if (node->left && node->right) {
 			flip_colors_on_delete(node);
 			node->left = deleteMin(node->left);
-			return node;
+			return balance(node);
 		}
 
 		auto* right_node{node->right};
@@ -244,6 +246,13 @@ private:
 		node->color = Node::BLACK;
 		node->left->color = Node::RED;
 		node->right->color = Node::RED;
+	}
+
+	Node* balance(Node* node) {
+		if (is_red(node->right)) {
+			node = rotate_left(node);
+		}
+		return node;
 	}
 
 	Node* deleteMinRef(Node* node) {
@@ -287,18 +296,24 @@ private:
 	void keys(Node* node, array::Array<Key>& arr, Key from, Key to) const {
 	}
 
-	void balanced(Node* node, int counter, Paths& paths) const {
+	bool balanced(Node* node, int counter, Paths& paths) const {
 		if (node == nullptr) {
 			paths.push_back(counter);
-			return;
+			return true;
+		}
+
+		if (is_red(node->right)) {
+			return false;
 		}
 
 		if (!is_red(node)) {
 			counter += 1;
 		}
 
-		balanced(node->left, counter, paths);
-		balanced(node->right, counter, paths);
+		auto b{balanced(node->left, counter, paths)};
+		if (!b) return false;
+
+		return balanced(node->right, counter, paths);
 	}
 
 	Node* root;
