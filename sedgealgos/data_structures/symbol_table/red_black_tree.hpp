@@ -260,6 +260,12 @@ private:
 		if (is_red(node->right)) {
 			node = rotate_left(node);
 		}
+
+		if (is_red(node->left) && is_red(node->left->left)) {
+			node = rotate_right(node);
+			flip_colors(node);
+		}
+
 		return node;
 	}
 
@@ -311,6 +317,10 @@ private:
 		}
 
 		if (node->right && !node->left) {
+			return false;
+		}
+
+		if (is_red(node->left) && is_red(node->left->left)) {
 			return false;
 		}
 

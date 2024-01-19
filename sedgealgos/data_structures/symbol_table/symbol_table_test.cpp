@@ -667,6 +667,21 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFourNodeTree) {
 	ASSERT_NO_THROW({ st.get("d"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFourNodeTreeInDecreasingOrder) {
+	TypeParam st{};
+
+	st.put("d", 4);
+	st.put("c", 3);
+	st.put("b", 2);
+	st.put("a", 1);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+}
+
 TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTree) {
 	TypeParam st{};
 
@@ -791,7 +806,8 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMinFromFourNodeTree,
 			    DeleteMinFromFiveNodeTree,
 			    DeleteMinFromSixNodeTree,
-			    DeleteMinFromSevenNodeTree
+			    DeleteMinFromSevenNodeTree,
+			    DeleteMinFromFourNodeTreeInDecreasingOrder
 			   );
 
 
