@@ -652,6 +652,21 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromThreeNodeTree) {
 	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFourNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+}
+
 TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTree) {
 	TypeParam st{};
 
@@ -663,6 +678,31 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTree) {
 	st.deleteMin();
 	ASSERT_TRUE(st.balanced());
 	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSixNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.put("f", 6);
+	st.put("g", 7);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+	ASSERT_NO_THROW({ st.get("f"); });
+	ASSERT_NO_THROW({ st.get("g"); });
 }
 
 TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
@@ -678,6 +718,12 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
 	st.deleteMin();
 	ASSERT_TRUE(st.balanced());
 	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+	ASSERT_NO_THROW({ st.get("f"); });
+	ASSERT_NO_THROW({ st.get("g"); });
 }
 
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
@@ -742,7 +788,9 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMinFromSingleNodeTree,
 			    DeleteMinFromTwoNodeTree,
 			    DeleteMinFromThreeNodeTree,
+			    DeleteMinFromFourNodeTree,
 			    DeleteMinFromFiveNodeTree,
+			    DeleteMinFromSixNodeTree,
 			    DeleteMinFromSevenNodeTree
 			   );
 

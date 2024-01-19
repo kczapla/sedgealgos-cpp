@@ -228,6 +228,14 @@ private:
 			return balance(node);
 		}
 
+		if (node->right && is_red(node->right->left)) {
+			flip_colors_on_delete(node);
+			node->right = rotate_right(node->right);
+			node = rotate_left(node);
+			node->left = deleteMin(node->left);
+			return balance(node);
+		}
+
 		if (node->left && node->right) {
 			flip_colors_on_delete(node);
 			node->left = deleteMin(node->left);
@@ -300,6 +308,10 @@ private:
 		if (node == nullptr) {
 			paths.push_back(counter);
 			return true;
+		}
+
+		if (node->right && !node->left) {
+			return false;
 		}
 
 		if (is_red(node->right)) {
