@@ -682,6 +682,23 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFourNodeTreeInDecreasingOrde
 	ASSERT_NO_THROW({ st.get("d"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTreeWhereRootIsTwoNodeAndChildrenAreThreeNodes) {
+	TypeParam st{};
+
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("a", 1);
+	st.put("e", 5);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+}
+
 TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTree) {
 	TypeParam st{};
 
@@ -739,6 +756,27 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
 	ASSERT_NO_THROW({ st.get("e"); });
 	ASSERT_NO_THROW({ st.get("f"); });
 	ASSERT_NO_THROW({ st.get("g"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTreeWhereRootLeftAndMiddleChildrenAreThreeNodes) {
+	TypeParam st{};
+
+	st.put("k", 1);
+	st.put("j", 2);
+	st.put("l", 3);
+	st.put("n", 4);
+	st.put("i", 5);
+	st.put("o", 6);
+	st.put("m", 7);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("i"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("k"); });
+	ASSERT_NO_THROW({ st.get("j"); });
+	ASSERT_NO_THROW({ st.get("l"); });
+	ASSERT_NO_THROW({ st.get("n"); });
+	ASSERT_NO_THROW({ st.get("o"); });
+	ASSERT_NO_THROW({ st.get("m"); });
 }
 
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
@@ -805,9 +843,11 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMinFromThreeNodeTree,
 			    DeleteMinFromFourNodeTree,
 			    DeleteMinFromFiveNodeTree,
+			    DeleteMinFromFiveNodeTreeWhereRootIsTwoNodeAndChildrenAreThreeNodes,
 			    DeleteMinFromSixNodeTree,
 			    DeleteMinFromSevenNodeTree,
-			    DeleteMinFromFourNodeTreeInDecreasingOrder
+			    DeleteMinFromFourNodeTreeInDecreasingOrder,
+			    DeleteMinFromSevenNodeTreeWhereRootLeftAndMiddleChildrenAreThreeNodes
 			   );
 
 
