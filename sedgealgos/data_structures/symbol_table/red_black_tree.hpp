@@ -224,12 +224,7 @@ private:
 
 	Node* deleteMin(Node* node) {
 		if (!node->left) {
-			auto* right_node{node->right};
-
-			delete node;
-			node = nullptr;
-
-			return right_node;
+			return delete_node(node);
 		}
 
 		if (!is_red(node->left) && !is_red(node->left->left)) {
@@ -243,6 +238,11 @@ private:
 
 		node->left = deleteMin(node->left);
 		return balance(node);
+	}
+
+	Node* delete_node(Node* node) {
+		delete node;
+		return nullptr;
 	}
 
 	void flip_colors_on_delete(Node* node) const {
