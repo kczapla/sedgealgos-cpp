@@ -798,6 +798,58 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
 	ASSERT_NO_THROW({ st.get("g"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMaxFromOneNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+
+	st.deleteMax();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMaxFromTwoNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+
+	st.deleteMax();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("b"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("a"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMaxFromThreeNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+
+	st.deleteMax();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("c"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("a"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMaxFromForurNodeTree) {
+	TypeParam st{};
+
+	st.put("b", 1);
+	st.put("c", 2);
+	st.put("d", 3);
+	st.put("a", 4);
+
+	st.deleteMax();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("d"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("a"); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -867,7 +919,11 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMinFromSixNodeTree,
 			    DeleteMinFromSevenNodeTree,
 			    DeleteMinFromFourNodeTreeInDecreasingOrder,
-			    DeleteMinFromSevenNodeTreeWhereRootLeftAndMiddleChildrenAreThreeNodes
+			    DeleteMinFromSevenNodeTreeWhereRootLeftAndMiddleChildrenAreThreeNodes,
+			    DeleteMaxFromOneNodeTree,
+			    DeleteMaxFromTwoNodeTree,
+			    DeleteMaxFromThreeNodeTree,
+			    DeleteMaxFromForurNodeTree
 			   );
 
 

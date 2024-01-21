@@ -269,7 +269,24 @@ private:
 	}
 
 	Node* deleteMax(Node* node) {
-		return nullptr;
+		if (!node->right) {
+			if (node->left) {
+				node = rotate_right(node);
+				node->right = deleteMax(node->right);
+				return node;
+			}
+			return delete_node(node);
+		}
+
+		if (node->left) {
+			flip_colors_on_delete(node);
+			if (is_red(node->left->left)) {
+				node = rotate_right(node);
+			}
+		}
+
+		node->right = deleteMax(node->right);
+		return balance(node);
 	}
 
 	Size rank(Node* node, Key key) const {
