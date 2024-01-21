@@ -278,6 +278,12 @@ private:
 			return delete_node(node);
 		}
 
+		if (is_red(node->left)) {
+			node = rotate_right(node);
+			node->right = deleteMax(node->right);
+			return balance(node);
+		}
+
 		if (node->left) {
 			flip_colors_on_delete(node);
 			if (is_red(node->left->left)) {
