@@ -682,6 +682,25 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFourNodeTreeInDecreasingOrde
 	ASSERT_NO_THROW({ st.get("d"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTreeWhereRootIsThreeNodeLeftAndMiddleChildrenAreTwoNodes) {
+	TypeParam st{};
+
+	st.put("e", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("a", 1);
+	st.put("b", 5);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+}
+
+
+
 TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromFiveNodeTreeWhereRootIsTwoNodeAndChildrenAreThreeNodes) {
 	TypeParam st{};
 
@@ -737,27 +756,6 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSixNodeTree) {
 	ASSERT_NO_THROW({ st.get("g"); });
 }
 
-TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
-	TypeParam st{};
-
-	st.put("a", 1);
-	st.put("b", 2);
-	st.put("c", 3);
-	st.put("d", 4);
-	st.put("e", 5);
-	st.put("f", 6);
-	st.put("g", 7);
-	st.deleteMin();
-	ASSERT_TRUE(st.balanced());
-	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
-	ASSERT_NO_THROW({ st.get("b"); });
-	ASSERT_NO_THROW({ st.get("c"); });
-	ASSERT_NO_THROW({ st.get("d"); });
-	ASSERT_NO_THROW({ st.get("e"); });
-	ASSERT_NO_THROW({ st.get("f"); });
-	ASSERT_NO_THROW({ st.get("g"); });
-}
-
 TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTreeWhereRootLeftAndMiddleChildrenAreThreeNodes) {
 	TypeParam st{};
 
@@ -777,6 +775,27 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTreeWhereRootLeftAn
 	ASSERT_NO_THROW({ st.get("n"); });
 	ASSERT_NO_THROW({ st.get("o"); });
 	ASSERT_NO_THROW({ st.get("m"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromSevenNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.put("f", 6);
+	st.put("g", 7);
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+	ASSERT_NO_THROW({ st.get("f"); });
+	ASSERT_NO_THROW({ st.get("g"); });
 }
 
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
@@ -844,6 +863,7 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMinFromFourNodeTree,
 			    DeleteMinFromFiveNodeTree,
 			    DeleteMinFromFiveNodeTreeWhereRootIsTwoNodeAndChildrenAreThreeNodes,
+			    DeleteMinFromFiveNodeTreeWhereRootIsThreeNodeLeftAndMiddleChildrenAreTwoNodes,
 			    DeleteMinFromSixNodeTree,
 			    DeleteMinFromSevenNodeTree,
 			    DeleteMinFromFourNodeTreeInDecreasingOrder,

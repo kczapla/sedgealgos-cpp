@@ -223,31 +223,26 @@ private:
 	}
 
 	Node* deleteMin(Node* node) {
-		if (is_red(node->left)) {
-			node->left = deleteMin(node->left);
-			return balance(node);
+		if (!node->left) {
+			auto* right_node{node->right};
+
+			delete node;
+			node = nullptr;
+
+			return right_node;
 		}
 
-		if (node->right && is_red(node->right->left)) {
+		if (!is_red(node->left) && !is_red(node->left->left)) {
 			flip_colors_on_delete(node);
-			node->right = rotate_right(node->right);
-			node = rotate_left(node);
-			node->left = deleteMin(node->left);
-			return balance(node);
+
+			if (is_red(node->right->left)) {
+				node->right = rotate_right(node->right);
+				node = rotate_left(node);
+			}
 		}
 
-		if (node->left && node->right) {
-			flip_colors_on_delete(node);
-			node->left = deleteMin(node->left);
-			return balance(node);
-		}
-
-		auto* right_node{node->right};
-
-		delete node;
-		node = nullptr;
-
-		return right_node;
+		node->left = deleteMin(node->left);
+		return balance(node);
 	}
 
 	void flip_colors_on_delete(Node* node) const {
