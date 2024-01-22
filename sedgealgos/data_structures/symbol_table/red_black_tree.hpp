@@ -219,7 +219,25 @@ private:
 	}
 
 	Node* del(Node* node, Key key) {
-		return nullptr;
+		if (key < node->key) {
+			node->left = del(node->left, key);
+			return node;
+		} else if (node->key < key) {
+			node->right = del(node->right, key);
+			return node;
+		}
+
+		if (node->left) {
+			auto* x{node};
+			node = node->left;
+			node->color = x->color;
+
+			delete_node(x);
+
+			return node;
+		}
+
+		return delete_node(node);
 	}
 
 	Node* deleteMin(Node* node) {

@@ -1071,6 +1071,44 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromTheWholeAlphabet) {
 	ASSERT_NO_THROW({ st.get("z"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteFromOneNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+
+	st.del("a");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteLeftChildOfThreeNodeFromTwoNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 1);
+
+	st.del("a");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteParentOfThreeNodeFromTwoNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 1);
+
+	st.del("b");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("b"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("a"); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -1151,7 +1189,10 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMaxFromSixNodeTreeWhereMiddleChildIsTwoNodeAndLastChildIsThreeNode,
 			    DeleteMaxFromSevenNodeTreeWhereMiddleChildIsThreeNodeAndLeftChildIsTwoNode,
 			    DeleteMaxFromSevenNodeTreeWhereEachNodeIsTwoNode,
-			    DeleteMaxFromTheWholeAlphabet
+			    DeleteMaxFromTheWholeAlphabet,
+			    DeleteFromOneNodeTree,
+			    DeleteLeftChildOfThreeNodeFromTwoNodeTree,
+			    DeleteParentOfThreeNodeFromTwoNodeTree
 			   );
 
 
