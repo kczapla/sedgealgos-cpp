@@ -951,6 +951,126 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMaxFromSevenNodeTreeWhereEachNodeIs
 	ASSERT_NO_THROW({ st.get("f"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMaxFromTheWholeAlphabet) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.put("f", 6);
+	st.put("g", 7);
+	st.put("h", 7);
+	st.put("i", 7);
+	st.put("j", 7);
+	st.put("k", 7);
+	st.put("l", 7);
+	st.put("m", 7);
+	st.put("n", 7);
+	st.put("o", 7);
+	st.put("p", 7);
+	st.put("q", 7);
+	st.put("r", 7);
+	st.put("s", 7);
+	st.put("t", 7);
+	st.put("u", 7);
+	st.put("v", 7);
+	st.put("w", 7);
+	st.put("x", 7);
+	st.put("y", 7);
+	st.put("z", 7);
+
+	st.deleteMax();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("z"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("a"); });
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+	ASSERT_NO_THROW({ st.get("f"); });
+	ASSERT_NO_THROW({ st.get("g"); });
+	ASSERT_NO_THROW({ st.get("h"); });
+	ASSERT_NO_THROW({ st.get("i"); });
+	ASSERT_NO_THROW({ st.get("j"); });
+	ASSERT_NO_THROW({ st.get("k"); });
+	ASSERT_NO_THROW({ st.get("l"); });
+	ASSERT_NO_THROW({ st.get("m"); });
+	ASSERT_NO_THROW({ st.get("n"); });
+	ASSERT_NO_THROW({ st.get("o"); });
+	ASSERT_NO_THROW({ st.get("p"); });
+	ASSERT_NO_THROW({ st.get("q"); });
+	ASSERT_NO_THROW({ st.get("r"); });
+	ASSERT_NO_THROW({ st.get("s"); });
+	ASSERT_NO_THROW({ st.get("t"); });
+	ASSERT_NO_THROW({ st.get("u"); });
+	ASSERT_NO_THROW({ st.get("v"); });
+	ASSERT_NO_THROW({ st.get("w"); });
+	ASSERT_NO_THROW({ st.get("x"); });
+	ASSERT_NO_THROW({ st.get("y"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteMinFromTheWholeAlphabet) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 2);
+	st.put("c", 3);
+	st.put("d", 4);
+	st.put("e", 5);
+	st.put("f", 6);
+	st.put("g", 7);
+	st.put("h", 7);
+	st.put("i", 7);
+	st.put("j", 7);
+	st.put("k", 7);
+	st.put("l", 7);
+	st.put("m", 7);
+	st.put("n", 7);
+	st.put("o", 7);
+	st.put("p", 7);
+	st.put("q", 7);
+	st.put("r", 7);
+	st.put("s", 7);
+	st.put("t", 7);
+	st.put("u", 7);
+	st.put("v", 7);
+	st.put("w", 7);
+	st.put("x", 7);
+	st.put("y", 7);
+	st.put("z", 7);
+
+	st.deleteMin();
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_NO_THROW({ st.get("e"); });
+	ASSERT_NO_THROW({ st.get("f"); });
+	ASSERT_NO_THROW({ st.get("g"); });
+	ASSERT_NO_THROW({ st.get("h"); });
+	ASSERT_NO_THROW({ st.get("i"); });
+	ASSERT_NO_THROW({ st.get("j"); });
+	ASSERT_NO_THROW({ st.get("k"); });
+	ASSERT_NO_THROW({ st.get("l"); });
+	ASSERT_NO_THROW({ st.get("m"); });
+	ASSERT_NO_THROW({ st.get("n"); });
+	ASSERT_NO_THROW({ st.get("o"); });
+	ASSERT_NO_THROW({ st.get("p"); });
+	ASSERT_NO_THROW({ st.get("q"); });
+	ASSERT_NO_THROW({ st.get("r"); });
+	ASSERT_NO_THROW({ st.get("s"); });
+	ASSERT_NO_THROW({ st.get("t"); });
+	ASSERT_NO_THROW({ st.get("u"); });
+	ASSERT_NO_THROW({ st.get("v"); });
+	ASSERT_NO_THROW({ st.get("w"); });
+	ASSERT_NO_THROW({ st.get("x"); });
+	ASSERT_NO_THROW({ st.get("y"); });
+	ASSERT_NO_THROW({ st.get("z"); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -1021,6 +1141,7 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMinFromSevenNodeTree,
 			    DeleteMinFromFourNodeTreeInDecreasingOrder,
 			    DeleteMinFromSevenNodeTreeWhereRootLeftAndMiddleChildrenAreThreeNodes,
+			    DeleteMinFromTheWholeAlphabet,
 			    DeleteMaxFromOneNodeTree,
 			    DeleteMaxFromTwoNodeTree,
 			    DeleteMaxFromThreeNodeTree,
@@ -1029,7 +1150,8 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMaxFromSixNodeTreeWhereMiddleAndLeftChildrenAreTwoNodes,
 			    DeleteMaxFromSixNodeTreeWhereMiddleChildIsTwoNodeAndLastChildIsThreeNode,
 			    DeleteMaxFromSevenNodeTreeWhereMiddleChildIsThreeNodeAndLeftChildIsTwoNode,
-			    DeleteMaxFromSevenNodeTreeWhereEachNodeIsTwoNode
+			    DeleteMaxFromSevenNodeTreeWhereEachNodeIsTwoNode,
+			    DeleteMaxFromTheWholeAlphabet
 			   );
 
 
