@@ -17,9 +17,23 @@ class OrderedSymbolTableTest : public ::testing::Test {};
 template <typename T>
 class SelfBalancingSymbolTable : public ::testing::Test {};
 
+template <typename SymbolTable>
+class FourNodeTreeWhereLeftChildIs3Node : public ::testing::Test {
+protected:
+	FourNodeTreeWhereLeftChildIs3Node() {
+		st.put(2, 2);
+		st.put(3, 3);
+		st.put(4, 4);
+		st.put(1, 1);
+	}
+
+	SymbolTable st;
+};
+
 TYPED_TEST_SUITE_P(UnorderedSymbolTableTest);
 TYPED_TEST_SUITE_P(OrderedSymbolTableTest);
 TYPED_TEST_SUITE_P(SelfBalancingSymbolTable);
+TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node);
 
 TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	TypeParam st{};
@@ -1139,38 +1153,44 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteTwoNodeRightChildOfTwoNodeParentFro
 	ASSERT_NO_THROW({ st.get("a"); });
 }
 
-TYPED_TEST_P(SelfBalancingSymbolTable, DeleteChildInThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree) {
-	TypeParam st{};
+TYPED_TEST_P(FourNodeTreeWhereLeftChildIs3Node, Delete3NodeLeftChild) {
+	this->st.del(1);
 
-	st.put("b", 1);
-	st.put("c", 1);
-	st.put("d", 1);
-	st.put("a", 1);
-
-	st.del("a");
-
-	ASSERT_TRUE(st.balanced());
-	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
-	ASSERT_NO_THROW({ st.get("b"); });
-	ASSERT_NO_THROW({ st.get("c"); });
-	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(1); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
 }
 
-TYPED_TEST_P(SelfBalancingSymbolTable, DeleteParanetOfThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree) {
-	TypeParam st{};
+TYPED_TEST_P(FourNodeTreeWhereLeftChildIs3Node, Delete3NodeParent) {
+	this->st.del(2);
 
-	st.put("b", 1);
-	st.put("c", 1);
-	st.put("d", 1);
-	st.put("a", 1);
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(2); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(1); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+}
 
-	st.del("b");
+TYPED_TEST_P(FourNodeTreeWhereLeftChildIs3Node, Delete2NodeParent) {
+	this->st.del(3);
 
-	ASSERT_TRUE(st.balanced());
-	ASSERT_THROW({ st.get("b"); }, std::out_of_range);
-	ASSERT_NO_THROW({ st.get("a"); });
-	ASSERT_NO_THROW({ st.get("c"); });
-	ASSERT_NO_THROW({ st.get("d"); });
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(3); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(1); });
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+}
+
+TYPED_TEST_P(FourNodeTreeWhereLeftChildIs3Node, Delete2NodeRightChild) {
+	this->st.del(4);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(4); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(1); });
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
 }
 
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
@@ -1263,12 +1283,19 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteParanetOfThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree
 			   );
 
+REGISTER_TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node,
+			    Delete3NodeLeftChild,
+			    Delete3NodeParent,
+			    Delete2NodeParent,
+			    Delete2NodeRightChild
+);
 
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
 using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
 using BST = sedgealgos::data_structures::symbol_table::BinarySearchTree<std::string, int>;
 using RBT = sedgealgos::data_structures::symbol_table::RedBlackTree<std::string, int>;
+using RBT2 = sedgealgos::data_structures::symbol_table::RedBlackTree<int, int>;
 
 INSTANTIATE_TYPED_TEST_SUITE_P(SISSST, UnorderedSymbolTableTest, SISSST);
 INSTANTIATE_TYPED_TEST_SUITE_P(OBSST, UnorderedSymbolTableTest, OBSST);
@@ -1278,3 +1305,4 @@ INSTANTIATE_TYPED_TEST_SUITE_P(BST, OrderedSymbolTableTest, BST);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, UnorderedSymbolTableTest, RBT);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, OrderedSymbolTableTest, RBT);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, SelfBalancingSymbolTable, RBT);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereLeftChildIs3Node, RBT2);
