@@ -1139,6 +1139,40 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteTwoNodeRightChildOfTwoNodeParentFro
 	ASSERT_NO_THROW({ st.get("a"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteChildInThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree) {
+	TypeParam st{};
+
+	st.put("b", 1);
+	st.put("c", 1);
+	st.put("d", 1);
+	st.put("a", 1);
+
+	st.del("a");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteParanetOfThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree) {
+	TypeParam st{};
+
+	st.put("b", 1);
+	st.put("c", 1);
+	st.put("d", 1);
+	st.put("a", 1);
+
+	st.del("b");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("b"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("a"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+	ASSERT_NO_THROW({ st.get("d"); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -1224,7 +1258,9 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteLeftChildOfThreeNodeFromTwoNodeTree,
 			    DeleteParentOfThreeNodeFromTwoNodeTree,
 			    DeleteTwoNodeLeftChildOfTwoNodeParentFromThreeNodeTree,
-			    DeleteTwoNodeRightChildOfTwoNodeParentFromThreeNodeTree
+			    DeleteTwoNodeRightChildOfTwoNodeParentFromThreeNodeTree,
+			    DeleteChildInThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree,
+			    DeleteParanetOfThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree
 			   );
 
 
