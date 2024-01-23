@@ -1109,6 +1109,36 @@ TYPED_TEST_P(SelfBalancingSymbolTable, DeleteParentOfThreeNodeFromTwoNodeTree) {
 	ASSERT_NO_THROW({ st.get("a"); });
 }
 
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteTwoNodeLeftChildOfTwoNodeParentFromThreeNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 1);
+	st.put("c", 1);
+
+	st.del("a");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("a"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("c"); });
+}
+
+TYPED_TEST_P(SelfBalancingSymbolTable, DeleteTwoNodeRightChildOfTwoNodeParentFromThreeNodeTree) {
+	TypeParam st{};
+
+	st.put("a", 1);
+	st.put("b", 1);
+	st.put("c", 1);
+
+	st.del("c");
+
+	ASSERT_TRUE(st.balanced());
+	ASSERT_THROW({ st.get("c"); }, std::out_of_range);
+	ASSERT_NO_THROW({ st.get("b"); });
+	ASSERT_NO_THROW({ st.get("a"); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -1192,7 +1222,9 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteMaxFromTheWholeAlphabet,
 			    DeleteFromOneNodeTree,
 			    DeleteLeftChildOfThreeNodeFromTwoNodeTree,
-			    DeleteParentOfThreeNodeFromTwoNodeTree
+			    DeleteParentOfThreeNodeFromTwoNodeTree,
+			    DeleteTwoNodeLeftChildOfTwoNodeParentFromThreeNodeTree,
+			    DeleteTwoNodeRightChildOfTwoNodeParentFromThreeNodeTree
 			   );
 
 

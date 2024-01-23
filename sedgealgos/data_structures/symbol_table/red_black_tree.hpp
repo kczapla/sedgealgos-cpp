@@ -220,9 +220,13 @@ private:
 
 	Node* del(Node* node, Key key) {
 		if (key < node->key) {
+			if (node->left && !is_red(node->left)) {
+				flip_colors_on_delete(node);
+			}
 			node->left = del(node->left, key);
-			return node;
+			return balance(node);
 		} else if (node->key < key) {
+			flip_colors_on_delete(node);
 			node->right = del(node->right, key);
 			return node;
 		}
