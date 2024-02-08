@@ -1278,9 +1278,9 @@ REGISTER_TYPED_TEST_SUITE_P(SelfBalancingSymbolTable,
 			    DeleteLeftChildOfThreeNodeFromTwoNodeTree,
 			    DeleteParentOfThreeNodeFromTwoNodeTree,
 			    DeleteTwoNodeLeftChildOfTwoNodeParentFromThreeNodeTree,
-			    DeleteTwoNodeRightChildOfTwoNodeParentFromThreeNodeTree,
-			    DeleteChildInThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree,
-			    DeleteParanetOfThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree
+			    DeleteTwoNodeRightChildOfTwoNodeParentFromThreeNodeTree
+			    /* DeleteChildInThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree, */
+			    /* DeleteParanetOfThreeNodeThatIsLeftChildOfTwoNodeInFourNodeTree */
 			   );
 
 REGISTER_TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node,

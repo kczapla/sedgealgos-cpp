@@ -226,9 +226,12 @@ private:
 			node->left = del(node->left, key);
 			return balance(node);
 		} else if (node->key < key) {
-			flip_colors_on_delete(node);
+			if (is_red(node->left) || is_red(node->left->left)) {
+				node = rotate_right(node);
+				node->right = rotate_left(node->right);
+			}
 			node->right = del(node->right, key);
-			return node;
+			return balance(node);
 		}
 
 		if (node->left) {
@@ -236,9 +239,15 @@ private:
 			node = node->left;
 			node->color = x->color;
 
+			node->right = x->right;
+
 			delete_node(x);
 
-			return node;
+			if (node->left && node->right) {
+				flip_colors(node);
+			}
+
+			return balance(node);
 		}
 
 		return delete_node(node);
@@ -378,6 +387,6 @@ private:
 		return balanced(node->right, counter, paths);
 	}
 
-	Node* root;
+	Node* root{nullptr};
 };
 }
