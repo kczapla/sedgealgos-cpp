@@ -30,10 +30,24 @@ protected:
 	SymbolTable st;
 };
 
+template <typename SymbolTable>
+class FourNodeTreeWhereRightChildIs3Node : public ::testing::Test {
+protected:
+	FourNodeTreeWhereRightChildIs3Node() {
+		st.put(2, 2);
+		st.put(3, 3);
+		st.put(4, 4);
+		st.put(5, 5);
+	}
+
+	SymbolTable st;
+};
+
 TYPED_TEST_SUITE_P(UnorderedSymbolTableTest);
 TYPED_TEST_SUITE_P(OrderedSymbolTableTest);
 TYPED_TEST_SUITE_P(SelfBalancingSymbolTable);
 TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node);
+TYPED_TEST_SUITE_P(FourNodeTreeWhereRightChildIs3Node);
 
 TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	TypeParam st{};
@@ -1193,6 +1207,46 @@ TYPED_TEST_P(FourNodeTreeWhereLeftChildIs3Node, Delete2NodeRightChild) {
 	ASSERT_NO_THROW({ this->st.get(3); });
 }
 
+TYPED_TEST_P(FourNodeTreeWhereRightChildIs3Node, DeleteLeft2NodeChild) {
+	this->st.del(2);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(2); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+}
+
+TYPED_TEST_P(FourNodeTreeWhereRightChildIs3Node, DeleteParentOfRight3Node) {
+	this->st.del(5);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(5); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+}
+
+TYPED_TEST_P(FourNodeTreeWhereRightChildIs3Node, DeleteLeftChildOfRight3Node) {
+	this->st.del(4);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(4); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+}
+
+TYPED_TEST_P(FourNodeTreeWhereRightChildIs3Node, DeleteTreeParent) {
+	this->st.del(3);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(3); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -1290,6 +1344,14 @@ REGISTER_TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node,
 			    Delete2NodeRightChild
 );
 
+REGISTER_TYPED_TEST_SUITE_P(FourNodeTreeWhereRightChildIs3Node,
+			    DeleteLeft2NodeChild,
+			    DeleteParentOfRight3Node,
+			    DeleteLeftChildOfRight3Node,
+			    DeleteTreeParent
+);
+
+
 
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
 using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
@@ -1306,3 +1368,4 @@ INSTANTIATE_TYPED_TEST_SUITE_P(RBT, UnorderedSymbolTableTest, RBT);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, OrderedSymbolTableTest, RBT);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT, SelfBalancingSymbolTable, RBT);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereLeftChildIs3Node, RBT2);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereRightChildIs3Node, RBT2);

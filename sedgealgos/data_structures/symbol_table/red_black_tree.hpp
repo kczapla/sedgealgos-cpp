@@ -220,9 +220,22 @@ private:
 
 	Node* del(Node* node, Key key) {
 		if (key < node->key) {
-			if (node->left && !is_red(node->left)) {
+			if (is_red(node->left) || is_red(node->left->left)) {
+				node->left = del(node->left, key);
+				return balance(node);
+			}
+
+			if (node->right && is_red(node->right->left)) {
+				node->right = rotate_right(node->right);
+				node = rotate_left(node);
+				node->left = del(node->left, key);
+				return balance(node);
+			}
+
+			if (node->left && node->right) {
 				flip_colors_on_delete(node);
 			}
+
 			node->left = del(node->left, key);
 			return balance(node);
 		} else if (node->key < key) {
@@ -289,6 +302,12 @@ private:
 
 		if (is_red(node->left) && is_red(node->left->left)) {
 			node = rotate_right(node);
+			flip_colors(node);
+		}
+
+		if (!node->left && (node->right && is_red(node->right->left))) {
+			node->right = rotate_right(node->right);
+			node = rotate_left(node);
 			flip_colors(node);
 		}
 
