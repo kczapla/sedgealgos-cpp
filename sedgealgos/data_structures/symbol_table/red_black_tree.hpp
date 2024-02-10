@@ -33,6 +33,10 @@ public:
 			return;
 		}
 		root = del(root, key);
+
+		if (root) {
+			root->color = Node::BLACK;
+		}
 	}
 
 	void deleteMin() {
@@ -239,6 +243,26 @@ private:
 			node->left = del(node->left, key);
 			return balance(node);
 		} else if (node->key < key) {
+			auto node_is_3node{is_red(node->left) && !is_red(node->right)};
+			if (node_is_3node) {
+				auto right_child_is_3node{node->right && is_red(node->right->left)};
+				auto middle_child_is_3node{node->left->right && is_red(node->left->right->left)};
+
+				if (!middle_child_is_3node && !right_child_is_3node) {
+					node = rotate_right(node);
+					flip_colors_on_delete(node->right);
+					node->right = del(node->right, key);
+					return balance(node);
+				}
+			}
+
+
+			auto node_is_4node{is_red(node->left) && is_red(node->right)};
+			if (node_is_4node) {
+				node->right = del(node->right, key);	
+				return balance(node);
+			}
+
 			if (is_red(node->left) || is_red(node->left->left)) {
 				node = rotate_right(node);
 				node->right = rotate_left(node->right);
@@ -382,6 +406,22 @@ private:
 		if (node == nullptr) {
 			paths.push_back(counter);
 			return true;
+		}
+
+		auto node_is_3node{node->left && is_red(node->left)};
+		if (node_is_3node) {
+			auto has_left_child{node->left->left};
+			auto has_middle_child{node->left->right};
+			auto has_right_child{node->right};
+
+			auto childless_3node{!has_left_child && !has_middle_child && !has_right_child};
+			auto fertile_3node{has_left_child && has_middle_child && has_right_child};
+
+			auto is_valid_3node{childless_3node || fertile_3node};
+
+			if (!is_valid_3node) {
+				return false;
+			}
 		}
 
 		if (node->right && !node->left) {
