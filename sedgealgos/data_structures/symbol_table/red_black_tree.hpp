@@ -244,8 +244,8 @@ private:
 			return balance(node);
 		} else if (node->key < key) {
 			auto node_is_3node{is_red(node->left) && !is_red(node->right)};
+			auto right_child_is_3node{node->right && is_red(node->right->left)};
 			if (node_is_3node) {
-				auto right_child_is_3node{node->right && is_red(node->right->left)};
 				auto middle_child_is_3node{node->left->right && is_red(node->left->right->left)};
 
 				if (!middle_child_is_3node && !right_child_is_3node) {
@@ -260,6 +260,12 @@ private:
 			auto node_is_4node{is_red(node->left) && is_red(node->right)};
 			if (node_is_4node) {
 				node->right = del(node->right, key);	
+				return balance(node);
+			}
+
+			auto left_child_is_3node{node->left && is_red(node->left->left)};
+			if (left_child_is_3node && right_child_is_3node) {
+				node->right = del(node->right, key);
 				return balance(node);
 			}
 

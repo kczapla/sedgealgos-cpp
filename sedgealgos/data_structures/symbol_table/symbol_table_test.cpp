@@ -1280,8 +1280,6 @@ TYPED_TEST_P(FourNodeTreeWhereRightChildIs3Node, DeleteTreeParent) {
 }
 
 TYPED_TEST_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes, DeleteLeftChildOfLeft3Node) {
-	GTEST_SKIP();
-
 	this->st.del(1);
 
 	ASSERT_TRUE(this->st.balanced());
@@ -1304,8 +1302,6 @@ TYPED_TEST_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes, DeleteRootOfLeft3No
 }
 
 TYPED_TEST_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes, DeleteLeftChildOfRight3Node) {
-	GTEST_SKIP();
-
 	this->st.del(4);
 
 	ASSERT_TRUE(this->st.balanced());
