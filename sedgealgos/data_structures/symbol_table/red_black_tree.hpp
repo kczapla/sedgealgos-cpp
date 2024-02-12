@@ -254,8 +254,18 @@ private:
 					node->right = del(node->right, key);
 					return balance(node);
 				}
-			}
 
+				if (middle_child_is_3node && !right_child_is_3node) {
+					node->left = rotate_left(node->left);
+					node = rotate_right(node);
+					node->right = rotate_left(node->right);
+					node->right->color = Node::BLACK;
+					node->left->right->color = Node::BLACK;
+
+					node->right = del(node->right, key);
+					return balance(node);
+				}
+			}
 
 			auto node_is_4node{is_red(node->left) && is_red(node->right)};
 			if (node_is_4node) {

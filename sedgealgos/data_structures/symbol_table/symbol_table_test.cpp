@@ -72,6 +72,22 @@ protected:
 	SymbolTable st;
 };
 
+template <typename SymbolTable>
+class SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node : public ::testing::Test {
+protected:
+	SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node() {
+		st.put(5, 5);
+		st.put(7, 7);
+		st.put(8, 8);
+		st.put(3, 3);
+		st.put(4, 4);
+		st.put(2, 2) ;
+		st.put(6, 6) ;
+	}
+
+	SymbolTable st;
+};
+
 
 TYPED_TEST_SUITE_P(UnorderedSymbolTableTest);
 TYPED_TEST_SUITE_P(OrderedSymbolTableTest);
@@ -80,6 +96,7 @@ TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node);
 TYPED_TEST_SUITE_P(FourNodeTreeWhereRightChildIs3Node);
 TYPED_TEST_SUITE_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes);
 TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes);
+TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node);
 
 TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	TypeParam st{};
@@ -1358,6 +1375,71 @@ TYPED_TEST_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, De
 	ASSERT_NO_THROW({ this->st.get(5); });
 }
 
+TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteLeft3NodeRoot) {
+	this->st.del(3);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(3); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+	ASSERT_NO_THROW({ this->st.get(6); });
+	ASSERT_NO_THROW({ this->st.get(7); });
+	ASSERT_NO_THROW({ this->st.get(8); });
+}
+
+TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteLeft3NodeLeftChild) {
+	this->st.del(2);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(2); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+	ASSERT_NO_THROW({ this->st.get(6); });
+	ASSERT_NO_THROW({ this->st.get(7); });
+	ASSERT_NO_THROW({ this->st.get(8); });
+}
+
+TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteMiddle3NodeRoot) {
+	this->st.del(6);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(6); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+	ASSERT_NO_THROW({ this->st.get(7); });
+	ASSERT_NO_THROW({ this->st.get(8); });
+}
+
+TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteMiddle3NodeLeftChild) {
+	this->st.del(5);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(5); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(6); });
+	ASSERT_NO_THROW({ this->st.get(7); });
+	ASSERT_NO_THROW({ this->st.get(8); });
+}
+
+TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteRight2Node) {
+	this->st.del(8);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(8); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+	ASSERT_NO_THROW({ this->st.get(6); });
+	ASSERT_NO_THROW({ this->st.get(7); });
+}
+
 REGISTER_TYPED_TEST_SUITE_P(UnorderedSymbolTableTest,
 			    DelKeyOnEmptySymbolTableDoesNothing,
 			    IsEmptyReturnsFalseWhenElementIsDeletedFromSymbolTableWithMoreThanOneElements,
@@ -1476,6 +1558,14 @@ REGISTER_TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChi
 			    DeleteRight2Node
 );
 
+REGISTER_TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node,
+			    DeleteLeft3NodeRoot,
+			    DeleteLeft3NodeLeftChild,
+			    DeleteMiddle3NodeRoot,
+			    DeleteMiddle3NodeLeftChild,
+			    DeleteRight2Node
+);
+
 using SISSST = sedgealgos::data_structures::symbol_table::SequentialSearchSymbolTable<std::string, int>;
 using OBSST = sedgealgos::data_structures::symbol_table::OrderedBinarySearchSymbolTable<std::string, int>;
 using BST = sedgealgos::data_structures::symbol_table::BinarySearchTree<std::string, int>;
@@ -1494,3 +1584,4 @@ INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereLeftChildIs3Node, RBT2);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereRightChildIs3Node, RBT2);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes, RBT2);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, RBT2);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, RBT2);
