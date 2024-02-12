@@ -73,9 +73,9 @@ protected:
 };
 
 template <typename SymbolTable>
-class SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node : public ::testing::Test {
+class SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node : public ::testing::Test {
 protected:
-	SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node() {
+	SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node() {
 		st.put(5, 5);
 		st.put(7, 7);
 		st.put(8, 8);
@@ -96,7 +96,7 @@ TYPED_TEST_SUITE_P(FourNodeTreeWhereLeftChildIs3Node);
 TYPED_TEST_SUITE_P(FourNodeTreeWhereRightChildIs3Node);
 TYPED_TEST_SUITE_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes);
 TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes);
-TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node);
+TYPED_TEST_SUITE_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node);
 
 TYPED_TEST_P(UnorderedSymbolTableTest, PutPlacesElementInSymbolTable) {
 	TypeParam st{};
@@ -1351,6 +1351,30 @@ TYPED_TEST_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes, DeleteRootOfTheTree
 	ASSERT_NO_THROW({ this->st.get(5); });
 }
 
+TYPED_TEST_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, DeleteLeft3NodeRoot) {
+	this->st.del(2);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(2); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(1); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+	ASSERT_NO_THROW({ this->st.get(6); });
+}
+
+TYPED_TEST_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, DeleteLeft3NodeLeftChild) {
+	this->st.del(1);
+
+	ASSERT_TRUE(this->st.balanced());
+	ASSERT_THROW({ this->st.get(1); }, std::out_of_range);
+	ASSERT_NO_THROW({ this->st.get(2); });
+	ASSERT_NO_THROW({ this->st.get(3); });
+	ASSERT_NO_THROW({ this->st.get(4); });
+	ASSERT_NO_THROW({ this->st.get(5); });
+	ASSERT_NO_THROW({ this->st.get(6); });
+}
+
 TYPED_TEST_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, DeleteMiddle2Node) {
 	this->st.del(4);
 
@@ -1375,7 +1399,7 @@ TYPED_TEST_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, De
 	ASSERT_NO_THROW({ this->st.get(5); });
 }
 
-TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteLeft3NodeRoot) {
+TYPED_TEST_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteLeft3NodeRoot) {
 	this->st.del(3);
 
 	ASSERT_TRUE(this->st.balanced());
@@ -1388,7 +1412,7 @@ TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, 
 	ASSERT_NO_THROW({ this->st.get(8); });
 }
 
-TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteLeft3NodeLeftChild) {
+TYPED_TEST_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteLeft3NodeLeftChild) {
 	this->st.del(2);
 
 	ASSERT_TRUE(this->st.balanced());
@@ -1401,7 +1425,7 @@ TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, 
 	ASSERT_NO_THROW({ this->st.get(8); });
 }
 
-TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteMiddle3NodeRoot) {
+TYPED_TEST_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteMiddle3NodeRoot) {
 	this->st.del(6);
 
 	ASSERT_TRUE(this->st.balanced());
@@ -1414,7 +1438,7 @@ TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, 
 	ASSERT_NO_THROW({ this->st.get(8); });
 }
 
-TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteMiddle3NodeLeftChild) {
+TYPED_TEST_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteMiddle3NodeLeftChild) {
 	this->st.del(5);
 
 	ASSERT_TRUE(this->st.balanced());
@@ -1427,7 +1451,7 @@ TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, 
 	ASSERT_NO_THROW({ this->st.get(8); });
 }
 
-TYPED_TEST_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteRight2Node) {
+TYPED_TEST_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, DeleteRight2Node) {
 	this->st.del(8);
 
 	ASSERT_TRUE(this->st.balanced());
@@ -1554,11 +1578,13 @@ REGISTER_TYPED_TEST_SUITE_P(FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes,
 
 
 REGISTER_TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes,
+			    DeleteLeft3NodeRoot,
+			    DeleteLeft3NodeLeftChild,
 			    DeleteMiddle2Node,
 			    DeleteRight2Node
 );
 
-REGISTER_TYPED_TEST_SUITE_P(SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node,
+REGISTER_TYPED_TEST_SUITE_P(SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node,
 			    DeleteLeft3NodeRoot,
 			    DeleteLeft3NodeLeftChild,
 			    DeleteMiddle3NodeRoot,
@@ -1584,4 +1610,4 @@ INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereLeftChildIs3Node, RBT2);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FourNodeTreeWhereRightChildIs3Node, RBT2);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, FiveNodeTreeWhereLeftAndRightChildrenAre3Nodes, RBT2);
 INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, SixNodeTreeWhereLeftChildIs3NodeAndMiddleAndRightChildAre2Nodes, RBT2);
-INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, SixNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, RBT2);
+INSTANTIATE_TYPED_TEST_SUITE_P(RBT2, SevenNodeTreeWhereLeftAndMiddleChildrenAre3NodesAndLeftChildIs2Node, RBT2);
